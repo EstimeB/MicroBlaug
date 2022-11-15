@@ -18,22 +18,16 @@ public class PostDao {
     //post (C)
     public int createPost(Post createdPost) throws SQLException {
         try (Connection connection = ConnectionFactory.createConnection()) {
-            try {
-                PreparedStatement pstmt = connection.prepareStatement
-                        ("INSERT INTO posts (postTitle, postDescription, postImage, userId");
+            PreparedStatement pstmt = connection.prepareStatement
+                        ("INSERT INTO posts (postTitle, postDescription, userId) VALUES (?, ?, ?)");
+            pstmt.setString(1, createdPost.getPostTitle());
+            pstmt.setString(2, createdPost.getPostDescription());
+            pstmt.setInt(3, createdPost.getUserId());
 
-                FileInputStream uploadedImg = new FileInputStream(createdPost.getPostImage().toString());
+            int numOfRecordCreated = pstmt.executeUpdate();
 
-                pstmt.setString(1, createdPost.getPostTitle());
-                pstmt.setString(2, createdPost.getPostDescription());
-                pstmt.setBinaryStream(3, uploadedImg);
+            return numOfRecordCreated;
 
-                int numOfRecordUpdated = pstmt.executeUpdate();
-                return numOfRecordUpdated;
-
-            }catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
 
@@ -42,44 +36,38 @@ public class PostDao {
         try (Connection connection = ConnectionFactory.createConnection()){
             PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM posts WHERE id = ?");
 
+            pstmt.setInt(1, id);
+
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                Blob blob = rs.getBlob("image");
-                InputStream is = blob.getBinaryStream(1, blob.length());
-                BufferedImage postImage = ImageIO.read(is);
 
                 return new Post(rs.getInt("id"), rs.getString("postTitle"),
-                        rs.getString("postDescription"), postImage, rs.getInt("user_id"), rs.getInt("postLike"));
+                        rs.getString("postDescription"), rs.getInt("userId"));
             } else {
                 //if no record associated with the id is found
                 return null;
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
     public List<Post> getAllPostsBelongingToUser(int userId) throws SQLException {
         try (Connection connection = ConnectionFactory.createConnection()){
-            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM posts WHERE user_id = ?");
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM posts WHERE userId = ?");
+
+            pstmt.setInt(1, userId);
 
             ResultSet rs = pstmt.executeQuery();
 
             List<Post> userPosts = new ArrayList<>();
 
             while (rs.next()) {
-                Blob blob = rs.getBlob("image");
-                InputStream is = blob.getBinaryStream(1, blob.length());
-                BufferedImage postImage = ImageIO.read(is);
 
                 Post post = new Post(rs.getInt("id"), rs.getString("postTitle"),
-                        rs.getString("postDescription"), postImage, rs.getInt("user_id"), rs.getInt("postLike"));
+                        rs.getString("postDescription"), rs.getInt("userId"));
 
                 userPosts.add(post);
             }
             return userPosts;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
     public List<Post> getAllPosts() throws SQLException {
@@ -88,26 +76,47 @@ public class PostDao {
 
             ResultSet rs = pstmt.executeQuery();
 
-            List<Post> posts = new ArrayList<>();
+            List<Post> allPosts = new ArrayList<>();
 
             while (rs.next()) {
-                Blob blob = rs.getBlob("image");
-                InputStream is = blob.getBinaryStream(1, blob.length());
-                BufferedImage postImage = ImageIO.read(is);
+
 
                 Post post = new Post(rs.getInt("id"), rs.getString("postTitle"),
-                        rs.getString("postDescription"), postImage, rs.getInt("user_id"), rs.getInt("postLike"));
+                        rs.getString("postDescription"), rs.getInt("userId"));
 
-                posts.add(post);
+                allPosts.add(post);
             }
-            return posts;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            return allPosts;
         }
     }
 
     //update (U)
+    public int updatePost(Post updatePost) throws SQLException {
+        try (Connection connection = ConnectionFactory.createConnection()) {
+            PreparedStatement pstmt = connection.prepareStatement("UPDATE posts SET postTitle = ?," +
+                    " postDescription = ?\n" +
+                    "WHERE id = ?");
+            pstmt.setString(1, updatePost.getPostTitle());
+            pstmt.setString(2, updatePost.getPostDescription());
+
+            int numOfRecordUpdated = pstmt.executeUpdate();
+
+            return numOfRecordUpdated;
+        }
+    }
 
     //delete (D)
+    public int deletePost(int id) throws SQLException {
+        try (Connection connection = ConnectionFactory.createConnection()) {
+            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM posts \n" +
+                    "WHERE id = ?;\n");
+
+            pstmt.setInt(1, id);
+
+            int numOfRecordDeleted = pstmt.executeUpdate();
+
+            return numOfRecordDeleted;
+        }
+    }
 
 }

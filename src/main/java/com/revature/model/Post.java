@@ -8,20 +8,15 @@ public class Post {
     private int id;
     private String postTitle;
     private String postDescription;
-    private Image postImage;
     private int userId;
-
-    private int postLike;
 
     public Post(){}
 
-    public Post(int id, String postTitle, String postDescription, Image postImage, int userId, int postLike) {
+    public Post(int id, String postTitle, String postDescription, int userId) {
         this.id = id;
         this.postTitle = postTitle;
         this.postDescription = postDescription;
-        this.postImage = postImage;
         this.userId = userId;
-        this.postLike = postLike;
     }
     public int getId() {
         return id;
@@ -47,14 +42,6 @@ public class Post {
         this.postDescription = postDescription;
     }
 
-    public Image getPostImage() {
-        return postImage;
-    }
-
-    public void setPostImage(Image postImage) {
-        this.postImage = postImage;
-    }
-
     public int getUserId() {
         return userId;
     }
@@ -63,28 +50,17 @@ public class Post {
         this.userId = userId;
     }
 
-    public int getPostLike() {
-        return postLike;
-    }
-
-    public void setPostLike(int postLike) {
-        this.postLike = postLike;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return id == post.id && userId == post.userId && postTitle.equals(post.postTitle)
-                && postDescription.equals(post.postDescription)
-                && Objects.equals(postImage, post.postImage)
-                && postLike == post.postLike;
+        return id == post.id && userId == post.userId && postTitle.equals(post.postTitle) && postDescription.equals(post.postDescription);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, postTitle, postDescription, postImage, userId, postLike);
+        return Objects.hash(id, postTitle, postDescription, userId);
     }
 
     @Override
@@ -93,10 +69,7 @@ public class Post {
                 "id=" + id +
                 ", postTitle='" + postTitle + '\'' +
                 ", postDescription='" + postDescription + '\'' +
-                ", postImage=" + postImage +
                 ", userId=" + userId +
-                ", postLike=" + postLike +
                 '}';
     }
-
 }
