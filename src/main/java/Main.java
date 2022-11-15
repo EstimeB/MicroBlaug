@@ -4,18 +4,22 @@ import io.javalin.Javalin;
 
 public class Main {
     public static void main(String[] args) {
-        Javalin app = Javalin.create();
+        Javalin app = Javalin.create((config) -> {
+            config.plugins.enableCors((cors) -> {
+                cors.add(it -> {
+                    it.defaultScheme = "http";
+                    it.allowHost("127.0.0.1:63342");
+                    it.allowHost("localhost:63342");
+                });
+            });
+        });
 
-        // Controller is an interface that is implemented
-        // by UserController + BankAccountController
-        // The Controller interface defines a method,
-        // public abstract void mapEndpoints(Javalin app)
         Controller[] controllers = { new PostController()};
 
         for (Controller c : controllers) {
             c.mapEndPoints(app);
         }
 
-        app.start(8080);
+        app.start(7080);
     }
 }
