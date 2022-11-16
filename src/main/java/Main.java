@@ -12,14 +12,19 @@ public class Main {
                     it.defaultScheme = "http";
                     it.allowHost("127.0.0.1:63342");
                     it.allowHost("localhost:63342");
+
                     it.allowHost("localhost:5500");
                     it.allowHost("127.0.0.1:5500");
                     it.allowCredentials = true;
+
+
                 });
             });
         });
 
+
         Controller[] controllers = { new UserAuthenticationController(), new PostController(), new CommentController()};
+
 
         for (Controller c : controllers) {
             c.mapEndPoints(app);

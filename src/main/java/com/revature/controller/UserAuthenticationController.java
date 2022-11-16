@@ -8,10 +8,10 @@ import com.revature.service.UserService;
 import io.javalin.Javalin;
 import jakarta.servlet.http.HttpSession;
 
-public class UserAuthenticationController {
+public class UserAuthenticationController implements Controller{
 
     private UserService userService = new UserService();
-    public void mapEndpoints(Javalin app) {
+    public void mapEndPoints(Javalin app) {
         app.post("/login", (ctx) -> {
             LoginCredentials credentials = ctx.bodyAsClass(LoginCredentials.class);
 
