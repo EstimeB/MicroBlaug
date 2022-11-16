@@ -16,9 +16,10 @@ public class PostController implements Controller {
 
             //create post
             app.post("/dashboard", (ctx) -> {
+                //User user = ()
                 Post post = ctx.bodyAsClass(Post.class);
                 try {
-                    Post createdPost = postService.createPost(post);
+                    Post createdPost = postService.createPost(post.getPostTitle(), post.getPostDescription(), post.getUserId());
                     ctx.json(createdPost);
                     ctx.status(200);
                 } catch (IllegalArgumentException | PostUnsuccessfullyCreated e) {
@@ -71,7 +72,8 @@ public class PostController implements Controller {
                 //need to work in having it get existing post then update it
                 Post updatePost = ctx.bodyAsClass(Post.class);
                 try {
-                    postService.updatePost(updatePost);
+                    postService.updatePost(updatePost.getId(),
+                            updatePost.getPostTitle(), updatePost.getPostDescription(), updatePost.getUserId());
                     ctx.json(updatePost);
                     ctx.status(200);
                 } catch (IllegalArgumentException | PostUnsuccessfullyCreated e) {
