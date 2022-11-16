@@ -16,3 +16,8 @@ Feature: Successful Login
         And The user types "pass1234" into the Password input
         And The user clicks the Sign in button
         Then the user should be on their Home page
+
+    Scenario: Login as Guest User
+        Given The user is on the login page
+        When The user clicks the Guest Log In button
+        Then The user should be on the Guest User Home page
