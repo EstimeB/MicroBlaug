@@ -12,21 +12,15 @@ public class PostService {
 
     private PostDao postDao = new PostDao();
 
-    public Post createPost(Post createPost) throws SQLException {
-        createPost.setPostTitle(createPost.getPostTitle().strip());
-        createPost.setPostDescription(createPost.getPostDescription().strip());
+    public Post createPost(String postTitle, String postDescription, int userId) throws SQLException {
 
-        if (createPost.getPostTitle().length() == 0) {
+        if (postTitle.length() == 0) {
             throw new IllegalArgumentException("You Must Have a Post Title");
         }
-        if(createPost.getPostDescription().length() == 0) {
+        if(postDescription.length() == 0) {
             throw new IllegalArgumentException("You Must Have a Post Description");
         }
-        int createdPostRecord = postDao.createPost(createPost);
-        if (createdPostRecord != 1) {
-            throw new PostUnsuccessfullyCreated("The Post could not be created");
-        }
-        return createPost;
+        return postDao.createPost(postTitle, postDescription, userId);
     }
     public Post getPostsById(int id) throws SQLException {
         Post post = postDao.getPostsById(id);
@@ -43,20 +37,14 @@ public class PostService {
     public List<Post> getAllPosts() throws SQLException {
         return postDao.getAllPosts();
     }
-    public void updatePost(Post updatePost) throws SQLException {
-        updatePost.setPostTitle(updatePost.getPostTitle().strip());
-        updatePost.setPostDescription(updatePost.getPostDescription().strip());
-
-        if (updatePost.getPostTitle().length() == 0) {
+    public Post updatePost(int id, String postTitle, String postDescription, int userId) throws SQLException {
+        if (postTitle.length() == 0) {
             throw new IllegalArgumentException("You Must Have a Post Title");
         }
-        if(updatePost.getPostDescription().length() == 0) {
+        if(postDescription.length() == 0) {
             throw new IllegalArgumentException("You Must Have a Post Description");
         }
-        int updatedPostRecord = postDao.updatePost(updatePost);
-        if (updatedPostRecord != 1) {
-            throw new PostUnsuccessfullyCreated("The Post could not be created");
-        }
+        return postDao.updatePost(id, postTitle, postDescription, userId);
     }
     public int deletePost(int id) throws SQLException {
         int deletePost = postDao.deletePost(id);

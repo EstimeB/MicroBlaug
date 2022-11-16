@@ -16,18 +16,20 @@ import java.util.List;
 public class PostDao {
 
     //post (C)
-    public int createPost(Post createdPost) throws SQLException {
+    public Post createPost(String postTitle, String postDescription, int userId) throws SQLException {
         try (Connection connection = ConnectionFactory.createConnection()) {
             PreparedStatement pstmt = connection.prepareStatement
                         ("INSERT INTO posts (postTitle, postDescription, userId) VALUES (?, ?, ?)");
-            pstmt.setString(1, createdPost.getPostTitle());
-            pstmt.setString(2, createdPost.getPostDescription());
-            pstmt.setInt(3, createdPost.getUserId());
+            pstmt.setString(1, postTitle);
+            pstmt.setString(2, postDescription);
+            pstmt.setInt(3, userId);
 
-            int numOfRecordCreated = pstmt.executeUpdate();
+            pstmt.execute();
 
-            return numOfRecordCreated;
-
+            ResultSet rs = pstmt.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
+            return new Post(id, postTitle, postDescription, userId);
         }
     }
 
@@ -91,17 +93,16 @@ public class PostDao {
     }
 
     //update (U)
-    public int updatePost(Post updatePost) throws SQLException {
+    public Post updatePost(int id, String postTitle, String postDescription, int userId) throws SQLException {
         try (Connection connection = ConnectionFactory.createConnection()) {
             PreparedStatement pstmt = connection.prepareStatement("UPDATE posts SET postTitle = ?," +
                     " postDescription = ?\n" +
                     "WHERE id = ?");
-            pstmt.setString(1, updatePost.getPostTitle());
-            pstmt.setString(2, updatePost.getPostDescription());
+            pstmt.setString(1, postTitle);
+            pstmt.setString(2, postDescription);
 
-            int numOfRecordUpdated = pstmt.executeUpdate();
-
-            return numOfRecordUpdated;
+            pstmt.executeUpdate();
+            return new Post(id, postTitle, postDescription, userId);
         }
     }
 
