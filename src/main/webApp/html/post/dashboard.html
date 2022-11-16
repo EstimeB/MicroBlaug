@@ -1,45 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="../../css/Post-Comment/dashboard.css" />
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="../../css/Post/dashboard.css" />
+        <title>Dashboard</title>
     </head>
+
     <body>
+
         <h1>DashBoard</h1>
-        <!-- modal (delete post feature) -->
-        <div class="delContainer">
 
-        </div>
-
-        <!-- posts -->
+        <!-- user posts -->
         <div class="pContainer">
+            <h2>User Posts</h2>
             <div>
-                <div>
-                    <h3 class="postTitle"></h3>
-                    <p class="postBody"></p>
-                    <figure>
-
-                    </figure>
-                </div>
+                <figure>
+                    <!-- for image -->
+                </figure>
+                <div id="innerContainer"></div>
             </div>
         </div>
 
-        <!-- post form -->
+        <!-- modal (delete post feature) -->
+        <div class="delContainer"></div>
+        <br><br>
+
+        <!-- button that will render the post form -->
         <button id="cnBtn">Create New Post</button>
+
+        <!-- post form -->
         <div id="container" style="visibility: hidden">
             <form method="post" action="">
                 <label for="pTitle">Title:</label><br>
                 <input type="text" id="pTitle" name="postTitle"><br>
                 <label for="pDescription">Description:</label><br>
                 <textarea type="text" id="pDescription" name="postDescription"></textarea><br>
-                <input type="file" id="myFile" name="filename"><br><br>
+                <!--<input type="file" id="myFile" name="filename"><br><br>-->
                 <!-- <input type="submit"> -->
-                <button type="submit" >Post</button>
+                <button type="submit" id="createPostBtn">Post</button>
             </form>
         </div>
     </body>
-    <script src="../../js/Post-Comment/dashboard.js"></script>
+
+    <script src="../../js/Post/dashboard.js"></script>
+
 </html>
