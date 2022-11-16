@@ -7,19 +7,20 @@ const loginButton = document.getElementById("login-btn");
 
 loginButton.addEventListener("click", (event) => {
   event.preventDefault();
-  console.log(username.value);
-  console.log(password.value);
+//  console.log(username.value);
+//  console.log(password.value);
   fetch(`http://localhost:8080/login`, {
     method: "POST",
     body: `{"username":"${username.value}","password":"${password.value}"}`,
     credentials: "include",
   })
     .then((res) => {
-      return res.json();
+      if (res.status === 200) {
+        window.location.href = 'dashboard.html';
+      }else{
+        alert('Invalid Login Information');
+      }
     })
-    .then((responseBody) => {
-      console.log(responseBody);
-    });
 });
 
  let attempt = 3;
