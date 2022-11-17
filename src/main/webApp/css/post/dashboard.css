@@ -1,0 +1,21 @@
+
+
+
+
+
+
+
+#cnBtn{
+    border: solid;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: gray;
+    background-color: lightgray;
+    box-shadow: 1px 1px 1px rgb(151, 151, 143);
+    height: 45px;
+    margin-left: 38%;
+    margin-right: 38%;
+    padding-left: 2%;
+    padding-right: 2%;
+    font-weight: bolder;
+}
