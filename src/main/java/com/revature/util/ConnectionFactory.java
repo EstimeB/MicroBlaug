@@ -3,15 +3,16 @@ package com.revature.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class ConnectionFactory {
 
     public static Connection createConnection() throws SQLException {
-        //Database credentials should not be hard coded use system environment
-        //variables. 20:53 (restart application after)
-        String url = "url";
-        String username = "db";
-        String password = "password";
+
+        Dotenv dotenv = Dotenv.load();
+        String url = dotenv.get("ENV_URL");
+        String username = dotenv.get("ENV_USERNAME");
+        String password = dotenv.get("ENV_PASSWORD");
 
         //Instantiating connection object
         Connection connection = DriverManager.getConnection(url, username, password);
