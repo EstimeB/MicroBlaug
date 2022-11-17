@@ -17,11 +17,14 @@ public class PostController implements Controller {
 
     public void mapEndPoints(Javalin app) {
 
-        //create post
+        //create post ...
         app.post("/dashboard", (ctx) -> {
+
             HttpSession httpSession = ctx.req().getSession();
             User user = (User) httpSession.getAttribute("user_info");
+
             Post post = ctx.bodyAsClass(Post.class);
+
             if (user == null) {
                 ctx.json(new Message("Not logged in!"));
                 ctx.status(401); // Unauthorized
@@ -35,10 +38,12 @@ public class PostController implements Controller {
                     ctx.status(400); //Bad Request
                 }
             }
+
         });
 
         //get by id
         app.get("/posts/{id}", (ctx) -> {
+
             String postId = ctx.pathParam("id");
 
             try {
@@ -52,12 +57,15 @@ public class PostController implements Controller {
                 ctx.result(e.getMessage());
                 ctx.status(404);
             }
+
         });
 
-        //get post by user id
+        //get post by user id ...
         app.get("/userPosts", (ctx) ->{
+
             HttpSession httpSession = ctx.req().getSession();
             User user = (User) httpSession.getAttribute("user_info");
+
             if (user == null) {
                 ctx.json(new Message("Not logged in!"));
                 ctx.status(401);
@@ -65,6 +73,7 @@ public class PostController implements Controller {
                 List<Post> posts = postService.getAllPostsBelongingToUser(user.getUser_id());
                 ctx.json(posts);
             }
+
         });
 
         //get all posts
@@ -89,21 +98,27 @@ public class PostController implements Controller {
             }
         });
 
-        //delete post
-        app.delete("/posts/{id}", (ctx) -> {
+        //delete post ...
+        app.delete("/deletePost/{id}", (ctx) -> {
             String postId = ctx.pathParam("id");
 
-            try {
-                int pId = Integer.parseInt(postId);
-                int deletePost = postService.deletePost(pId);
-                ctx.json(deletePost);
-            } catch (NumberFormatException e) {
-                ctx.result("Id " + postId + " must be a valid integer");
-                ctx.status(400); // 400 BAD REQUEST
-            } catch (PostNotFoundException e) {
-                ctx.result(e.getMessage());
-                ctx.status(404);
+            HttpSession httpSession = ctx.req().getSession();
+            User user = (User) httpSession.getAttribute("user_info");
+
+            if (user == null) {
+                ctx.json(new Message("Not logged in!"));
+                ctx.status(401); // Unauthorized
+            } else {
+                try {
+                    int pId = Integer.parseInt(postId);
+                    int deletePost = postService.deletePost(pId);
+                    ctx.json(deletePost);
+                } catch (PostNotFoundException e) {
+                    ctx.result(e.getMessage());
+                    ctx.status(404);
+                }
             }
+
         });
 
     }
