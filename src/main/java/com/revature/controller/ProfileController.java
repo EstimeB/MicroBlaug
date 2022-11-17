@@ -1,8 +1,8 @@
 package com.revature.controller;
 
-import Model.Profile;
-import dao.ConnectionFactory;
-import dto.Message;
+import com.revature.dto.Message;
+import com.revature.model.Profile;
+import com.revature.util.ConnectionFactory;
 import io.javalin.Javalin;
 
 import java.sql.Connection;
