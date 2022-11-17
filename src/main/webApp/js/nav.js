@@ -16,32 +16,32 @@ navbar.appendChild(navLinksDiv);
 // Nav Links
 const link1 = document.createElement('a');
 link1.classList.add('active');
-link1.setAttribute('href', '/home.html');
+link1.setAttribute('href', '/MicroBlaug/src/main/webApp/html/home.html');
 navLinksDiv.appendChild(link1);
 link1.innerHTML = 'Home';
 
 const link2 = document.createElement('a');
-link2.setAttribute('href', '/nav.html');
+link2.setAttribute('href', '/MicroBlaug/src/main/webApp/html/post/dashboard.html');
 navLinksDiv.appendChild(link2);
 link2.innerHTML = 'Dashboard';
 
 const link3 = document.createElement('a');
-link3.setAttribute('href', '/profile.html');
+link3.setAttribute('href', '/MicroBlaug/src/main/webApp/html/profile.html');
 navLinksDiv.appendChild(link3);
 link3.innerHTML = 'Profile';
 
 const link4 = document.createElement('a');
-link4.setAttribute('href', '/logout');
+link4.setAttribute('href', '/MicroBlaug/src/main/webApp/html/logout.html');
 navLinksDiv.appendChild(link4);
 link4.innerHTML = 'Logout';
 
-const newPtag = document.createElement('a');
-newPtag.classList.add('chip');
-navLinksDiv.appendChild(newPtag);
+const link5 = document.createElement('a');
+navLinksDiv.appendChild(link5);
 const avatarImg = document.createElement('img');
 avatarImg.setAttribute('src', '/images/avatar-generic.jpg');
-navLinksDiv.appendChild(avatarImg);
-newPtag.innerHTML = 'Logged In';
+link5.setAttribute('href', '/MicroBlaug/src/main/webApp/html/login-signup.html');
+link5.appendChild(avatarImg);
+link5.innerHTML = 'Login';
 
 
 

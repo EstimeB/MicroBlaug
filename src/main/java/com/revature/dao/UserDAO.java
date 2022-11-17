@@ -1,6 +1,7 @@
 package com.revature.dao;
 
 import com.revature.model.User;
+import com.revature.util.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 public class UserDAO {
 
     public User findUserByUsernameAndPassword(String username, String password) throws SQLException {
-        try (Connection connection = UserConnectionUtility.getConnection()) {
+        try (Connection connection = ConnectionFactory.createConnection()) {
             String sql = "select * from users where username = ? and password = ?";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, username);
@@ -32,7 +33,7 @@ public class UserDAO {
         }
     }
     public User registerNewAccount(String username, String email, String password) throws SQLException {
-        try (Connection connection = UserConnectionUtility.getConnection()) {
+        try (Connection connection = ConnectionFactory.createConnection()) {
             String sql = "select * from users ";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, username);
