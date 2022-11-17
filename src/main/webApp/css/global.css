@@ -1,0 +1,11 @@
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #DAE0E6;
+}
+
+#container {
+    margin-top: 100px;
+}
