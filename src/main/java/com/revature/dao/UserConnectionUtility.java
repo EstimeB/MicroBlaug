@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class UserConnectionUtility {
 
     public static Connection getConnection() throws SQLException {
-        String url = "jdbc:postgresql://34.134.127.27/postgres";
+        String url = "jdbc:postgresql://35.184.83.14/postgres";
         String username = "postgres";
-        String password = "revstarProject02"; // change to environment variables
+        String password = "password"; // change to environment variables
 
         return DriverManager.getConnection(url, username, password);
     }
