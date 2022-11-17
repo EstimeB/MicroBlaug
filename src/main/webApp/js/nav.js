@@ -21,7 +21,7 @@ navLinksDiv.appendChild(link1);
 link1.innerHTML = 'Home';
 
 const link2 = document.createElement('a');
-link2.setAttribute('href', '/dashboard.html');
+link2.setAttribute('href', '/nav.html');
 navLinksDiv.appendChild(link2);
 link2.innerHTML = 'Dashboard';
 
