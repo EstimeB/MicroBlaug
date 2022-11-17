@@ -6,14 +6,17 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" type="text/css" href="../../css/post/dashboard.css" />
-        <link rel="stylesheet" href="http://127.0.0.1:5500/css/nav.css">
-        <link rel="stylesheet" href="http://127.0.0.1:5500/css/global.css">
-        <script> const baseUrl = 'http://127.0.0.1:8080';</script>
+        <link rel="stylesheet" href="../../css/nav.css">
+        <link rel="stylesheet" href="../../css/global.css">
         <title>Dashboard</title>
     </head>
 
     <body>
 
+        <!-- will display a navbar for the page -->
+        <nav id="navbar"></nav>
+
+        <section id="section">
         <h1>DashBoard</h1>
 
         <!-- user posts -->
@@ -45,9 +48,12 @@
                 <button type="submit" id="createPostBtn">Post</button>
             </form>
         </div>
+        </section>
+
     </body>
 
     <script src="../../js/post/dashboard.js"></script>
     <script src="../../js/post/dashboard2.js"></script>
+    <script type="text/javascript" src="../../js/nav.js"></script>
 
 </html>
