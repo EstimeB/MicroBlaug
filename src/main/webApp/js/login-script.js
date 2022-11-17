@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:8080";
+//const baseUrl = "http://localhost:8080";
 
 const username = document.getElementById("username");
 const password = document.getElementById("password");
@@ -7,8 +7,7 @@ const loginButton = document.getElementById("login-btn");
 
 loginButton.addEventListener("click", (event) => {
   event.preventDefault();
-//  console.log(username.value);
-//  console.log(password.value);
+
   fetch(`http://localhost:8080/login`, {
     method: "POST",
     body: `{"username":"${username.value}","password":"${password.value}"}`,
@@ -16,7 +15,7 @@ loginButton.addEventListener("click", (event) => {
   })
     .then((res) => {
       if (res.status === 200) {
-        window.location.href = 'dashboard.html';
+        window.location.href = 'post/dashboard.html';
       }else{
         alert('Invalid Login Information');
       }
@@ -39,6 +38,31 @@ loginButton.addEventListener("click", (event) => {
          }
      }
  }
+
+const signupUsername = document.getElementById("signup-username");
+const signupEmail = document.getElementById("signup-email");
+const SignupPassword = document.getElementById("signup-password");
+const SignupPasswordConf = document.getElementById("signup-repeat-password");
+
+//check to see if the SignupPassword and SignupPasswordConf are the same
+const signupButton = document.getElementById("signup-submit-btn");
+
+signupButton.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  fetch(`http://localhost:8080/login`, {
+    method: "POST",
+    body: `{"username":"${signupUsername.value}", "email":"${signupEmail.value}", "password":"${SignupPassword.value}"}`,
+    credentials: "include",
+  })
+    .then((res) => {
+      if (res.status === 200) {
+        window.location.href = 'post/profile.html';
+      }else{
+        alert('Invalid Login Information');
+      }
+    })
+});
 
 let rememberMeCheck;
 let guestButton;
