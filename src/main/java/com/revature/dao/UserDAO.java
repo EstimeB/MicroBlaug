@@ -34,7 +34,7 @@ public class UserDAO {
     }
     public User registerNewAccount(String username, String email, String password) throws SQLException {
         try (Connection connection = ConnectionFactory.createConnection()) {
-            String sql = "select * from users ";
+            String sql = "insert into users (username, email, password) values (?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, username);
             pstmt.setString(2, email);
