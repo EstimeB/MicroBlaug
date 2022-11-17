@@ -7,8 +7,6 @@ const createNewPostBtn = document.querySelector('#cnBtn');
 const postTitleInputEl = document.querySelector('#pTitle');
 const postDescriptionEl = document.querySelector('#pDescription');
 const submitCreatePostFormBtn = document.querySelector('#createPostBtn');
-const upBtn = document.createElement('button');
-const delBtn = document.createElement('button');
 
 //will render signed-in user posts titles
 async function getUserPosts() {
@@ -17,21 +15,24 @@ async function getUserPosts() {
         credentials: 'include'
     }).then((res) => {
         return res.json();
-    }).then((posts) => {
+    }).then((posts, event) => {
         const outerDiv = document.querySelector('#innerContainer');
         for (post of posts) {
             const innerDiv = document.createElement('div');
-            const upImg = document.createElement('IMG');
-            const delImg = document.createElement('IMG');
+            var upImg = document.createElement('IMG');
+            var delImg = document.createElement('IMG');
             const h3 = document.createElement('h3');
             const iconsDiv = document.createElement('div');
+
             upImg.setAttribute('src', '../../icons/icons8-update-30.png');
             delImg.setAttribute('src', '../../icons/icons8-trash-26.png');
+            delImg.setAttribute('type', 'button');
             innerDiv.setAttribute('id', 'uPostDiv');
+            delImg.setAttribute('data-id', `${post.id}`);
+
             h3.innerHTML = post.postTitle;
+
             innerDiv.appendChild(h3);
-            upBtn.appendChild(upImg);
-            delBtn.appendChild(delImg);
             iconsDiv.appendChild(upImg);
             iconsDiv.appendChild(delImg);
             innerDiv.appendChild(iconsDiv);
@@ -56,8 +57,11 @@ async function getUserPosts() {
 
             upImg.style.marginRight = '15px';
         }
+        delImg.addEventListener('click', deletePost);
     });
-};
+}
+
+getUserPosts();
 
 //handle the visibility of the 'create new post' button and the form
 function showPostForm() {
@@ -74,6 +78,7 @@ const postFormHandler = async () => {
         credentials: 'include'
     }).then((res) => {
         if (res.ok) {
+            alert('Your Post Has Successfully Been Created');
             document.location.reload();
         } else {
             alert('Your Post Could not be Created');
@@ -81,7 +86,6 @@ const postFormHandler = async () => {
     });
 };
 
-getUserPosts();
 //event listeners, once triggered will execute the functions
 createNewPostBtn.addEventListener('click', showPostForm);
 submitCreatePostFormBtn.addEventListener('click', postFormHandler);
