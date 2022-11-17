@@ -65,6 +65,9 @@ fetch(`${baseUrl}/posts`, {
     commentsbutton.innerHTML = 'Comments';
     mainButtonDivs.appendChild(commentsbutton);
     commentsbutton.addEventListener('click', addComments);
+    function addComments(){
+        window.location.href="/display.html";
+    }
 
 
     // share button
