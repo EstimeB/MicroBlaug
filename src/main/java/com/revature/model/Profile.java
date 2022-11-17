@@ -1,36 +1,24 @@
 package com.revature.model;
-
+//represents data as objects from user and db.
 public class Profile {
-    private int user_id;
+
     private String username;
     private String email;
-    private String password;
-
+    private String passWord;
     private String interest;
-
     private String firstName;
-
     private String lastName;
 
     public Profile() {
     }
-
-    public Profile(String username, String email, String password, String interest, String firstName, String lastName) {
-        this.user_id = user_id;
+//Step 4
+    public Profile(String username, String email, String passWord, String interest, String firstName, String lastName) {
         this.username = username;
         this.email = email;
-        this.password = password;
+        this.passWord = passWord;
         this.interest = interest;
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
     }
 
     public String getUsername() {
@@ -49,12 +37,12 @@ public class Profile {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPassWord() {
+        return passWord;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 
     public String getInterest() {
@@ -80,7 +68,4 @@ public class Profile {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-
-
 }
