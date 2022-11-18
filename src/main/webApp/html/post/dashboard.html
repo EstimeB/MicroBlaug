@@ -29,8 +29,42 @@
             </div>
         </div>
 
+        <!-- modal (update post feature) -->
+        <div class="upContainer" id="modal2" style="display: none">
+            <div class="modalSecondDiv">
+                <div class="modalContent">
+                    <h3 id="pstid"></h3>
+                    <label for="pstTitle">Title:</label><br>
+                    <input type="text" id="pstTitle" name="postTitle"><br>
+                    <label for="pstDescription">Description:</label><br>
+                    <textarea type="text" id="pstDescription" name="Description"></textarea><br>
+                    <button id="conUpdate">Update</button>
+                    <button id="cancelUpdate">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- modal (delete post feature) -->
-        <div class="delContainer"></div>
+            <div class="delContainer" id="modal1" style="display: none">
+                <div class="modalSecondDiv">
+                    <div class="modalContent">
+                        <h3>Post Id:</h3>
+                        <p id="postid"></p>
+                        <h3>Post Title:</h3>
+                        <h4 id="cpostTitle"></h4>
+                        <h3>Post Description:</h3>
+                        <p id="cpostDescription"></p>
+                        <p id="userid"></p>
+                        <button id="conDel">Confirm Deletion</button>
+                        <button id="delCancel">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+
         <br><br>
 
         <!-- button that will render the post form -->
@@ -54,6 +88,7 @@
 
     <script src="../../js/post/dashboard.js"></script>
     <script src="../../js/post/dashboard2.js"></script>
+    <script src="../../js/post/updatePostPage.js"></script>
     <script type="text/javascript" src="../../js/nav.js"></script>
 
 </html>
