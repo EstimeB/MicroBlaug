@@ -12,7 +12,9 @@ public class Profile {
 
     }
 
+
     public Profile(String interest, String firstname, String lastname, String password, String email, String username) {
+
         this.interest = interest;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -20,6 +22,7 @@ public class Profile {
         this.email = email;
         this.username = username;
     }
+
 
     public String getInterest() {
         return interest;
@@ -44,6 +47,7 @@ public class Profile {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
+
 
     public String getPassword() {
         return password;

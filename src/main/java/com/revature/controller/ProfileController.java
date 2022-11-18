@@ -16,13 +16,16 @@ public class ProfileController implements Controller{
 
     public void mapEndPoints( Javalin app){
 
+
         //INSERT PROFILE Endpoint
+
         app.post("/profilecreate",(ctx) -> {
             System.out.println("Create Endpoint Reached");
             Connection connection = ConnectionFactory.createConnection();
             Profile p = ctx.bodyAsClass(Profile.class);
             PreparedStatement pstmt = connection.prepareStatement("insert into userprofiles (interest, firstname , lastname) values (? , ? , ?)");
             pstmt.setString(1, p.getInterest());
+
             pstmt.setString(2, p.getFirstname());
             pstmt.setString(3, p.getLastname());
             int numberOfRecordsUpdated = pstmt.executeUpdate();
@@ -62,9 +65,11 @@ public class ProfileController implements Controller{
                     }
                      });
 
+
     //UPDATE ENDPOINT.
         app.post("/profileupdate", (ctx) -> {
             System.out.println("Updated Endpoint Accessed");
+
             Connection connection = ConnectionFactory.createConnection();
             Profile p = ctx.bodyAsClass(Profile.class);
             String username = p.getUsername();
@@ -80,6 +85,7 @@ public class ProfileController implements Controller{
             pstmt.setString(7, p.getUsername());
             int numberOfRecordsUpdated = pstmt.executeUpdate();
             if(numberOfRecordsUpdated < 1){
+
             ctx.status(400);
             ctx.result("Invalid username");
             }else {
@@ -94,9 +100,11 @@ public class ProfileController implements Controller{
         System.out.println("Deleted Endpoint Accessed");
         Connection connection = ConnectionFactory.createConnection();
         Profile p = ctx.bodyAsClass(Profile.class);
+
         PreparedStatement pstmt = connection.prepareStatement("DELETE from userprofiles where password = ? and username = ? ");
         pstmt.setString(1, p.getPassword());
         pstmt.setString(2, p.getUsername());
+
         int numberOfRecordsUpdated = pstmt.executeUpdate();
         ctx.result(numberOfRecordsUpdated + " record(s) deleted.");
             if( numberOfRecordsUpdated < 1){
