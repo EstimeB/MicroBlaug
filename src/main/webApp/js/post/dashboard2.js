@@ -1,7 +1,38 @@
 
 
 
-const openModal = async (event) => {
+getUserPosts();
+
+//handle the visibility of the 'create new post' button and the form
+function showPostForm() {
+    postForm.style.visibility = '';
+    createNewPostBtn.style.visibility = 'hidden';
+}
+
+//sending data collected from input el from the browser to the back end to create a new post
+const postFormHandler = async () => {
+
+    await fetch(`${baseUrl}/dashboard`, {
+        method: 'POST',
+        body:  `{"postTitle":"${postTitleInputEl.value}","postDescription":"${postDescriptionEl.value}"}`,
+        credentials: 'include'
+    }).then((res) => {
+        if (res.ok) {
+            alert('Your Post Has Successfully Been Created');
+            document.location.reload();
+        } else {
+            alert('Your Post Could not be Created');
+        }
+    });
+};
+
+//event listeners, once triggered will execute the functions
+createNewPostBtn.addEventListener('click', showPostForm);
+submitCreatePostFormBtn.addEventListener('click', postFormHandler);
+
+//to open delete feature modal and render post data associated with the id
+// passed in retrieved from database
+const openDelModal = async (event) => {
     if (event.target.hasAttribute('data-id')) {
         const id = event.target.getAttribute('data-id');
         console.log(id);
@@ -31,11 +62,13 @@ const openModal = async (event) => {
     }
 }
 
+//will abort the deletion process and close the modal
 const cancelDeletion = () => {
     document.getElementById('modal1').style.display = 'none';
     document.location.reload();
 }
 
+//will find and delete all data associated with the id passed in
 const deletePost = async (event) => {
     if (event.target.hasAttribute('data-id')) {
         const id = event.target.getAttribute('data-id');

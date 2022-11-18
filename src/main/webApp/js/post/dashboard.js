@@ -27,11 +27,15 @@ async function getUserPosts() {
             upImg.setAttribute('src', '../../icons/icons8-update-30.png');
             delImg.setAttribute('src', '../../icons/icons8-trash-26.png');
             delImg.setAttribute('type', 'button');
+            upImg.setAttribute('type', 'button');
             delImg.setAttribute('id', 'open-modal');
+            upImg.setAttribute('id', 'open-modal1');
             innerDiv.setAttribute('id', 'uPostDiv');
             delImg.setAttribute('data-id', `${post.id}`);
+            upImg.setAttribute('data-id', `${post.id}`);
 
             h3.innerHTML = post.postTitle;
+
 
             innerDiv.appendChild(h3);
             iconsDiv.appendChild(upImg);
@@ -40,14 +44,15 @@ async function getUserPosts() {
             outerDiv.appendChild(innerDiv);
 
             innerDiv.style.backgroundColor = 'lightgray';
-            innerDiv.style.marginTop = '15px';
+            //innerDiv.style.marginTop = '1%';
             innerDiv.style.border = 'solid';
             innerDiv.style.borderRadius = '3px';
             innerDiv.style.borderWidth = '1px';
             innerDiv.style.borderColor = 'gray';
             innerDiv.style.boxShadow = '5px 5px 5px rgb(151, 151, 143)';
             innerDiv.style.height = '100%';
-            innerDiv.style.width = '100%';
+            innerDiv.style.width = '70%';
+            innerDiv.style.margin = '1% 15%';
 
             h3.style.marginLeft = '2%'
             h3.style.marginRight = '2%'
@@ -57,36 +62,11 @@ async function getUserPosts() {
             iconsDiv.style.marginTop = '-4.7%';
 
             upImg.style.marginRight = '15px';
+
+
+            upImg.addEventListener('click', openUpdatePostModal);
+            delImg.addEventListener('click', openDelModal);
         }
-        delImg.addEventListener('click', openModal);
+
     });
 }
-
-getUserPosts();
-
-//handle the visibility of the 'create new post' button and the form
-function showPostForm() {
-    postForm.style.visibility = '';
-    createNewPostBtn.style.visibility = 'hidden';
-}
-
-//sending data collected from input el from the browser to the back end to create a new post
-const postFormHandler = async () => {
-
-    await fetch(`${baseUrl}/dashboard`, {
-        method: 'POST',
-        body:  `{"postTitle":"${postTitleInputEl.value}","postDescription":"${postDescriptionEl.value}"}`,
-        credentials: 'include'
-    }).then((res) => {
-        if (res.ok) {
-            alert('Your Post Has Successfully Been Created');
-            document.location.reload();
-        } else {
-            alert('Your Post Could not be Created');
-        }
-    });
-};
-
-//event listeners, once triggered will execute the functions
-createNewPostBtn.addEventListener('click', showPostForm);
-submitCreatePostFormBtn.addEventListener('click', postFormHandler);

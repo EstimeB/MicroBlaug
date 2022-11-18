@@ -100,6 +100,7 @@ public class PostDao {
                     "WHERE id = ?");
             pstmt.setString(1, postTitle);
             pstmt.setString(2, postDescription);
+            pstmt.setInt(3,userId);
 
             pstmt.executeUpdate();
             return new Post(id, postTitle, postDescription, userId);

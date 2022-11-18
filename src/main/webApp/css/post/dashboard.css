@@ -15,15 +15,19 @@
     background-color: lightgray;
     box-shadow: 1px 1px 1px rgb(151, 151, 143);
     height: 45px;
-    margin-left: 38%;
-    margin-right: 38%;
+    /*margin-left: 38%;*/
+    /*margin-right: 38%;*/
+    margin: 0 25% 0 44%;
     padding-left: 2%;
     padding-right: 2%;
     font-weight: bolder;
 }
+#cnBtn:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
 
 /*modal*/
-#modal1{
+#modal1, #modal2{
     position: fixed;
     top: 0;
     left: 0;
@@ -48,7 +52,7 @@
 .modalContent{
     margin: 10% 11%;
 }
-#delCancel, #conDel{
+#conDel, #delCancel, #cancelUpdate, #conUpdate{
     border: solid;
     border-radius: 3px;
     border-width: 1px;
@@ -61,4 +65,17 @@
     padding-left: 2%;
     padding-right: 2%;
     font-weight: bolder;
+}
+
+#conDel:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+#delCancel:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+#cancelUpdate:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+#conUpdate:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
