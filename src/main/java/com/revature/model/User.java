@@ -19,6 +19,10 @@ public class User {
         this.password = password;
     }
 
+    public User(String username, String email, String password) {
+
+    }
+
     public int getUser_id() {
         return user_id;
     }

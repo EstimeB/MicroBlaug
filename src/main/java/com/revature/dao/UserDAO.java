@@ -16,7 +16,6 @@ public class UserDAO {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, username);
             pstmt.setString(2, password);
-
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()){
                 User user = new User();
@@ -35,10 +34,15 @@ public class UserDAO {
     public User registerNewAccount(String username, String email, String password) throws SQLException {
         try (Connection connection = ConnectionFactory.createConnection()) {
             String sql = "insert into users (username, email, password) values (?, ?, ?)";
+            String sql1 = "insert into userprofiles (username, email, password) values (?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
+            PreparedStatement pstmt1 = connection.prepareStatement(sql1);
             pstmt.setString(1, username);
             pstmt.setString(2, email);
             pstmt.setString(3, password);
+            pstmt1.setString(1, username);
+
+
 
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
