@@ -38,12 +38,72 @@
   .time-right {
     float: right;
     color: #aaa;
+    padding: 0;
   }
-  
+
   /* Style time text */
   .time-left {
     float: left;
     color: #999;
   }
+
+  #edit-button, #delete-button, #close-button {
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  #close-button {
+    margin-right: 0px;
+  }
+
+  /*------------------------------------------- Style the write comment form - display items horizontally */
+
+/* Add some margins for each label */
+.inline label {
+  margin: 5px 10px 5px 0;
+}
+
+/* Style the input fields */
+.inline input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+/* Style the submit button */
+#saveCommentButton, .update-button {
+  padding: 10px 20px;
+  background-color: dodgerblue;
+  border: 1px solid #ddd;
+  color: white;
+}
+
+.update-button {
+  padding: 5px 10px;
+  background-color: rgb(22, 165, 36);
+  /* border: 1px solid #ddd; */
+  color: white;
+  font-size: 18px;
+}
+
+#saveCommentButton:hover {
+  background-color: royalblue;
+}
+
+/* Add responsiveness  */
+@media (max-width: 800px) {
+  .inline input {
+    margin: 10px 0;
+  }
+
+  .inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
   
  

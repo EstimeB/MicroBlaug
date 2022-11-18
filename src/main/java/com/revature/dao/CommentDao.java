@@ -3,14 +3,36 @@ package com.revature.dao;
 import com.revature.model.Comment;
 import com.revature.util.ConnectionFactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CommentDao {
+
+    public List<Comment> getAllComments() throws SQLException {
+        try (Connection connection = ConnectionFactory.createConnection()) {
+
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM comments\n" +
+                    "ORDER BY comment_id DESC");
+
+            ResultSet rs = pstmt.executeQuery();
+
+            List<Comment> allComments = new ArrayList<>();
+
+            while (rs.next()) {
+                int commentId = rs.getInt("comment_id");
+                String commentMessage = rs.getString("comment_message");
+                Date commentDate = rs.getDate("comment_date");
+                int postId = rs.getInt("post_id");
+                int userId = rs.getInt("user_id");
+
+                Comment u = new Comment(commentId, commentMessage, commentDate, postId, userId );
+
+                allComments.add(u);
+            }
+            return allComments;
+        }
+    }
 
     public List<Comment> findCommentByPostId(int postId) throws SQLException {
 
