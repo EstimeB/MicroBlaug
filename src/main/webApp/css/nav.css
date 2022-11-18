@@ -37,7 +37,7 @@
 
   /* Style the active/current link */
   #navbar a.active {
-    background-color: dodgerblue;
+    background-color: dodger-blue;
     color: white;
   }
 
