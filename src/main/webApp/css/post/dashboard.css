@@ -21,3 +21,44 @@
     padding-right: 2%;
     font-weight: bolder;
 }
+
+/*modal*/
+#modal1{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: solid;
+    border-color: gray;
+}
+.modalSecondDiv{
+    border: solid;
+    border-color: gray;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    height: 70%;
+    width: 60%;
+    background-color: #878c96;
+}
+.modalContent{
+    margin: 10% 11%;
+}
+#delCancel, #conDel{
+    border: solid;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: gray;
+    background-color: lightgray;
+    box-shadow: 1px 1px 1px rgb(151, 151, 143);
+    height: 45px;
+    margin-right: .7%;
+    margin-top: 7%;
+    padding-left: 2%;
+    padding-right: 2%;
+    font-weight: bolder;
+}

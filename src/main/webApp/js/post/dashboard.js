@@ -27,6 +27,7 @@ async function getUserPosts() {
             upImg.setAttribute('src', '../../icons/icons8-update-30.png');
             delImg.setAttribute('src', '../../icons/icons8-trash-26.png');
             delImg.setAttribute('type', 'button');
+            delImg.setAttribute('id', 'open-modal');
             innerDiv.setAttribute('id', 'uPostDiv');
             delImg.setAttribute('data-id', `${post.id}`);
 
@@ -57,7 +58,7 @@ async function getUserPosts() {
 
             upImg.style.marginRight = '15px';
         }
-        delImg.addEventListener('click', deletePost);
+        delImg.addEventListener('click', openModal);
     });
 }
 

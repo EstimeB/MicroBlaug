@@ -30,7 +30,24 @@
         </div>
 
         <!-- modal (delete post feature) -->
-        <div class="delContainer"></div>
+            <div class="delContainer" id="modal1" style="display: none">
+                <div class="modalSecondDiv">
+                    <div class="modalContent">
+                        <h3>Post Id:</h3>
+                        <p id="postid"></p>
+                        <h3>Post Title:</h3>
+                        <h4 id="cpostTitle"></h4>
+                        <h3>Post Description:</h3>
+                        <p id="cpostDescription"></p>
+                        <button id="conDel">Confirm Deletion</button>
+                        <button id="delCancel">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="delContainer modal" id="modal" style="visibility: hidden"></div>-->
+
         <br><br>
 
         <!-- button that will render the post form -->

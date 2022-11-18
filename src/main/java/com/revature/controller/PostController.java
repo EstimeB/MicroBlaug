@@ -42,7 +42,7 @@ public class PostController implements Controller {
         });
 
         //get by id
-        app.get("/posts/{id}", (ctx) -> {
+        app.get("/post/{id}", (ctx) -> {
 
             String postId = ctx.pathParam("id");
 
