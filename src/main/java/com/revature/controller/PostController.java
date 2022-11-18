@@ -9,6 +9,7 @@ import com.revature.service.PostService;
 import io.javalin.Javalin;
 import jakarta.servlet.http.HttpSession;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class PostController implements Controller {
@@ -87,6 +88,14 @@ public class PostController implements Controller {
         app.get("/posts", (ctx) -> {
             List<Post> posts = postService.getAllPosts();
             ctx.json(posts);
+        });
+
+        // get all related comments for specific post Id
+        app.get("/postcomments/{postId}", (ctx) -> {
+            String postId = ctx.pathParam("postId");
+            int pId = Integer.parseInt(postId);
+            HashMap postcomments = postService.getPostComments(pId);
+            ctx.json(postcomments);
         });
 
         //update post

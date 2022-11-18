@@ -38,7 +38,7 @@ link4.innerHTML = 'Logout';
 const link5 = document.createElement('a');
 navLinksDiv.appendChild(link5);
 const avatarImg = document.createElement('img');
-avatarImg.setAttribute('src', '/images/avatar-generic.jpg');
+avatarImg.setAttribute('src', '/MicroBlaug/src/main/webApp/images/avatar-generic.jpg');
 link5.setAttribute('href', '/MicroBlaug/src/main/webApp/html/login-signup.html');
 link5.appendChild(avatarImg);
 link5.innerHTML = 'Login';
