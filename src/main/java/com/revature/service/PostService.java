@@ -6,6 +6,7 @@ import com.revature.model.Post;
 import com.revature.exception.PostNotFoundException;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 public class PostService {
@@ -37,6 +38,11 @@ public class PostService {
     public List<Post> getAllPosts() throws SQLException {
         return postDao.getAllPosts();
     }
+
+    public HashMap getPostComments(int postId) throws SQLException {
+        return postDao.getPostComments(postId);
+    }
+
     public Post updatePost(int id, String postTitle, String postDescription, int userId) throws SQLException {
         if (postTitle.length() == 0) {
             throw new IllegalArgumentException("You Must Have a Post Title");
