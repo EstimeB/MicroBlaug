@@ -30,9 +30,9 @@ public class PostController implements Controller {
                 ctx.status(401); // Unauthorized
             } else {
                 try {
-                    Post createdPost = postService.createPost(post.getPostTitle(), post.getPostDescription(), user.getUser_id());
+                    postService.createPost(post, user.getUser_id());
                     ctx.status(201); // created
-                    ctx.json(createdPost);
+                    ctx.json(post);
                 } catch (IllegalArgumentException | PostUnsuccessfullyCreated e) {
                     ctx.result(e.getMessage());
                     ctx.status(400); //Bad Request
@@ -90,10 +90,8 @@ public class PostController implements Controller {
         });
 
         //update post
-        app.put("/updatePost/{id}", (ctx) -> {
-            //method is currently creating new posts
-            //need to work in having it get existing post then update it
-            String postId = ctx.pathParam("id");
+        app.put("/updatePost", (ctx) -> {
+            //String postId = ctx.pathParam("id");
 
             HttpSession httpSession = ctx.req().getSession();
             User user = (User) httpSession.getAttribute("user_info");
@@ -105,9 +103,8 @@ public class PostController implements Controller {
                 ctx.status(401); // Unauthorized
             } else {
                 try {
-                    int pId = Integer.parseInt(postId);
-                    Post updatePost = postService.updatePost(pId,
-                            post.getPostTitle(), post.getPostDescription(), user.getUser_id());
+                    //int pId = Integer.parseInt(postId);
+                    Post updatePost = postService.updatePost(post);
                     ctx.json(updatePost);
                     ctx.status(201);
                 } catch (IllegalArgumentException | PostUnsuccessfullyCreated e) {
@@ -131,7 +128,7 @@ public class PostController implements Controller {
                 try {
                     int pId = Integer.parseInt(postId);
                     int deletePost = postService.deletePost(pId);
-                    ctx.json(deletePost);
+                    ctx.json("Post with Id: "+pId+" has been deleted");
                     ctx.status(200);
                 } catch (PostNotFoundException e) {
                     ctx.result(e.getMessage());

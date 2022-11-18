@@ -1,6 +1,7 @@
 package com.revature.dao;
 
 import com.revature.model.Post;
+import com.revature.model.User;
 import com.revature.util.ConnectionFactory;
 
 import javax.imageio.ImageIO;
@@ -16,26 +17,21 @@ import java.util.List;
 public class PostDao {
 
     //post (C)
-    public Post createPost(String postTitle, String postDescription, int userId) throws SQLException {
+    public int createPost(Post post, int uid) throws SQLException {
         try (Connection connection = ConnectionFactory.createConnection()) {
             PreparedStatement pstmt = connection.prepareStatement
-                        ("INSERT INTO posts (postTitle, postDescription, userId) VALUES (?, ?, ?)");
-            pstmt.setString(1, postTitle);
-            pstmt.setString(2, postDescription);
-            pstmt.setInt(3, userId);
+                    ("INSERT INTO posts (postTitle, postDescription, userId) VALUES (?, ?, ?)");
+            pstmt.setString(1, post.getPostTitle());
+            pstmt.setString(2, post.getPostDescription());
+            pstmt.setInt(3, uid);
 
-            pstmt.execute();
-
-            ResultSet rs = pstmt.getGeneratedKeys();
-            rs.next();
-            int id = rs.getInt(1);
-            return new Post(id, postTitle, postDescription, userId);
+            return pstmt.executeUpdate();
         }
     }
 
     //get (R)
     public Post getPostsById(int id) throws SQLException {
-        try (Connection connection = ConnectionFactory.createConnection()){
+        try (Connection connection = ConnectionFactory.createConnection()) {
             PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM posts WHERE id = ?");
 
             pstmt.setInt(1, id);
@@ -52,8 +48,9 @@ public class PostDao {
             }
         }
     }
+
     public List<Post> getAllPostsBelongingToUser(int userId) throws SQLException {
-        try (Connection connection = ConnectionFactory.createConnection()){
+        try (Connection connection = ConnectionFactory.createConnection()) {
             PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM posts WHERE userId = ?");
 
             pstmt.setInt(1, userId);
@@ -72,8 +69,9 @@ public class PostDao {
             return userPosts;
         }
     }
+
     public List<Post> getAllPosts() throws SQLException {
-        try (Connection connection = ConnectionFactory.createConnection()){
+        try (Connection connection = ConnectionFactory.createConnection()) {
             PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM posts");
 
             ResultSet rs = pstmt.executeQuery();
@@ -93,17 +91,18 @@ public class PostDao {
     }
 
     //update (U)
-    public Post updatePost(int id, String postTitle, String postDescription, int userId) throws SQLException {
+    public Post updatePost(Post post) throws SQLException {
         try (Connection connection = ConnectionFactory.createConnection()) {
             PreparedStatement pstmt = connection.prepareStatement("UPDATE posts SET postTitle = ?," +
-                    " postDescription = ?\n" +
+                    " postDescription = ?" +
                     "WHERE id = ?");
-            pstmt.setString(1, postTitle);
-            pstmt.setString(2, postDescription);
-            pstmt.setInt(3,userId);
+            pstmt.setString(1, post.getPostTitle());
+            pstmt.setString(2, post.getPostDescription());
+            pstmt.setInt(3, post.getId());
 
             pstmt.executeUpdate();
-            return new Post(id, postTitle, postDescription, userId);
+
+            return new Post(post.getId(), post.getPostTitle(), post.getPostDescription(), post.getUserId());
         }
     }
 
@@ -115,10 +114,7 @@ public class PostDao {
 
             pstmt.setInt(1, id);
 
-            int numOfRecordDeleted = pstmt.executeUpdate();
-
-            return numOfRecordDeleted;
+            return pstmt.executeUpdate();
         }
     }
-
 }

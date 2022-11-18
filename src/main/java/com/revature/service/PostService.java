@@ -12,15 +12,15 @@ public class PostService {
 
     private PostDao postDao = new PostDao();
 
-    public Post createPost(String postTitle, String postDescription, int userId) throws SQLException {
+    public void createPost(Post createdPost, int uid) throws SQLException {
 
-        if (postTitle.length() == 0) {
+        if (createdPost.getPostTitle().length() == 0) {
             throw new IllegalArgumentException("You Must Have a Post Title");
         }
-        if(postDescription.length() == 0) {
+        if(createdPost.getPostDescription().length() == 0) {
             throw new IllegalArgumentException("You Must Have a Post Description");
         }
-        return postDao.createPost(postTitle, postDescription, userId);
+        postDao.createPost(createdPost, uid);
     }
     public Post getPostsById(int id) throws SQLException {
         Post post = postDao.getPostsById(id);
@@ -37,14 +37,14 @@ public class PostService {
     public List<Post> getAllPosts() throws SQLException {
         return postDao.getAllPosts();
     }
-    public Post updatePost(int id, String postTitle, String postDescription, int userId) throws SQLException {
-        if (postTitle.length() == 0) {
+    public Post updatePost(Post updatedPost) throws SQLException {
+        if (updatedPost.getPostTitle().length() == 0) {
             throw new IllegalArgumentException("You Must Have a Post Title");
         }
-        if(postDescription.length() == 0) {
+        if(updatedPost.getPostDescription().length() == 0) {
             throw new IllegalArgumentException("You Must Have a Post Description");
         }
-        return postDao.updatePost(id, postTitle, postDescription, userId);
+        return postDao.updatePost(updatedPost);
     }
     public int deletePost(int id) throws SQLException {
         int deletePost = postDao.deletePost(id);
