@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class PostDao {
@@ -89,6 +90,45 @@ public class PostDao {
                 allPosts.add(post);
             }
             return allPosts;
+        }
+    }
+
+    // getting related comments to specific Posts
+
+    public HashMap getPostComments(int postId) throws SQLException {
+        try (Connection connection = ConnectionFactory.createConnection()){
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM comments \n" +
+                    "LEFT JOIN posts \n" +
+                    "ON posts.id = comments.post_id WHERE post_id=?");
+
+            pstmt.setInt(1, postId);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            HashMap postComments = new HashMap();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String postTitle = rs.getString("postTitle");
+                String postDescription = rs.getString("postDescription");
+                int postuserId = rs.getInt("userId");
+                int commentId = rs.getInt("comment_id");
+                String commentMessage = rs.getString("comment_message");
+                int postid = rs.getInt("post_id");
+                int commentUserid = rs.getInt("user_id");
+                Date commentDate = rs.getDate("comment_date");
+
+                postComments.put("id", id);
+                postComments.put("postTitle", postTitle);
+                postComments.put("postDescription", postDescription);
+                postComments.put("postuserId", postuserId);
+                postComments.put("commentId", commentId);
+                postComments.put("commentMessage", commentMessage);
+                postComments.put("postid", postid);
+                postComments.put("commentUserid", commentUserid);
+                postComments.put("commentDate", commentDate);
+            }
+            return postComments;
         }
     }
 
