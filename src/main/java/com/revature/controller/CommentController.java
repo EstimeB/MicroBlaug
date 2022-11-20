@@ -12,8 +12,16 @@ public class CommentController implements Controller {
 
     private final CommentService commentService = new CommentService();
 
-
     public void mapEndPoints(Javalin app) {
+
+
+        // get all comments in the system
+
+        app.get("/comments", (ctx) -> {
+            List<Comment> AllComments = commentService.getAllComments();
+
+            ctx.json(AllComments);
+        });
 
         // find a comment by postId
 

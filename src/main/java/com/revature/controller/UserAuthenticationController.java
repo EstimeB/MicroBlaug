@@ -25,7 +25,6 @@ public class UserAuthenticationController implements Controller {
 
                     try {
                         User user = userService.login(credentials.getUsername(), credentials.getPassword());
-
                         //Create an HTTPSession and associate the user object with that session
                         //HTTPSessions are used to track which client is sending a particular request
                         HttpSession httpSession = ctx.req().getSession();
