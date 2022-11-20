@@ -54,10 +54,10 @@ signupButton.addEventListener("click", (event) => {
     credentials: "include",
   })
     .then((res) => {
-      if (res.status === 200) {
-        window.location.href = 'post/profile.html';
+      if (res.status === 201) {
+        window.location.href = '/MicrobBlaug/src/main/webApp/html/profile.html';
       }else{
-        alert('Invalid Login Information');
+        alert('Invalid Signup Information');
       }
     })
 });
