@@ -8,12 +8,14 @@ public class Profile {
     private String password;
     private String email;
     private String username;
+
+    private String newPassword;
     public Profile() {
 
     }
 
 
-    public Profile(String interest, String firstname, String lastname, String password, String email, String username) {
+    public Profile(String interest, String firstname, String lastname, String password, String email, String username, String newPassword) {
 
         this.interest = interest;
         this.firstname = firstname;
@@ -21,8 +23,17 @@ public class Profile {
         this.password = password;
         this.email = email;
         this.username = username;
+        this.newPassword = newPassword;
     }
 
+    public Profile(String interest, String firstname, String lastname, String password, String email, String username) {
+        this.interest = interest;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.password = password;
+        this.email = email;
+        this.username = username;
+    }
 
     public String getInterest() {
         return interest;
@@ -72,4 +83,13 @@ public class Profile {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public String getNewPassword() {
+        return newPassword;
+    };
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
 }
