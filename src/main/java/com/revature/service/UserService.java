@@ -3,6 +3,7 @@ package com.revature.service;
 import com.revature.dao.UserDAO;
 import com.revature.exception.LoginException;
 import com.revature.exception.SignupException;
+import com.revature.exception.UserUnsuccessfullyAddedException;
 import com.revature.model.User;
 
 import java.sql.SQLException;
@@ -20,14 +21,28 @@ public class UserService {
         return user;
     }
 
-    public User signup(String username, String email, String password) throws SQLException {
-        User user = userDAO.registerNewAccount(username, email, password);
+    public void signup(User user) throws SQLException {
+        user.setUsername(user.getUsername().strip());
+        user.setEmail(user.getEmail().strip());
+        user.setPassword(user.getPassword().strip());
 
-        if (user == null) {
-            throw new SignupException("Invalid Signup");
+        if (user.getUsername().length() == 0) {
+            throw new SignupException("Must include username");
         }
 
-        return user;
+        if (user.getEmail().length() == 0) {
+            throw new SignupException("Must include email");
+        }
+
+        if (user.getPassword().length() == 0) {
+            throw new SignupException("Must include password");
+        }
+
+        int recordsAdded = userDAO.registerNewAccount(user);
+
+        if (recordsAdded != 1) {
+            throw new UserUnsuccessfullyAddedException("User could not be added");
+        }
     }
 
 }
