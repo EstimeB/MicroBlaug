@@ -16,7 +16,7 @@ function myFunction(){
     fetch(`http://127.0.0.1:8080/profileview`,{
     method: 'POST',
     credentials: 'include',
-    body: `{"username": "asdark1", "password":"yyy"}`
+    body: `{"username": "asdark1", "password":"xxx"}`
     //body: `{"username": "${username}", "password":"${password}"}`
 }).then((res) => {
     return res.json();
@@ -94,7 +94,7 @@ fetch(`http://127.0.0.1:8080/profileupdate`,{
                     fetch(`http://127.0.0.1:8080/profiledelete`,{
                     method: 'POST',
                     credentials: 'include',
-                    body: `{"username": "asdark1","password":"yyy"}`
+                    body: `{"username": "asdark1","password":"xxx"}`
                     //body: `{"username": "${username}", "password":"${password}"}`
                     }).then((res) => {
                     alert("Deleted!");
