@@ -6,10 +6,6 @@ body{
     background-color: #DAE0E6;
 }
 
-#container, #display {
-    margin-top: 200px;
-}
-
 h1, h2, h3, h4, h5, p, span, a, label, button, input, li {
     font-family: 'Albert Sans';
     font-style: normal;
