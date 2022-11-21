@@ -4,12 +4,6 @@ import com.revature.model.Post;
 import com.revature.model.User;
 import com.revature.util.ConnectionFactory;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,13 +14,13 @@ public class PostDao {
     //post (C)
     public int createPost(Post post, int uid) throws SQLException {
         try (Connection connection = ConnectionFactory.createConnection()) {
-            PreparedStatement pstmt = connection.prepareStatement
-                    ("INSERT INTO posts (postTitle, postDescription, userId) VALUES (?, ?, ?)");
-            pstmt.setString(1, post.getPostTitle());
-            pstmt.setString(2, post.getPostDescription());
-            pstmt.setInt(3, uid);
+                PreparedStatement pstmt = connection.prepareStatement
+                        ("INSERT INTO posts (postTitle, postDescription, userId) VALUES (?, ?, ?)");
+                pstmt.setString(1, post.getPostTitle());
+                pstmt.setString(2, post.getPostDescription());
+                pstmt.setInt(3, uid);
 
-            return pstmt.executeUpdate();
+                return pstmt.executeUpdate();
         }
     }
 
@@ -42,7 +36,7 @@ public class PostDao {
             if (rs.next()) {
 
                 return new Post(rs.getInt("id"), rs.getString("postTitle"),
-                        rs.getString("postDescription"), rs.getInt("userId"));
+                        rs.getString("postDescription"), rs.getInt("userId"), rs.getDate("postDateCreated"));
             } else {
                 //if no record associated with the id is found
                 return null;
@@ -63,7 +57,7 @@ public class PostDao {
             while (rs.next()) {
 
                 Post post = new Post(rs.getInt("id"), rs.getString("postTitle"),
-                        rs.getString("postDescription"), rs.getInt("userId"));
+                        rs.getString("postDescription"), rs.getInt("userId"), rs.getDate("postDateCreated"));
 
                 userPosts.add(post);
             }
@@ -80,10 +74,8 @@ public class PostDao {
             List<Post> allPosts = new ArrayList<>();
 
             while (rs.next()) {
-
-
                 Post post = new Post(rs.getInt("id"), rs.getString("postTitle"),
-                        rs.getString("postDescription"), rs.getInt("userId"));
+                        rs.getString("postDescription"), rs.getInt("userId"), rs.getDate("postDateCreated"));
 
                 allPosts.add(post);
             }
