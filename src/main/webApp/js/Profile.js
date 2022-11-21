@@ -16,7 +16,10 @@ function myFunction(){
     fetch(`http://127.0.0.1:8080/profileview`,{
     method: 'POST',
     credentials: 'include',
-    body: `{"username": "${username}", "password":"${password}"}`
+
+    body: `{"username": "asdark1", "password":"xxx"}`
+    //body: `{"username": "${username}", "password":"${password}"}`
+
 }).then((res) => {
     return res.json();
 }).then((responseBody) => {
