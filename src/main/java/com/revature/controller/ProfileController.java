@@ -103,20 +103,28 @@ public class ProfileController extends UserAuthenticationController implements C
     //UPDATE ENDPOINT.
         app.post("/profileupdate", (ctx) -> {
             System.out.println("Updated Endpoint Accessed");
-
             Connection connection = ConnectionFactory.createConnection();
             Profile p = ctx.bodyAsClass(Profile.class);
             PreparedStatement pstmt = connection.prepareStatement(
-                "Update userprofiles set interest = ? , firstname =  ? , lastname = ? , username = ? , password = ?, email = ? where username = ? and password = ? ");
-            pstmt.setString(1, p.getInterest());
-            pstmt.setString(2, p.getFirstname());
-            pstmt.setString(3, p.getLastname());
-            pstmt.setString(4, p.getUsername());
-            pstmt.setString(5, p.getNewPassword());
-            pstmt.setString(6, p.getEmail());
-            pstmt.setString(7, p.getUsername());
-            pstmt.setString(8, p.getPassword());
+                "UPDATE userprofiles\n" +
+                        "SET firstname =  ? FROM users WHERE users.user_id = userprofiles.user_id and username = ? and password = ? ;");
+//            PreparedStatement pstmt1 = connection.prepareStatement(
+//                    "Update users set users.password = ? , username = ?  where username = ? and password = ? ");
+            //pstmt.setString(1, p.getInterest());
+            pstmt.setString(1, p.getFirstname());
+            //pstmt.setString(3, p.getLastname());
+            pstmt.setString(2, p.getUsername());
+            pstmt.setString(3, p.getPassword());
+
+            //Users table update
+//            pstmt1.setString(1, p.getNewPassword());
+//            pstmt1.setString(2, p.getUsername());
+//            pstmt1.setString(3, p.getUsername());
+//            pstmt1.setString(4, p.getPassword());
+
             int numberOfRecordsUpdated = pstmt.executeUpdate();
+           // int numberOfRecordsUpdated2 = pstmt1.executeUpdate();
+
             if(numberOfRecordsUpdated < 1){
             ctx.status(400);
             ctx.result("Invalid username");

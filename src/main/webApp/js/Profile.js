@@ -12,8 +12,6 @@ const emailinputElement = document.getElementById('email');
 const interestinputElement = document.getElementById('interest');
 const newPassWordinputElement = document.getElementById('p2word');
 
-console.log(usernameTest);
-console.log(passwordTest);
 
   function myFunction(){
         fetch(`http://127.0.0.1:8080/profileview`,{
