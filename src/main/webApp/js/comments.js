@@ -34,13 +34,13 @@ spanClose.innerHTML = 'close';
 const closeButton = document.createElement('button');
 closeButton.setAttribute('id', 'close-button')
 const closeImage = document.createElement('img');
-closeImage.setAttribute('src', '../images/close.jpg');
+closeImage.setAttribute('src', '/MicroBlaug/src/main/webApp/images/close.jpg');
 writeComment.appendChild(spanClose);
 spanClose.appendChild(closeButton);
 closeButton.appendChild(closeImage);
 
 spanClose.addEventListener('click', () => {
-    window.location.href='/home.html';
+    window.location.href='/MicroBlaug/src/main/webApp/html/home.html';
 });
 
 
@@ -67,7 +67,7 @@ fetch(`${baseUrl}/comments`, {
 
     // avatar
     const avatar = document.createElement('img');
-    avatar.setAttribute('src', '../images/avatar-generic.jpg');
+    avatar.setAttribute('src', '/MicroBlaug/src/main/webApp/images/avatar-generic.jpg');
     avatar.setAttribute('alt', 'avatar placeholder img');
     commentsDisplay.appendChild(avatar);
 
@@ -123,7 +123,7 @@ fetch(`${baseUrl}/comments`, {
     const deleteButton = document.createElement('button');
     deleteButton.setAttribute('id', 'delete-button')
     const deleteImage = document.createElement('img');
-    deleteImage.setAttribute('src', '../images/delete-icon.jpg');
+    deleteImage.setAttribute('src', '/MicroBlaug/src/main/webApp/images/delete-icon.jpg');
     commentsDisplay.appendChild(spanDelete);
     spanDelete.appendChild(deleteButton);
     deleteButton.appendChild(deleteImage);
@@ -151,7 +151,7 @@ fetch(`${baseUrl}/comments`, {
     editCommentButton.setAttribute('id','edit-button');
     editCommentButton.setAttribute('data-id', `${commentId}`);
     const editImage = document.createElement('img');
-    editImage.setAttribute('src', '/images/update.jpg');
+    editImage.setAttribute('src', '/MicroBlaug/src/main/webApp/images/update.jpg');
     commentsDisplay.appendChild(spanEdit);
     spanEdit.appendChild(editCommentButton);
     editCommentButton.appendChild(editImage);
