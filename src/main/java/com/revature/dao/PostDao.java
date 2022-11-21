@@ -1,6 +1,7 @@
 package com.revature.dao;
 
 import com.revature.model.Post;
+import com.revature.model.User;
 import com.revature.util.ConnectionFactory;
 
 import javax.imageio.ImageIO;
@@ -11,31 +12,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class PostDao {
 
     //post (C)
-    public Post createPost(String postTitle, String postDescription, int userId) throws SQLException {
+    public int createPost(Post post, int uid) throws SQLException {
         try (Connection connection = ConnectionFactory.createConnection()) {
             PreparedStatement pstmt = connection.prepareStatement
-                        ("INSERT INTO posts (postTitle, postDescription, userId) VALUES (?, ?, ?)");
-            pstmt.setString(1, postTitle);
-            pstmt.setString(2, postDescription);
-            pstmt.setInt(3, userId);
+                    ("INSERT INTO posts (postTitle, postDescription, userId) VALUES (?, ?, ?)");
+            pstmt.setString(1, post.getPostTitle());
+            pstmt.setString(2, post.getPostDescription());
+            pstmt.setInt(3, uid);
 
-            pstmt.execute();
-
-            ResultSet rs = pstmt.getGeneratedKeys();
-            rs.next();
-            int id = rs.getInt(1);
-            return new Post(id, postTitle, postDescription, userId);
+            return pstmt.executeUpdate();
         }
     }
 
     //get (R)
     public Post getPostsById(int id) throws SQLException {
-        try (Connection connection = ConnectionFactory.createConnection()){
+        try (Connection connection = ConnectionFactory.createConnection()) {
             PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM posts WHERE id = ?");
 
             pstmt.setInt(1, id);
@@ -52,8 +49,9 @@ public class PostDao {
             }
         }
     }
+
     public List<Post> getAllPostsBelongingToUser(int userId) throws SQLException {
-        try (Connection connection = ConnectionFactory.createConnection()){
+        try (Connection connection = ConnectionFactory.createConnection()) {
             PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM posts WHERE userId = ?");
 
             pstmt.setInt(1, userId);
@@ -72,8 +70,9 @@ public class PostDao {
             return userPosts;
         }
     }
+
     public List<Post> getAllPosts() throws SQLException {
-        try (Connection connection = ConnectionFactory.createConnection()){
+        try (Connection connection = ConnectionFactory.createConnection()) {
             PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM posts");
 
             ResultSet rs = pstmt.executeQuery();
@@ -92,17 +91,58 @@ public class PostDao {
         }
     }
 
+    // getting related comments to specific Posts
+
+    public HashMap getPostComments(int postId) throws SQLException {
+        try (Connection connection = ConnectionFactory.createConnection()){
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM comments \n" +
+                    "LEFT JOIN posts \n" +
+                    "ON posts.id = comments.post_id WHERE post_id=?");
+
+            pstmt.setInt(1, postId);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            HashMap postComments = new HashMap();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String postTitle = rs.getString("postTitle");
+                String postDescription = rs.getString("postDescription");
+                int postuserId = rs.getInt("userId");
+                int commentId = rs.getInt("comment_id");
+                String commentMessage = rs.getString("comment_message");
+                int postid = rs.getInt("post_id");
+                int commentUserid = rs.getInt("user_id");
+                Date commentDate = rs.getDate("comment_date");
+
+                postComments.put("id", id);
+                postComments.put("postTitle", postTitle);
+                postComments.put("postDescription", postDescription);
+                postComments.put("postuserId", postuserId);
+                postComments.put("commentId", commentId);
+                postComments.put("commentMessage", commentMessage);
+                postComments.put("postid", postid);
+                postComments.put("commentUserid", commentUserid);
+                postComments.put("commentDate", commentDate);
+            }
+            return postComments;
+        }
+    }
+
     //update (U)
-    public Post updatePost(int id, String postTitle, String postDescription, int userId) throws SQLException {
+    public Post updatePost(Post post) throws SQLException {
         try (Connection connection = ConnectionFactory.createConnection()) {
             PreparedStatement pstmt = connection.prepareStatement("UPDATE posts SET postTitle = ?," +
-                    " postDescription = ?\n" +
+                    " postDescription = ?" +
                     "WHERE id = ?");
-            pstmt.setString(1, postTitle);
-            pstmt.setString(2, postDescription);
+            pstmt.setString(1, post.getPostTitle());
+            pstmt.setString(2, post.getPostDescription());
+            pstmt.setInt(3, post.getId());
 
             pstmt.executeUpdate();
-            return new Post(id, postTitle, postDescription, userId);
+
+            return new Post(post.getId(), post.getPostTitle(), post.getPostDescription(), post.getUserId());
         }
     }
 
@@ -114,10 +154,7 @@ public class PostDao {
 
             pstmt.setInt(1, id);
 
-            int numOfRecordDeleted = pstmt.executeUpdate();
-
-            return numOfRecordDeleted;
+            return pstmt.executeUpdate();
         }
     }
-
 }

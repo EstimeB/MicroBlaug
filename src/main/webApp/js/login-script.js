@@ -1,5 +1,9 @@
 const username = document.getElementById("username");
 const password = document.getElementById("password");
+ 
+
+// const usernameTest = "John";
+// const passwordTest = "Doe";
 
 const loginButton = document.getElementById("login-btn");
 
@@ -55,7 +59,7 @@ signupButton.addEventListener("click", (event) => {
   })
     .then((res) => {
       if (res.status === 201) {
-        window.location.href = '/MicrobBlaug/src/main/webApp/html/profile.html';
+        window.location.href = '/MicroBlaug/src/main/webApp/html/login-signup.html';
       }else{
         alert('Invalid Signup Information');
       }

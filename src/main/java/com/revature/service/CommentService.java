@@ -10,6 +10,10 @@ public class CommentService {
 
     private CommentDao commentDao = new CommentDao();
 
+    public List<Comment> getAllComments() throws SQLException {
+        return  commentDao.getAllComments();
+    }
+
     public List<Comment> findCommentByPostId(int postId) throws SQLException {
         return commentDao.findCommentByPostId(postId);
     }

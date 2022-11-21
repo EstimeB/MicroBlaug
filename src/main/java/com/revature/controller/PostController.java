@@ -9,6 +9,7 @@ import com.revature.service.PostService;
 import io.javalin.Javalin;
 import jakarta.servlet.http.HttpSession;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class PostController implements Controller {
@@ -30,9 +31,9 @@ public class PostController implements Controller {
                 ctx.status(401); // Unauthorized
             } else {
                 try {
-                    Post createdPost = postService.createPost(post.getPostTitle(), post.getPostDescription(), user.getUser_id());
+                    postService.createPost(post, user.getUser_id());
                     ctx.status(201); // created
-                    ctx.json(createdPost);
+                    ctx.json(post);
                 } catch (IllegalArgumentException | PostUnsuccessfullyCreated e) {
                     ctx.result(e.getMessage());
                     ctx.status(400); //Bad Request
@@ -41,8 +42,8 @@ public class PostController implements Controller {
 
         });
 
-        //get by id
-        app.get("/posts/{id}", (ctx) -> {
+        //get post by post id
+        app.get("/post/{id}", (ctx) -> {
 
             String postId = ctx.pathParam("id");
 
@@ -50,6 +51,7 @@ public class PostController implements Controller {
                 int pId = Integer.parseInt(postId);
                 Post post = postService.getPostsById(pId);
                 ctx.json(post);
+                ctx.status(200);
             } catch (NumberFormatException e) {
                 ctx.result("Id " + postId + " must be a valid integer");
                 ctx.status(400); // 400 BAD REQUEST
@@ -70,8 +72,14 @@ public class PostController implements Controller {
                 ctx.json(new Message("Not logged in!"));
                 ctx.status(401);
             } else {
+                try{
                 List<Post> posts = postService.getAllPostsBelongingToUser(user.getUser_id());
                 ctx.json(posts);
+                ctx.status(200);
+                } catch (NumberFormatException e) {
+                    ctx.result("Id "+user.getUser_id()+" must be a valid int!");
+                    ctx.status(400);
+                }
             }
 
         });
@@ -82,19 +90,36 @@ public class PostController implements Controller {
             ctx.json(posts);
         });
 
+        // get all related comments for specific post Id
+        app.get("/postcomments/{postId}", (ctx) -> {
+            String postId = ctx.pathParam("postId");
+            int pId = Integer.parseInt(postId);
+            HashMap postcomments = postService.getPostComments(pId);
+            ctx.json(postcomments);
+        });
+
         //update post
-        app.put("/posts/{id}", (ctx) -> {
-            //method is currently creating new posts
-            //need to work in having it get existing post then update it
-            Post updatePost = ctx.bodyAsClass(Post.class);
-            try {
-                postService.updatePost(updatePost.getId(),
-                        updatePost.getPostTitle(), updatePost.getPostDescription(), updatePost.getUserId());
-                ctx.json(updatePost);
-                ctx.status(200);
-            } catch (IllegalArgumentException | PostUnsuccessfullyCreated e) {
-                ctx.result(e.getMessage());
-                ctx.status(400);
+        app.put("/updatePost", (ctx) -> {
+            //String postId = ctx.pathParam("id");
+
+            HttpSession httpSession = ctx.req().getSession();
+            User user = (User) httpSession.getAttribute("user_info");
+
+            Post post = ctx.bodyAsClass(Post.class);
+
+            if (user == null) {
+                ctx.json(new Message("Not logged in!"));
+                ctx.status(401); // Unauthorized
+            } else {
+                try {
+                    //int pId = Integer.parseInt(postId);
+                    Post updatePost = postService.updatePost(post);
+                    ctx.json(updatePost);
+                    ctx.status(201);
+                } catch (IllegalArgumentException | PostUnsuccessfullyCreated e) {
+                    ctx.result(e.getMessage());
+                    ctx.status(400);
+                }
             }
         });
 
@@ -112,7 +137,8 @@ public class PostController implements Controller {
                 try {
                     int pId = Integer.parseInt(postId);
                     int deletePost = postService.deletePost(pId);
-                    ctx.json(deletePost);
+                    ctx.json("Post with Id: "+pId+" has been deleted");
+                    ctx.status(200);
                 } catch (PostNotFoundException e) {
                     ctx.result(e.getMessage());
                     ctx.status(404);

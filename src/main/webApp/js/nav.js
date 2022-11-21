@@ -1,13 +1,20 @@
+// Logo - Header div
+const navbarIdonHtmlPage = document.getElementById('navbar');
+const topLevelDiv = document.createElement('div');
+topLevelDiv.classList.add('header');
+topLevelDiv.setAttribute('id', 'nav-container');
+navbarIdonHtmlPage.appendChild(topLevelDiv);
 
-// Logo
-const logo = document.createElement('a');
-logo.setAttribute('id', 'logo');
-const navbar = document.getElementById('navbar');
-logo.innerHTML = 'MicroBlaug';
-navbar.append(logo);
+// project logo image in Navigation
+const projectName = document.createElement('span');
+const logoImage = document.createElement('img');
+logoImage.setAttribute('src', '/MicroBlaug/src/main/webApp/images/micro-blue-logo-2000-500.png');
+logoImage.setAttribute('id', 'logo-image');
+logoImage.setAttribute('alt', 'Microblaug logo-image');
+projectName.appendChild(logoImage);
+topLevelDiv.appendChild(projectName);
 
-
-// Navbar Links Div
+// // Navbar Links Div
 const navLinksDiv = document.createElement('div');
 navLinksDiv.setAttribute('id', 'navbar-right');
 navbar.appendChild(navLinksDiv);

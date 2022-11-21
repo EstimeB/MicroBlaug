@@ -1,10 +1,8 @@
-import com.revature.controller.CommentController;
-import com.revature.controller.Controller;
-import com.revature.controller.PostController;
-import com.revature.controller.UserAuthenticationController;
+import com.revature.controller.*;
 import io.javalin.Javalin;
 
-public class Main {
+public class
+Main {
     public static void main(String[] args) {
         Javalin app = Javalin.create((config) -> {
             config.plugins.enableCors((cors) -> {
@@ -23,7 +21,7 @@ public class Main {
         });
 
 
-        Controller[] controllers = { new UserAuthenticationController(), new PostController(), new CommentController()};
+        Controller[] controllers = { new UserAuthenticationController(), new PostController(), new CommentController(), new ProfileController()};
 
 
         for (Controller c : controllers) {
