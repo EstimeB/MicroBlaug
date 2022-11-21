@@ -13,7 +13,6 @@ public class UserAuthenticationController implements Controller {
 
     private UserService userService = new UserService();
     private static final String LOGOUT = "logout";
-    public static UserService userService = new UserService();
     public static String uName;
     public static String uPass;
     
