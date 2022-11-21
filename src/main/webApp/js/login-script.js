@@ -1,5 +1,9 @@
 const username = document.getElementById("username");
 const password = document.getElementById("password");
+ 
+
+// const usernameTest = "John";
+// const passwordTest = "Doe";
 
 const loginButton = document.getElementById("login-btn");
 

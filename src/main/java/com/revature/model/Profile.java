@@ -14,6 +14,10 @@ public class Profile {
 
     }
 
+    public Profile(String username, String password) {
+        this.password = password;
+        this.username = username;
+    }
 
     public Profile(String interest, String firstname, String lastname, String password, String email, String username, String newPassword) {
 
