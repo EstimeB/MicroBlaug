@@ -16,35 +16,65 @@ topLevelDiv.appendChild(projectName);
 
 // // Navbar Links Div
 const navLinksDiv = document.createElement('div');
-navLinksDiv.setAttribute('id', 'menu-links-div');
-navLinksDiv.classList.add('header-right');
-topLevelDiv.appendChild(navLinksDiv);
+navLinksDiv.setAttribute('id', 'navbar-right');
+navbar.appendChild(navLinksDiv);
 
-// // Navbar Links
-const link_1 = document.createElement('a');
-link_1.setAttribute('href', '/MicroBlaug/src/main/webApp/html/home.html');
-navLinksDiv.appendChild(link_1 );
-link_1 .innerHTML = 'Home';
 
-const link_2 = document.createElement('a');
-link_2.setAttribute('href', '/MicroBlaug/src/main/webApp/html/post/dashboard.html');
-navLinksDiv.appendChild(link_2);
-link_2.innerHTML = 'Dashboard';
+// Nav Links
+const link1 = document.createElement('a');
+link1.classList.add('active');
+link1.setAttribute('href', '/MicroBlaug/src/main/webApp/html/home.html');
+navLinksDiv.appendChild(link1);
+link1.innerHTML = 'Home';
 
-const link_3 = document.createElement('a');
-link_3.setAttribute('href', '/MicroBlaug/src/main/webApp/html/profile.html');
-link_3.innerHTML = 'Profile';
-navLinksDiv.appendChild(link_3);
+const link2 = document.createElement('a');
+link2.setAttribute('href', '/MicroBlaug/src/main/webApp/html/post/dashboard.html');
+navLinksDiv.appendChild(link2);
+link2.innerHTML = 'Dashboard';
 
-var link_4 = document.createElement('a');
-link_4.setAttribute('id', 'loginLink');
-link_4.setAttribute('href', '/MicroBlaug/src/main/webApp/html/login-signup.html');
-link_4.innerHTML = 'Login/Signup';
-navLinksDiv.appendChild(link_4);
+const link3 = document.createElement('a');
+link3.setAttribute('href', '/MicroBlaug/src/main/webApp/html/profile.html');
+navLinksDiv.appendChild(link3);
+link3.innerHTML = 'Profile';
 
-var link_5 = document.createElement('a');
-link_5.setAttribute('id', 'logoutLink');
-link_5.style.display = 'none';
-link_5.setAttribute('href', '/MicroBlaug/src/main/webApp/html/logout.html');
-link_5.innerHTML = 'Log Out';
-navLinksDiv.appendChild(link_5);
+const link4 = document.createElement('a');
+link4.setAttribute('href', '/MicroBlaug/src/main/webApp/html/login-signup.html');
+navLinksDiv.appendChild(link4);
+link4.innerHTML = 'Logout';
+link4.addEventListener("click", (event) => {
+  event.preventDefault();
+  fetch(`http://localhost:8080/logout`, {
+    method: "POST",
+    credentials: "include",
+  })
+    .then((res) => {
+      if (res.status === 200) {
+        window.location.href = '/MicroBlaug/src/main/webApp/html/login-signup.html';
+      }else{
+        alert('failed to logout');
+      }
+    })
+});
+
+const link5 = document.createElement('a');
+navLinksDiv.appendChild(link5);
+const avatarImg = document.createElement('img');
+avatarImg.setAttribute('src', '/images/avatar-generic.jpg');
+link5.setAttribute('href', '/MicroBlaug/src/main/webApp/html/login-signup.html');
+link5.appendChild(avatarImg);
+link5.innerHTML = 'Login';
+
+
+
+// When the user scrolls down 80px from the top of the document, resize the navbar's padding and the logo's font size
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+    document.getElementById("navbar").style.padding = "20px 10px";
+    document.getElementById("logo").style.fontSize = "25px";
+  } else {
+    document.getElementById("navbar").style.padding = "30px 10px";
+    document.getElementById("logo").style.fontSize = "35px";
+  }
+}
