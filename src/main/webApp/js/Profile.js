@@ -1,3 +1,4 @@
+ 
 //const baseUrl = 'http://127.0.0.1:8080'
 const submitButtonElement = document.getElementById('submit');
 const viewButtonElement = document.getElementById('vbtn');
@@ -11,38 +12,36 @@ const emailinputElement = document.getElementById('email');
 const interestinputElement = document.getElementById('interest');
 const newPassWordinputElement = document.getElementById('p2word');
 
-//Sending post request to profile view with username x and password x on page load
-function myFunction(){
-    fetch(`http://127.0.0.1:8080/profileview`,{
-    method: 'POST',
-    credentials: 'include',
-    body: `{"username": "asdark1", "password":"yyy"}`
-    //body: `{"username": "${username}", "password":"${password}"}`
-}).then((res) => {
-    return res.json();
-}).then((responseBody) => {
-    console.log(responseBody)
-    const interest = responseBody.interest;
-    const firstname = responseBody.firstname;
-    const lastname = responseBody.lastname;
-    const password = responseBody.password;
-    const email = responseBody.email;
-    const username = responseBody.username;
-    const p1 = document.createElement('p');
-    p1.innerHTML = ` Username : ${username}`;
-    const p2 = document.createElement('p');
-    p2.innerHTML = ` Password : ${password}`;
-    const p3 = document.createElement('p');
-    p3.innerHTML = ` Firstname : ${firstname}`;
+console.log(usernameTest);
+console.log(passwordTest);
 
-    const p4 = document.createElement('p');
-    p4.innerHTML = `Lastname : ${lastname}`;
-
-    const p5 = document.createElement('p');
-    p5.innerHTML = `Email : ${email}`;
-
-    const p6 = document.createElement('p');
-    p6.innerHTML = `Interest : ${interest}`;
+  function myFunction(){
+        fetch(`http://127.0.0.1:8080/profileview`,{
+     method: 'POST',
+     credentials: 'include',
+       body:`{"username": "${username}", "password":"${password}"}`
+                }).then((res) => {
+             return res.json();
+            }).then((responseBody) => {
+            console.log(responseBody)
+            const interest = responseBody.interest;
+            const firstname = responseBody.firstname;
+             const lastname = responseBody.lastname;
+            const password = responseBody.password;
+            const email = responseBody.email;
+            const username = responseBody.username;
+            const p1 = document.createElement('p');
+            p1.innerHTML = ` Username : ${username}`;
+            const p2 = document.createElement('p');
+            p2.innerHTML = ` Password : ${password}`;
+            const p3 = document.createElement('p');
+            p3.innerHTML = ` Firstname : ${firstname}`;
+            const p4 = document.createElement('p');
+            p4.innerHTML = `Lastname : ${lastname}`;
+            const p5 = document.createElement('p');
+            p5.innerHTML = `Email : ${email}`;
+            const p6 = document.createElement('p');
+            p6.innerHTML = `Interest : ${interest}`;
 
          const userInfoDivElement = document.getElementById("userinfo");
             userInfoDivElement.appendChild(p1);
@@ -94,8 +93,8 @@ fetch(`http://127.0.0.1:8080/profileupdate`,{
                     fetch(`http://127.0.0.1:8080/profiledelete`,{
                     method: 'POST',
                     credentials: 'include',
-                    body: `{"username": "asdark1","password":"yyy"}`
-                    //body: `{"username": "${username}", "password":"${password}"}`
+                
+                    body: `{"username": "${username}", "password":"${password}"}`
                     }).then((res) => {
                     alert("Deleted!");
                     window.location.href = 'login-signup.html';
