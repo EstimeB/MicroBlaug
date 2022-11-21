@@ -13,7 +13,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import static com.revature.controller.UserAuthenticationController.userService;
 
 public class ProfileController extends UserAuthenticationController implements Controller{
 
@@ -57,19 +56,9 @@ public class ProfileController extends UserAuthenticationController implements C
         app.post("/profileview", (ctx) -> {
                System.out.println("Query Endpoint Accessed");
                 Connection connection = ConnectionFactory.createConnection();
-//               Profile p = ctx.bodyAsClass(Profile.class);
-//
-// HttpSession httpSession = ctx.req().getSession();
-//          User loggedInUser = (User) httpSession.getAttribute("user_info");
-//
-//          String loggedInUserName =  loggedInUser.getUsername();
-//            String loggedInPassWord = loggedInUser.getPassword();
-                //HttpSession httpSession = ctx.req().getSession();
-//               httpSession.getAttribute("user_info");
-
                 PreparedStatement pstmt1 = connection.prepareStatement("SELECT * FROM users LEFT JOIN userprofiles on users.user_id = userprofiles.user_id WHERE username = ? and password = ?");
-            String u = uName;
-            String pw = uPass;
+                String u = uName;
+                String pw = uPass;
                 System.out.println(u);
                 System.out.println(pw);
                 pstmt1.setString(1, u);
@@ -83,21 +72,20 @@ public class ProfileController extends UserAuthenticationController implements C
                  String firstname = rs1.getString("firstname");
                  String lastname = rs1.getString("lastname");
                  String interest = rs1.getString("interest");
-                Profile p1 = new Profile(interest, firstname, lastname, password, email, username );
+                 Profile p1 = new Profile(interest, firstname, lastname, password, email, username );
 //                 System.out.println(p.getInterest());
 //                 System.out.println(p.getFirstname());
 //                 System.out.println(p.getLastname());
 //                 System.out.println(p.getPassword());
 //                 System.out.println(p.getEmail());
 //                System.out.println(p.getUsername());
-                 ctx.json(p1);
-                 ctx.status(200);
-
-                    }else{
-                 ctx.result("User not found.");
-                 ctx.status(400);
+                  ctx.json(p1);
+                  ctx.status(200);
+                   }else{
+                   ctx.result("User not found.");
+                   ctx.status(400);
                    }
-                    });
+                   });
 
 
     //UPDATE ENDPOINT.
@@ -108,22 +96,28 @@ public class ProfileController extends UserAuthenticationController implements C
             PreparedStatement pstmt = connection.prepareStatement(
                 "UPDATE userprofiles\n" +
                         "SET firstname =  ? FROM users WHERE users.user_id = userprofiles.user_id and username = ? and password = ? ;");
-//            PreparedStatement pstmt1 = connection.prepareStatement(
-//                    "Update users set users.password = ? , username = ?  where username = ? and password = ? ");
-            //pstmt.setString(1, p.getInterest());
+            PreparedStatement pstmt1 = connection.prepareStatement(
+                    "UPDATE userprofiles\n" +
+                            "SET lastname =  ? FROM users WHERE users.user_id = userprofiles.user_id and username = ? and password = ? ;");
+            PreparedStatement pstmt2 = connection.prepareStatement(
+                    "UPDATE users\n" +
+                            "SET email =  ? FROM userprofiles WHERE users.user_id = userprofiles.user_id and username = ? and password = ? ;");
+
             pstmt.setString(1, p.getFirstname());
-            //pstmt.setString(3, p.getLastname());
             pstmt.setString(2, p.getUsername());
             pstmt.setString(3, p.getPassword());
 
-            //Users table update
-//            pstmt1.setString(1, p.getNewPassword());
-//            pstmt1.setString(2, p.getUsername());
-//            pstmt1.setString(3, p.getUsername());
-//            pstmt1.setString(4, p.getPassword());
+            pstmt1.setString(1, p.getLastname());
+            pstmt1.setString(2, p.getUsername());
+            pstmt1.setString(3, p.getPassword());
+
+            pstmt2.setString(1, p.getEmail());
+            pstmt2.setString(2, p.getUsername());
+            pstmt2.setString(3, p.getPassword());
 
             int numberOfRecordsUpdated = pstmt.executeUpdate();
-           // int numberOfRecordsUpdated2 = pstmt1.executeUpdate();
+            int numberOfRecordsUpdated1 = pstmt1.executeUpdate();
+            int numberOfRecordsUpdated2 = pstmt2.executeUpdate();
 
             if(numberOfRecordsUpdated < 1){
             ctx.status(400);
@@ -131,9 +125,8 @@ public class ProfileController extends UserAuthenticationController implements C
             }else {
             ctx.status(200);
             ctx.result(numberOfRecordsUpdated + " record(s) updated");
-            }
-
-                            });
+                   }
+            });
 
 
         //DELETE ENDPOINT
