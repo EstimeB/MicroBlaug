@@ -1,3 +1,4 @@
+ 
 //const baseUrl = 'http://127.0.0.1:8080'
 const submitButtonElement = document.getElementById('submit');
 const viewButtonElement = document.getElementById('vbtn');
@@ -11,12 +12,14 @@ const emailinputElement = document.getElementById('email');
 const interestinputElement = document.getElementById('interest');
 const newPassWordinputElement = document.getElementById('p2word');
 
+
 //Sending post request to profile view with username x and password x on page load
 function myFunction(){
     fetch(`http://127.0.0.1:8080/profileview`,{
     method: 'POST',
     credentials: 'include',
-    body: `{"username": "${username}", "password":"${password}"}`
+   body: `{"username": "${username}", "password":"${password}"}`
+
 }).then((res) => {
     return res.json();
 }).then((responseBody) => {
@@ -33,34 +36,24 @@ function myFunction(){
     p2.innerHTML = ` Password : ${password}`;
     const p3 = document.createElement('p');
     p3.innerHTML = ` Firstname : ${firstname}`;
-
     const p4 = document.createElement('p');
     p4.innerHTML = `Lastname : ${lastname}`;
-
     const p5 = document.createElement('p');
     p5.innerHTML = `Email : ${email}`;
-
     const p6 = document.createElement('p');
     p6.innerHTML = `Interest : ${interest}`;
-
-         const userInfoDivElement = document.getElementById("userinfo");
-            userInfoDivElement.appendChild(p1);
-         userInfoDivElement.appendChild(p2);
-            userInfoDivElement.appendChild(p3);
-         userInfoDivElement.appendChild(p4);
-          userInfoDivElement.appendChild(p5);
-             userInfoDivElement.appendChild(p6);
-             console.log(12);
-            });
- 
-            }
-
-
-
+    const userInfoDivElement = document.getElementById("userinfo");
+    userInfoDivElement.appendChild(p1);
+    userInfoDivElement.appendChild(p2);
+    userInfoDivElement.appendChild(p3);
+    userInfoDivElement.appendChild(p4);
+    userInfoDivElement.appendChild(p5);
+    userInfoDivElement.appendChild(p6);
+      }
+    )}
 
 var count = 1;
 function showDiv() {
-    
     count++;
     if(count % 2 == 0){
         document.getElementById('form').style.display = "block";
@@ -68,11 +61,6 @@ function showDiv() {
         document.getElementById('form').style.display = "none";
     }
  }
-
-//updateButtonElement.addEventListener('click', showDiv());
-
-
-
 
 function updateProf(){ 
 fetch(`http://127.0.0.1:8080/profileupdate`,{
@@ -82,25 +70,21 @@ fetch(`http://127.0.0.1:8080/profileupdate`,{
      }).then((res) => {
         if(res.status == 200){
             alert("Update Success!");
-    
             window.location.reload();
-         }
+                  }
+               }) 
+            };
         
-        }) 
-        };
-        
-            function deleteProf(){ 
-                    fetch(`http://127.0.0.1:8080/profiledelete`,{
-                    method: 'POST',
-                    credentials: 'include',
-                    body: `{"username": "asdark1","password":"xxx"}`
-                    //body: `{"username": "${username}", "password":"${password}"}`
-                    }).then((res) => {
-                    alert("Deleted!");
-                    window.location.href = 'login-signup.html';
-                    
-                    }) 
-                };
+   function deleteProf(){ 
+         fetch(`http://127.0.0.1:8080/profiledelete`,{
+         method: 'POST',
+         credentials: 'include',
+         body: `{"username": "${username}", "password":"${password}"}`
+         }).then((res) => {
+         alert("Deleted!");
+         window.location.href = 'login-signup.html';
+         }) 
+         };
 
     
 
