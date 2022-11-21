@@ -31,9 +31,23 @@ navLinksDiv.appendChild(link3);
 link3.innerHTML = 'Profile';
 
 const link4 = document.createElement('a');
-link4.setAttribute('href', '/MicroBlaug/src/main/webApp/html/logout.html');
+link4.setAttribute('href', '/MicroBlaug/src/main/webApp/html/login-signup.html');
 navLinksDiv.appendChild(link4);
 link4.innerHTML = 'Logout';
+link4.addEventListener("click", (event) => {
+  event.preventDefault();
+  fetch(`http://localhost:8080/logout`, {
+    method: "POST",
+    credentials: "include",
+  })
+    .then((res) => {
+      if (res.status === 200) {
+        window.location.href = '/MicroBlaug/src/main/webApp/html/login-signup.html';
+      }else{
+        alert('failed to logout');
+      }
+    })
+});
 
 const link5 = document.createElement('a');
 navLinksDiv.appendChild(link5);

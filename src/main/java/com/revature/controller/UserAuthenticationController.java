@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpSession;
 public class UserAuthenticationController implements Controller {
 
     private UserService userService = new UserService();
-
+    private static final String LOGOUT = "logout";
     @Override
     public void mapEndPoints(Javalin app) {
             app.post("/login", (ctx) -> {
@@ -37,6 +37,14 @@ public class UserAuthenticationController implements Controller {
                         ctx.json(new Message(e.getMessage()));
                     }
                 }
+            });
+
+            app.post("/logout", (ctx) -> {
+                System.out.println("hit it");
+                HttpSession httpSession = ctx.req().getSession();
+                httpSession.invalidate();
+                ctx.req().logout();
+                httpSession = ctx.req().getSession();
             });
 
             app.get("/current-user", (ctx) -> {
