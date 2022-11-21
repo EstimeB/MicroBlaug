@@ -48,6 +48,14 @@ public class UserAuthenticationController implements Controller {
                     ctx.json(loggedInUser);
                 }
             });
+            
+            app.post("/logout", (ctx) -> {
+                System.out.println("hit it");
+                HttpSession httpSession = ctx.req().getSession();
+                httpSession.invalidate();
+                ctx.req().logout();
+                httpSession = ctx.req().getSession();
+            });
 
         app.post("/signup", (ctx -> {
             User userToAdd = ctx.bodyAsClass(User.class);
