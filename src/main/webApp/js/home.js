@@ -66,7 +66,7 @@ fetch(`${baseUrl}/posts`, {
     mainButtonDivs.appendChild(commentsbutton);
     commentsbutton.addEventListener('click', addComments);
     function addComments(){
-        window.location.href="/display.html";
+        window.location.href="/MicroBlaug/src/main/webApp/html/display.html";
     }
 
 
