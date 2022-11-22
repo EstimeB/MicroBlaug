@@ -11,13 +11,12 @@ function showPostForm() {
 
 //sending data collected from input el from the browser to the back end to create a new post
 const postFormHandler = async () => {
-
     await fetch(`${baseUrl}/dashboard`, {
         method: 'POST',
         body:  `{"postTitle":"${postTitleInputEl.value}","postDescription":"${postDescriptionEl.value}"}`,
         credentials: 'include'
     }).then((res) => {
-        if (res.ok) {
+        if (res === 201) {
             alert('Your Post Has Successfully Been Created');
             document.location.reload();
         } else {
@@ -33,9 +32,12 @@ submitCreatePostFormBtn.addEventListener('click', postFormHandler);
 //to open delete feature modal and render post data associated with the id
 // passed in retrieved from database
 const openDelModal = async (event) => {
+    if (postForm.style.visibility === '') {
+        postForm.style.visibility = 'hidden';
+        createNewPostBtn.style.visibility = '';
+    }
     if (event.target.hasAttribute('data-id')) {
         const id = event.target.getAttribute('data-id');
-        console.log(id);
         await fetch(`${baseUrl}/post/${id}`, {
             method: 'GET',
             credentials: 'include'
@@ -47,12 +49,16 @@ const openDelModal = async (event) => {
             const pd = document.getElementById('cpostDescription');
             const conDelBtn = document.getElementById('conDel');
             const delCancelBtn = document.getElementById('delCancel');
+            const uid = document.getElementById('useridD');
+            const date = document.getElementById('date2');
 
             conDelBtn.setAttribute('data-id', `${post.id}`);
 
             id.innerHTML = post.id;
             pt.innerHTML = post.postTitle;
             pd.innerHTML = post.postDescription;
+            uid.innerHTML = `User Id: ${post.userId}`;
+            date.innerHTML = `Date Posted: ${post.postDateCreated}`;
 
             document.getElementById('modal1').style.display = 'block';
 
@@ -65,14 +71,13 @@ const openDelModal = async (event) => {
 //will abort the deletion process and close the modal
 const cancelDeletion = () => {
     document.getElementById('modal1').style.display = 'none';
-    document.location.reload();
+    // document.location.reload();
 }
 
 //will find and delete all data associated with the id passed in
 const deletePost = async (event) => {
     if (event.target.hasAttribute('data-id')) {
         const id = event.target.getAttribute('data-id');
-        console.log(id);
         await fetch(`${baseUrl}/deletePost/${id}`, {
             method: 'DELETE',
             credentials: 'include'
