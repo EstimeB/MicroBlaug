@@ -103,6 +103,10 @@ public class ProfileController extends UserAuthenticationController implements C
                     "UPDATE users\n" +
                             "SET email =  ? FROM userprofiles WHERE users.user_id = userprofiles.user_id and username = ? and password = ? ;");
 
+            PreparedStatement pstmt3 = connection.prepareStatement(
+                    "UPDATE userprofiles\n" +
+                            "SET interest =  ? FROM userprofiles WHERE users.user_id = userprofiles.user_id and username = ? and password = ? ;");
+
             pstmt.setString(1, p.getFirstname());
             pstmt.setString(2, p.getUsername());
             pstmt.setString(3, p.getPassword());
@@ -115,9 +119,14 @@ public class ProfileController extends UserAuthenticationController implements C
             pstmt2.setString(2, p.getUsername());
             pstmt2.setString(3, p.getPassword());
 
+            pstmt3.setString(1, p.getEmail());
+            pstmt3.setString(2, p.getUsername());
+            pstmt3.setString(3, p.getPassword());
+
             int numberOfRecordsUpdated = pstmt.executeUpdate();
             int numberOfRecordsUpdated1 = pstmt1.executeUpdate();
             int numberOfRecordsUpdated2 = pstmt2.executeUpdate();
+            int numberOfRecordsUpdated3 = pstmt2.executeUpdate();
 
             if(numberOfRecordsUpdated < 1){
             ctx.status(400);
