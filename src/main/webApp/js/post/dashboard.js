@@ -15,7 +15,7 @@ async function getUserPosts() {
         credentials: 'include'
     }).then((res) => {
         return res.json();
-    }).then((posts, event) => {
+    }).then((posts) => {
         const outerDiv = document.querySelector('#innerContainer');
         for (post of posts) {
             const innerDiv = document.createElement('div');
@@ -57,9 +57,9 @@ async function getUserPosts() {
             h3.style.marginLeft = '2%'
             h3.style.marginRight = '2%'
 
-            iconsDiv.style.float = 'right';
+            // iconsDiv.style.float = 'right';
             iconsDiv.style.marginRight = '15px';
-            iconsDiv.style.marginTop = '-4.7%';
+            iconsDiv.style.margin = '-3% 0 3% 85%';
 
             upImg.style.marginRight = '15px';
 

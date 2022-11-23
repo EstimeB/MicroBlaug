@@ -21,7 +21,7 @@
 
         <!-- user posts -->
         <div class="pContainer">
-            <h2>User Posts</h2>
+            <h2>User Posts:</h2>
             <div id="innerContainer">
                 <figure>
                     <!-- for image -->
@@ -35,13 +35,16 @@
                 <div class="modalContent">
                     <h3 id="pstid"></h3>
                     <label for="pstTitle">Title:</label><br>
-                    <input type="text" id="pstTitle" name="postTitle"><br>
+                    <textarea type="text" id="pstTitle" name="postTitle"></textarea><br><br>
                     <label for="pstDescription">Description:</label><br>
                     <textarea type="text" id="pstDescription" name="Description"></textarea><br>
+                    <p id="useridU"></p>
+                    <p id="date1"></p>
                     <button id="conUpdate">Update</button>
                     <button id="cancelUpdate">
                         Cancel
                     </button>
+                    <p class="line"></p>
                 </div>
             </div>
         </div>
@@ -56,11 +59,13 @@
                         <h4 id="cpostTitle"></h4>
                         <h3>Post Description:</h3>
                         <p id="cpostDescription"></p>
-                        <p id="userid"></p>
+                        <p id="useridD"></p>
+                        <p id="date2"></p>
                         <button id="conDel">Confirm Deletion</button>
                         <button id="delCancel">
                             Cancel
                         </button>
+                        <p class="line"></p>
                     </div>
                 </div>
             </div>
@@ -74,7 +79,7 @@
         <div id="container" style="visibility: hidden">
             <form method="post" action="">
                 <label for="pTitle">Title:</label><br>
-                <input type="text" id="pTitle" name="postTitle"><br>
+                <textarea type="text" id="pTitle" name="postTitle"></textarea><br><br>
                 <label for="pDescription">Description:</label><br>
                 <textarea type="text" id="pDescription" name="postDescription"></textarea><br>
                 <!--<input type="file" id="myFile" name="filename"><br><br>-->

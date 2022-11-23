@@ -17,7 +17,7 @@ topLevelDiv.appendChild(projectName);
 // // Navbar Links Div
 const navLinksDiv = document.createElement('div');
 navLinksDiv.setAttribute('id', 'navbar-right');
-navbar.appendChild(navLinksDiv);
+topLevelDiv.appendChild(navLinksDiv);
 
 
 // Nav Links
