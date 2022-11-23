@@ -15,7 +15,7 @@ const newPassWordinputElement = document.getElementById('p2word');
 
 //Sending post request to profile view with username x and password x on page load
 function myFunction(){
-    fetch(`http://127.0.0.1:8080/profileview`,{
+    fetch(`http://localhost/profileview`,{
     method: 'POST',
     credentials: 'include',
    body: `{"username": "${username}", "password":"${password}"}`
@@ -63,7 +63,7 @@ function showDiv() {
  }
 
 function updateProf(){ 
-fetch(`http://127.0.0.1:8080/profileupdate`,{
+fetch(`http://localhost/profileupdate`,{
          method: 'POST',
          credentials: 'include',
          body: `{"username": "${usernameinputElement.value}","email": "${emailinputElement.value}","interest": "${interestinputElement.value}","firstname":"${firstnameinputElement.value}", "lastname": "${lastnameinputElement.value}","password":"${passwordinputElement.value}", "newPassword": "${newPassWordinputElement.value}"}`
@@ -76,7 +76,7 @@ fetch(`http://127.0.0.1:8080/profileupdate`,{
             };
         
    function deleteProf(){ 
-         fetch(`http://127.0.0.1:8080/profiledelete`,{
+         fetch(`http://localhost/profiledelete`,{
          method: 'POST',
          credentials: 'include',
          body: `{"username": "${username}", "password":"${password}"}`
