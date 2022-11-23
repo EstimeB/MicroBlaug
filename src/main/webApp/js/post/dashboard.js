@@ -10,13 +10,12 @@ const submitCreatePostFormBtn = document.querySelector('#createPostBtn');
 
 //will render signed-in user posts titles
 async function getUserPosts() {
-    await fetch(`${baseUrl}/userPosts`, {
+    const res = await fetch(`${baseUrl}/dashboard/userPosts`, {
         method: 'GET',
         credentials: 'include'
-    }).then((res) => {
-        return res.json();
-    }).then((posts) => {
-        const outerDiv = document.querySelector('#innerContainer');
+    });
+    const posts = await res.json();
+    const outerDiv = document.querySelector('#innerContainer');
         for (post of posts) {
             const innerDiv = document.createElement('div');
             var upImg = document.createElement('IMG');
@@ -66,7 +65,6 @@ async function getUserPosts() {
 
             upImg.addEventListener('click', openUpdatePostModal);
             delImg.addEventListener('click', openDelModal);
-        }
 
-    });
+        };
 }
