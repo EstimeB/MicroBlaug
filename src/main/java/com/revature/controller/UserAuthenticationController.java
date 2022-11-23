@@ -2,6 +2,7 @@ package com.revature.controller;
 
 import com.revature.dto.LoginCredentials;
 import com.revature.dto.Message;
+import com.revature.dto.SignupCredentials;
 import com.revature.exception.LoginException;
 import com.revature.exception.UserUnsuccessfullyAddedException;
 import com.revature.model.User;
@@ -29,8 +30,6 @@ public class UserAuthenticationController implements Controller {
                 } else {
 
                     try {
-                        System.out.println(credentials.getUsername());
-                        System.out.println(credentials.getPassword());
                         uName = credentials.getUsername();
                         uPass = credentials.getPassword();
                         User user = userService.login(credentials.getUsername(), credentials.getPassword());
@@ -41,6 +40,7 @@ public class UserAuthenticationController implements Controller {
 
                         ctx.json(user);
                     } catch (LoginException e) {
+                        ctx.req().getSession().invalidate();
                         ctx.status(400);
                         ctx.json(new Message(e.getMessage()));
                     }
@@ -48,7 +48,6 @@ public class UserAuthenticationController implements Controller {
             });
 
             app.post("/logout", (ctx) -> {
-                System.out.println("hit it");
                 HttpSession httpSession = ctx.req().getSession();
                 httpSession.invalidate();
                 ctx.req().logout();
@@ -61,22 +60,34 @@ public class UserAuthenticationController implements Controller {
 
                 if (loggedInUser == null){
                     ctx.json(new Message("User is not logged in."));
+                    ctx.status(401);
                 } else {
                     ctx.json(loggedInUser);
                 }
             });
 
         app.post("/signup", (ctx -> {
+            SignupCredentials credentials = ctx.bodyAsClass(SignupCredentials.class);
             User userToAdd = ctx.bodyAsClass(User.class);
 
-            try {
-                userService.signup(userToAdd);
-
-                ctx.result("User successfully added");
-                ctx.status(201);
-            } catch (IllegalArgumentException | UserUnsuccessfullyAddedException e) {
-                ctx.result(e.getMessage());
+            if (credentials.getUsername() == null || credentials.getPassword() == null) {
+                ctx.result("username and/or password was not provided");
                 ctx.status(400);
+            } else {
+
+                try {
+                    userService.signup(userToAdd);
+                    ctx.result("User successfully added");
+                    ctx.status(201);
+
+                    User user = userService.login(credentials.getUsername(), credentials.getPassword());
+                    HttpSession httpSession = ctx.req().getSession();
+                    httpSession.setAttribute("user_info", user);
+                    ctx.json(user);
+                } catch (IllegalArgumentException | UserUnsuccessfullyAddedException e) {
+                    ctx.result(e.getMessage());
+                    ctx.status(400);
+                }
             }
         }));
     }
