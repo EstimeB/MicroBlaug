@@ -71,16 +71,20 @@ fetch(`http://127.0.0.1:8080/profileupdate`,{
         if(res.status == 200){
             alert("Update Success!");
             window.location.reload();
-                  }
+                }else {
+                alert("Input fields incorrect");
+            }
                }) 
             };
-        
+
+            console.log(uname);
+            console.log(pword);
    function deleteProf(){ 
          fetch(`http://127.0.0.1:8080/profiledelete`,{
-         method: 'POST',
+         method: 'GET',
          credentials: 'include',
-         body: `{"username": "${username}", "password":"${password}"}`
          }).then((res) => {
+
          alert("Deleted!");
          window.location.href = 'login-signup.html';
          }) 
