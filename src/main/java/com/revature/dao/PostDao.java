@@ -36,7 +36,7 @@ public class PostDao {
             if (rs.next()) {
 
                 return new Post(rs.getInt("id"), rs.getString("postTitle"),
-                        rs.getString("postDescription"), rs.getInt("userId"), rs.getDate("postDateCreated"));
+                        rs.getString("postDescription"), rs.getInt("userId"), rs.getDate("postDateCreated").toLocalDate());
             } else {
                 //if no record associated with the id is found
                 return null;
@@ -57,7 +57,7 @@ public class PostDao {
             while (rs.next()) {
 
                 Post post = new Post(rs.getInt("id"), rs.getString("postTitle"),
-                        rs.getString("postDescription"), rs.getInt("userId"), rs.getDate("postDateCreated"));
+                        rs.getString("postDescription"), rs.getInt("userId"), rs.getDate("postDateCreated").toLocalDate());
 
                 userPosts.add(post);
             }
@@ -75,7 +75,7 @@ public class PostDao {
 
             while (rs.next()) {
                 Post post = new Post(rs.getInt("id"), rs.getString("postTitle"),
-                        rs.getString("postDescription"), rs.getInt("userId"), rs.getDate("postDateCreated"));
+                        rs.getString("postDescription"), rs.getInt("userId"), rs.getDate("postDateCreated").toLocalDate());
 
                 allPosts.add(post);
             }

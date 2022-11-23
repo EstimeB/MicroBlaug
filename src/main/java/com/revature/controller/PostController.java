@@ -136,7 +136,7 @@ public class PostController implements Controller {
             } else {
                 try {
                     int pId = Integer.parseInt(postId);
-                    int deletePost = postService.deletePost(pId);
+                    postService.deletePost(pId);
                     ctx.json("Post with Id: "+pId+" has been deleted");
                     ctx.status(200);
                 } catch (PostNotFoundException e) {

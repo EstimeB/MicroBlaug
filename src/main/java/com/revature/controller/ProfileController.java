@@ -23,36 +23,6 @@ public class ProfileController extends UserAuthenticationController implements C
 
     public void mapEndPoints( Javalin app){
 
-
-        //INSERT PROFILE Endpoint
-        app.post("/profilecreate",(ctx) -> {
-            System.out.println("Create Endpoint Reached");
-            Connection connection = ConnectionFactory.createConnection();
-            Profile p = ctx.bodyAsClass(Profile.class);
-            PreparedStatement pstmt = connection.prepareStatement("insert into userprofiles (interest, firstname , lastname) values (? , ? , ?)");
-            pstmt.setString(1, p.getInterest());
-            pstmt.setString(2, p.getFirstname());
-            pstmt.setString(3, p.getLastname());
-            int numberOfRecordsUpdated = pstmt.executeUpdate();
-            ctx.result(numberOfRecordsUpdated + " record(s) updated");
-            });
-
-//        app.get("/current-profile-user", (ctx) -> {
-//            Connection connection = ConnectionFactory.createConnection();
-//            PreparedStatement pstmt1 = connection.prepareStatement("SELECT * FROM users ORDER BY user_id DESC LIMIT 1");
-//            ResultSet rs1 = pstmt1.executeQuery();
-//            if(rs1.next()) {
-//                String username = rs1.getString("username");
-//                String password = rs1.getString("password");
-//                Profile p1 = new Profile(password, username);
-//                System.out.println(p1.getUsername());
-//                System.out.println(p1.getPassword());
-//                ctx.json(p1);
-//                ctx.status(200);
-//            }
-//
-//        });
-        //VIEW PROFILE Endpoint (Getting data from two different tables in DB)
         app.post("/profileview", (ctx) -> {
                System.out.println("Query Endpoint Accessed");
                 Connection connection = ConnectionFactory.createConnection();
@@ -73,12 +43,6 @@ public class ProfileController extends UserAuthenticationController implements C
                  String lastname = rs1.getString("lastname");
                  String interest = rs1.getString("interest");
                  Profile p1 = new Profile(interest, firstname, lastname, password, email, username );
-//                 System.out.println(p.getInterest());
-//                 System.out.println(p.getFirstname());
-//                 System.out.println(p.getLastname());
-//                 System.out.println(p.getPassword());
-//                 System.out.println(p.getEmail());
-//                System.out.println(p.getUsername());
                   ctx.json(p1);
                   ctx.status(200);
                    }else{
@@ -103,6 +67,10 @@ public class ProfileController extends UserAuthenticationController implements C
                     "UPDATE users\n" +
                             "SET email =  ? FROM userprofiles WHERE users.user_id = userprofiles.user_id and username = ? and password = ? ;");
 
+            PreparedStatement pstmt3 = connection.prepareStatement(
+                    "UPDATE userprofiles\n" +
+                            "SET interest =  ? FROM users WHERE users.user_id = userprofiles.user_id and username = ? and password = ? ;");
+
             pstmt.setString(1, p.getFirstname());
             pstmt.setString(2, p.getUsername());
             pstmt.setString(3, p.getPassword());
@@ -115,14 +83,21 @@ public class ProfileController extends UserAuthenticationController implements C
             pstmt2.setString(2, p.getUsername());
             pstmt2.setString(3, p.getPassword());
 
+            pstmt3.setString(1, p.getInterest());
+            pstmt3.setString(2, p.getUsername());
+            pstmt3.setString(3, p.getPassword());
+
             int numberOfRecordsUpdated = pstmt.executeUpdate();
             int numberOfRecordsUpdated1 = pstmt1.executeUpdate();
             int numberOfRecordsUpdated2 = pstmt2.executeUpdate();
+            int numberOfRecordsUpdated3 = pstmt3.executeUpdate();
 
             if(numberOfRecordsUpdated < 1){
+                System.out.println("O records updated");
             ctx.status(400);
             ctx.result("Invalid username");
             }else {
+                System.out.println("one record updated");
             ctx.status(200);
             ctx.result(numberOfRecordsUpdated + " record(s) updated");
                    }
@@ -130,17 +105,20 @@ public class ProfileController extends UserAuthenticationController implements C
 
 
         //DELETE ENDPOINT
-        app.post("/profiledelete", (ctx) -> {
+        app.get("/profiledelete", (ctx) -> {
         System.out.println("Deleted Endpoint Accessed");
         Connection connection = ConnectionFactory.createConnection();
         Profile p = ctx.bodyAsClass(Profile.class);
+            String u = uName;
+            String pw = uPass;
+        PreparedStatement pstmt = connection.prepareStatement("DELETE from users where username = ? and password = ?");
+            pstmt.setString(1, u);
+            pstmt.setString(2, pw);
 
-        PreparedStatement pstmt = connection.prepareStatement("DELETE from userprofiles where password = ? and username = ? ");
-        pstmt.setString(1, p.getPassword());
-        pstmt.setString(2, p.getUsername());
         int numberOfRecordsUpdated = pstmt.executeUpdate();
-        ctx.result(numberOfRecordsUpdated + " record(s) deleted.");
-            if( numberOfRecordsUpdated < 1){
+            System.out.println("Executed!");
+             if( numberOfRecordsUpdated < 1){
+                System.out.println("0 records deleted");
                 ctx.status(400);
                 ctx.json("Invalid information");
             }else {
