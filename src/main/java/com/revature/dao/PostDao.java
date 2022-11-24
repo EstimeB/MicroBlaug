@@ -4,6 +4,7 @@ import com.revature.model.Post;
 import com.revature.model.User;
 import com.revature.util.ConnectionFactory;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,11 +22,13 @@ public class PostDao {
                 pstmt.setInt(3, uid);
 
                 return pstmt.executeUpdate();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
     //get (R)
-    public Post getPostsById(int id) throws SQLException {
+    public Post getPostsById(int id) throws SQLException, IOException {
         try (Connection connection = ConnectionFactory.createConnection()) {
             PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM posts WHERE id = ?");
 
@@ -62,10 +65,12 @@ public class PostDao {
                 userPosts.add(post);
             }
             return userPosts;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public List<Post> getAllPosts() throws SQLException {
+    public List<Post> getAllPosts() throws SQLException, IOException {
         try (Connection connection = ConnectionFactory.createConnection()) {
             PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM posts");
 
@@ -119,11 +124,13 @@ public class PostDao {
                 postComments.put("commentDate", commentDate);
             }
             return postComments;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
     //update (U)
-    public Post updatePost(Post post) throws SQLException {
+    public Post updatePost(Post post) throws SQLException, IOException {
         try (Connection connection = ConnectionFactory.createConnection()) {
             PreparedStatement pstmt = connection.prepareStatement("UPDATE posts SET postTitle = ?," +
                     " postDescription = ?" +
@@ -147,6 +154,8 @@ public class PostDao {
             pstmt.setInt(1, id);
 
             return pstmt.executeUpdate();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

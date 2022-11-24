@@ -5,6 +5,7 @@ import com.revature.exception.PostUnsuccessfullyCreated;
 import com.revature.model.Post;
 import com.revature.exception.PostNotFoundException;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +24,7 @@ public class PostService {
         }
         postDao.createPost(createdPost, uid);
     }
-    public Post getPostsById(int id) throws SQLException {
+    public Post getPostsById(int id) throws SQLException, IOException {
         Post post = postDao.getPostsById(id);
 
         if (post == null) {
@@ -35,13 +36,13 @@ public class PostService {
     public List<Post> getAllPostsBelongingToUser(int userId) throws SQLException {
         return postDao.getAllPostsBelongingToUser(userId);
     }
-    public List<Post> getAllPosts() throws SQLException {
+    public List<Post> getAllPosts() throws SQLException, IOException {
         return postDao.getAllPosts();
     }
     public HashMap getPostComments(int postId) throws SQLException {
         return postDao.getPostComments(postId);
     }
-    public Post updatePost(Post updatedPost) throws SQLException {
+    public Post updatePost(Post updatedPost) throws SQLException, IOException {
         if (updatedPost.getPostTitle().length() == 0) {
             throw new IllegalArgumentException("You Must Have a Post Title");
         }
