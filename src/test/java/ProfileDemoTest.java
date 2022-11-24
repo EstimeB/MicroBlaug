@@ -137,27 +137,4 @@ public class ProfileDemoTest extends UserAuthenticationController {
         });
     }
 
-    //INTEGRATION TEST 5.
-    @Test
-    public void ProfileDelete(){
-        uName = "test609";
-        uPass = "test123";
-        Javalin app = Javalin.create();
-        ProfileController profController = new ProfileController();
-        profController.mapEndPoints(app);
-        //Test
-        JavalinTest.test(app,(server,client) -> {
-            //Request
-            Map<String,String> requestJSON = new HashMap<>();
-            requestJSON.put("username", uName);
-            requestJSON.put("password", uPass);
-            //Response
-            Response response = client.get("/profiledelete");
-            //Code
-            int actualResponseCode = response.code();
-            String responseBodyJSON = response.body().string();
-            //Assert
-            assertThat(actualResponseCode).isEqualTo(400);
-        });
-    }
 }
