@@ -16,10 +16,10 @@ public class PostService {
     public void createPost(Post createdPost, int uid) throws SQLException {
 
         if (createdPost.getPostTitle().length() == 0) {
-            throw new IllegalArgumentException("You Must Have a Post Title");
+            throw new IllegalArgumentException("You Must Have a Post Title!");
         }
         if(createdPost.getPostDescription().length() == 0) {
-            throw new IllegalArgumentException("You Must Have a Post Description");
+            throw new IllegalArgumentException("You Must Have a Post Description!");
         }
         postDao.createPost(createdPost, uid);
     }
@@ -27,7 +27,7 @@ public class PostService {
         Post post = postDao.getPostsById(id);
 
         if (post == null) {
-            throw new PostNotFoundException("Post with id "+id+" was not found");
+            throw new PostNotFoundException("Post with id "+id+" was not found!");
         } else {
             return post;
         }
@@ -43,10 +43,10 @@ public class PostService {
     }
     public Post updatePost(Post updatedPost) throws SQLException {
         if (updatedPost.getPostTitle().length() == 0) {
-            throw new IllegalArgumentException("You Must Have a Post Title");
+            throw new IllegalArgumentException("You Must Have a Post Title!");
         }
         if(updatedPost.getPostDescription().length() == 0) {
-            throw new IllegalArgumentException("You Must Have a Post Description");
+            throw new IllegalArgumentException("You Must Have a Post Description!");
         }
         return postDao.updatePost(updatedPost);
     }
@@ -54,7 +54,7 @@ public class PostService {
         int deletePost = postDao.deletePost(id);
 
         if (deletePost == 0) {
-            throw new PostNotFoundException("Post with id "+id+" was not found");
+            throw new PostNotFoundException("Post with id "+id+" was not found!");
         } else {
             return deletePost;
         }
