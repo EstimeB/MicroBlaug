@@ -1,9 +1,13 @@
 import com.revature.controller.*;
 import io.javalin.Javalin;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 public class
 Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Javalin app = Javalin.create((config) -> {
             config.plugins.enableCors((cors) -> {
                 cors.add(it -> {

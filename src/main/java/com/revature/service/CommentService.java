@@ -5,6 +5,7 @@ import com.revature.exception.CommentNotFoundException;
 import com.revature.exception.PostNotFoundException;
 import com.revature.model.Comment;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class CommentService {
 
     private CommentDao commentDao = new CommentDao();
 
-    public List<Comment> getAllComments() throws SQLException {
+    public List<Comment> getAllComments() throws SQLException, IOException {
         return  commentDao.getAllComments();
     }
 
@@ -26,7 +27,6 @@ public class CommentService {
         } else {
             commentDao.createNewComment(comment);
         }
-
     }
 
     public int findAndDeleteCommentById(int commentId) throws SQLException {

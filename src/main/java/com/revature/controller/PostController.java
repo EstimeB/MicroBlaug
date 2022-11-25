@@ -9,6 +9,7 @@ import com.revature.service.PostService;
 import io.javalin.Javalin;
 import jakarta.servlet.http.HttpSession;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class PostController implements Controller {
     public void mapEndPoints(Javalin app) {
 
         //create post ...
-        app.post("/dashboard", (ctx) -> {
+        app.post("/dashboard/createPost", (ctx) -> {
 
             HttpSession httpSession = ctx.req().getSession();
             User user = (User) httpSession.getAttribute("user_info");
@@ -33,7 +34,7 @@ public class PostController implements Controller {
                 try {
                     postService.createPost(post, user.getUser_id());
                     ctx.status(201); // created
-                    ctx.json(post);
+                    ctx.json(new Message("Your Post Has Successfully Been Created!"));
                 } catch (IllegalArgumentException | PostUnsuccessfullyCreated e) {
                     ctx.result(e.getMessage());
                     ctx.status(400); //Bad Request
@@ -43,7 +44,7 @@ public class PostController implements Controller {
         });
 
         //get post by post id
-        app.get("/post/{id}", (ctx) -> {
+        app.get("/dashboard/post/{id}", (ctx) -> {
 
             String postId = ctx.pathParam("id");
 
@@ -53,7 +54,7 @@ public class PostController implements Controller {
                 ctx.json(post);
                 ctx.status(200);
             } catch (NumberFormatException e) {
-                ctx.result("Id " + postId + " must be a valid integer");
+                ctx.result("Id " + postId + " must be a valid integer!");
                 ctx.status(400); // 400 BAD REQUEST
             } catch (PostNotFoundException e) {
                 ctx.result(e.getMessage());
@@ -63,7 +64,7 @@ public class PostController implements Controller {
         });
 
         //get post by user id ...
-        app.get("/userPosts", (ctx) ->{
+        app.get("/dashboard/userPosts", (ctx) ->{
 
             HttpSession httpSession = ctx.req().getSession();
             User user = (User) httpSession.getAttribute("user_info");
@@ -99,7 +100,7 @@ public class PostController implements Controller {
         });
 
         //update post
-        app.put("/updatePost", (ctx) -> {
+        app.put("/dashboard/updatePost", (ctx) -> {
             //String postId = ctx.pathParam("id");
 
             HttpSession httpSession = ctx.req().getSession();
@@ -114,7 +115,7 @@ public class PostController implements Controller {
                 try {
                     //int pId = Integer.parseInt(postId);
                     Post updatePost = postService.updatePost(post);
-                    ctx.json(updatePost);
+                    ctx.json(new Message("Your Post Has Successfully Been Updated!"));
                     ctx.status(201);
                 } catch (IllegalArgumentException | PostUnsuccessfullyCreated e) {
                     ctx.result(e.getMessage());
@@ -124,7 +125,7 @@ public class PostController implements Controller {
         });
 
         //delete post ...
-        app.delete("/deletePost/{id}", (ctx) -> {
+        app.delete("/dashboard/deletePost/{id}", (ctx) -> {
             String postId = ctx.pathParam("id");
 
             HttpSession httpSession = ctx.req().getSession();
@@ -137,8 +138,11 @@ public class PostController implements Controller {
                 try {
                     int pId = Integer.parseInt(postId);
                     postService.deletePost(pId);
-                    ctx.json("Post with Id: "+pId+" has been deleted");
+                    ctx.json("Post with Id "+pId+" has been deleted!");
                     ctx.status(200);
+                } catch (NumberFormatException e) {
+                    ctx.result("Id " + postId + " must be a valid integer!");
+                    ctx.status(400); // 400 BAD REQUEST
                 } catch (PostNotFoundException e) {
                     ctx.result(e.getMessage());
                     ctx.status(404);

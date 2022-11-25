@@ -11,18 +11,17 @@ function showPostForm() {
 
 //sending data collected from input el from the browser to the back end to create a new post
 const postFormHandler = async () => {
-    await fetch(`${baseUrl}/dashboard`, {
+    const res = await fetch(`${baseUrl}/dashboard/createPost`, {
         method: 'POST',
         body:  `{"postTitle":"${postTitleInputEl.value}","postDescription":"${postDescriptionEl.value}"}`,
         credentials: 'include'
-    }).then((res) => {
-        if (res === 201) {
-            alert('Your Post Has Successfully Been Created');
-            document.location.reload();
-        } else {
-            alert('Your Post Could not be Created');
-        }
-    });
+    })
+    if (res.ok) {
+        alert('Your Post Has Successfully Been Created!');
+        document.location.reload();
+    } else {
+        alert('Your Post Could not be Created!');
+    }
 };
 
 //event listeners, once triggered will execute the functions
@@ -38,33 +37,32 @@ const openDelModal = async (event) => {
     }
     if (event.target.hasAttribute('data-id')) {
         const id = event.target.getAttribute('data-id');
-        await fetch(`${baseUrl}/post/${id}`, {
+        const res = await fetch(`${baseUrl}/post/${id}`, {
             method: 'GET',
             credentials: 'include'
-        }).then((res) => {
-            return res.json();
-        }).then((post) => {
-            const id = document.getElementById('postid');
-            const pt = document.getElementById('cpostTitle');
-            const pd = document.getElementById('cpostDescription');
-            const conDelBtn = document.getElementById('conDel');
-            const delCancelBtn = document.getElementById('delCancel');
-            const uid = document.getElementById('useridD');
-            const date = document.getElementById('date2');
-
-            conDelBtn.setAttribute('data-id', `${post.id}`);
-
-            id.innerHTML = post.id;
-            pt.innerHTML = post.postTitle;
-            pd.innerHTML = post.postDescription;
-            uid.innerHTML = `User Id: ${post.userId}`;
-            date.innerHTML = `Date Posted: ${post.postDateCreated}`;
-
-            document.getElementById('modal1').style.display = 'block';
-
-            delCancelBtn.addEventListener('click', cancelDeletion);
-            conDelBtn.addEventListener('click', deletePost);
         });
+        const post = res.json();
+
+        const id2 = document.getElementById('postid');
+        const pt = document.getElementById('cpostTitle');
+        const pd = document.getElementById('cpostDescription');
+        const conDelBtn = document.getElementById('conDel');
+        const delCancelBtn = document.getElementById('delCancel');
+        const uid = document.getElementById('useridD');
+        const date = document.getElementById('date2');
+
+        conDelBtn.setAttribute('data-id', `${post.id}`);
+
+        id2.innerHTML = post.id;
+        pt.innerHTML = post.postTitle;
+        pd.innerHTML = post.postDescription;
+        uid.innerHTML = `User Id: ${post.userId}`;
+        date.innerHTML = `Date Posted: ${post.postDateCreated}`;
+
+        document.getElementById('modal1').style.display = 'block';
+
+        delCancelBtn.addEventListener('click', cancelDeletion);
+        conDelBtn.addEventListener('click', deletePost);
     }
 }
 
@@ -78,16 +76,15 @@ const cancelDeletion = () => {
 const deletePost = async (event) => {
     if (event.target.hasAttribute('data-id')) {
         const id = event.target.getAttribute('data-id');
-        await fetch(`${baseUrl}/deletePost/${id}`, {
+        const res = await fetch(`${baseUrl}/dashboard/deletePost/${id}`, {
             method: 'DELETE',
             credentials: 'include'
-        }).then((res) => {
-            if (res.ok) {
-                alert('Your Post Has Successfully Been Deleted');
-                document.location.reload();
-            } else {
-                alert('Failed to delete post');
-            }
-        });
+        })
+        if (res.ok) {
+            alert('Your Post Has Successfully Been Deleted!');
+            document.location.reload();
+        } else {
+            alert('Failed to delete post!');
+        }
     }
 }

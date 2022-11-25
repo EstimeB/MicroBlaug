@@ -19,7 +19,6 @@ public class CommentController implements Controller {
 
 
         // get all comments in the system
-
         app.get("/comments", (ctx) -> {
             List<Comment> AllComments = commentService.getAllComments();
 
