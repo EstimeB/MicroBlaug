@@ -1,10 +1,13 @@
 package com.revature.controller;
 
+import com.revature.dto.Message;
 import com.revature.exception.CommentUnsuccessfullyAddedException;
 import com.revature.exception.CommentUnsuccessfullyUpdatedException;
 import com.revature.model.Comment;
+import com.revature.model.User;
 import com.revature.service.CommentService;
 import io.javalin.Javalin;
+import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
 
@@ -45,59 +48,80 @@ public class CommentController implements Controller {
         // create a new comment
 
         app.post("/comment", (ctx) -> {
+
+            HttpSession httpSession = ctx.req().getSession();
+            User user = (User) httpSession.getAttribute("user_info");
+
             Comment comment  = ctx.bodyAsClass(Comment.class);
 
-            try {
-                commentService.createNewComment(comment);
-
-                ctx.result("comment successfully added!");
-                ctx.status(201);
-            } catch (IllegalArgumentException | CommentUnsuccessfullyAddedException e) {
-                ctx.result(e.getMessage());
-                ctx.status(400);
+            if (user == null) {
+                ctx.json(new Message("Not logged in!"));
+                ctx.status(401); // Unauthorized
+            } else {
+                try {
+                    commentService.createNewComment(comment);
+                    ctx.json(comment);
+                    ctx.result("comment successfully added!");
+                    ctx.status(201);
+                } catch (IllegalArgumentException | CommentUnsuccessfullyAddedException e) {
+                    ctx.result(e.getMessage());
+                    ctx.status(400);
+                }
             }
-
         });
 
         // delete an existing comment by comment_id
 
         app.delete("/comment/{comment_id}", (ctx) -> {
+
+            HttpSession httpSession = ctx.req().getSession();
+            User user = (User) httpSession.getAttribute("user_info");
+
             String commentToDelete = ctx.pathParam("comment_id");
 
-            try {
-                int commentId = Integer.parseInt(commentToDelete);
+            if (user == null) {
+                ctx.json(new Message("Not logged in!"));
+                ctx.status(401); // Unauthorized
+            } else {
+                try {
+                    int commentId = Integer.parseInt(commentToDelete);
 
-                int deletedComment = commentService.findAndDeleteCommentById(commentId);
+                    int deletedComment = commentService.findAndDeleteCommentById(commentId);
 
-                ctx.json(deletedComment);
-                ctx.result("comment successfully deleted!");
-                ctx.status(200);
-            } catch (NumberFormatException e) {
-                ctx.result("The comment Id " + commentToDelete + " must be a valid integer!");
-                ctx.status(400);
+                    ctx.json(deletedComment);
+                    ctx.result("comment was deleted!");
+                    ctx.status(204);
+                } catch (NumberFormatException e) {
+                    ctx.result("The comment Id " + commentToDelete + " must be a valid integer!");
+                    ctx.status(400);
+                }
             }
-
         });
 
         // update an existing comment by comment_id
 
         app.put("/comment", (ctx) -> {
+
+            HttpSession httpSession = ctx.req().getSession();
+            User user = (User) httpSession.getAttribute("user_info");
+
             Comment commentToUpdate  = ctx.bodyAsClass(Comment.class);
 
-            try {
+            if (user == null) {
+                ctx.json(new Message("Not logged in!"));
+                ctx.status(401); // Unauthorized
+            } else {
+                try {
+                    commentService.findAndUpdateCommentId(commentToUpdate);
 
-                commentService.findAndUpdateCommentId(commentToUpdate);
-
-                ctx.json(commentToUpdate);
-                ctx.result("comment successfully updated!");
-                ctx.status(201);
-            } catch (IllegalArgumentException | CommentUnsuccessfullyUpdatedException e) {
-                ctx.result(e.getMessage());
-                ctx.status(400);
+                    ctx.json(commentToUpdate);
+                    ctx.result("comment successfully updated!");
+                    ctx.status(201);
+                } catch (IllegalArgumentException | CommentUnsuccessfullyUpdatedException e) {
+                    ctx.result(e.getMessage());
+                    ctx.status(400);
+                }
             }
-
         });
-
     }
-
 }
