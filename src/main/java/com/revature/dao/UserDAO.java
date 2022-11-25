@@ -3,6 +3,7 @@ package com.revature.dao;
 import com.revature.model.User;
 import com.revature.util.ConnectionFactory;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,9 +30,11 @@ public class UserDAO {
             } else {
                 return null;
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
-    public int registerNewAccount(User userToAdd) throws SQLException {
+    public int registerNewAccount(User userToAdd) throws SQLException, IOException {
         try (Connection connection = ConnectionFactory.createConnection()) {
             String sql = "insert into users (username, email, password) values (?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);

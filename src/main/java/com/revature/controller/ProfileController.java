@@ -22,7 +22,6 @@ public class ProfileController extends UserAuthenticationController implements C
 
 
     public void mapEndPoints( Javalin app){
-
         app.post("/profileview", (ctx) -> {
                System.out.println("Query Endpoint Accessed");
                 Connection connection = ConnectionFactory.createConnection();
@@ -45,11 +44,11 @@ public class ProfileController extends UserAuthenticationController implements C
                  Profile p1 = new Profile(interest, firstname, lastname, password, email, username );
                   ctx.json(p1);
                   ctx.status(200);
-                   }else{
+                   }else   {
                    ctx.result("User not found.");
                    ctx.status(400);
-                   }
-                   });
+                      }
+                 });
 
 
     //UPDATE ENDPOINT.

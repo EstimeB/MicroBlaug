@@ -3,13 +3,14 @@ package com.revature.dao;
 import com.revature.model.Comment;
 import com.revature.util.ConnectionFactory;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CommentDao {
 
-    public List<Comment> getAllComments() throws SQLException {
+    public List<Comment> getAllComments() throws SQLException, IOException {
         try (Connection connection = ConnectionFactory.createConnection()) {
 
             PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM comments\n" +
@@ -58,10 +59,12 @@ public class CommentDao {
                 );
             }
             return comments;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public int createNewComment(Comment comment) throws SQLException {
+    public int createNewComment(Comment comment) throws SQLException, IOException {
         try (Connection connection = ConnectionFactory.createConnection()){
             String sql = "INSERT INTO comments (comment_message, user_id, post_id) \n" +
                     "VALUES (?, ?, ?)";
@@ -85,6 +88,8 @@ public class CommentDao {
             pstmt.setInt(1, commentId);
 
             return pstmt.executeUpdate();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -100,6 +105,8 @@ public class CommentDao {
 
 
             pstmt.executeUpdate();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
