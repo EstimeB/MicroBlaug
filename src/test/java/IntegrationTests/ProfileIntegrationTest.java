@@ -60,7 +60,6 @@ public class ProfileIntegrationTest extends UserAuthenticationController {
     public void profileViewValid() throws IOException, SQLException {
         uName = "marypoppins";
         uPass = "password1111";
-
         Javalin app = Javalin.create();
         ProfileController profController = new ProfileController();
         profController.mapEndPoints(app);
