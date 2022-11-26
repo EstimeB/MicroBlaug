@@ -13,6 +13,10 @@ public class Post {
     private LocalDate postDateCreated;
 
     public Post(){}
+    public Post(String postTitle, String postDescription) {
+        this.postTitle = postTitle;
+        this.postDescription = postDescription;
+    }
     public Post(String postTitle, String postDescription, int userId) {
         this.postTitle = postTitle;
         this.postDescription = postDescription;
