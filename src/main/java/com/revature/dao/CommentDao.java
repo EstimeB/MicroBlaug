@@ -25,7 +25,7 @@ public class CommentDao {
                 String commentMessage = rs.getString("comment_message");
                 Date commentDate = rs.getDate("comment_date");
                 int postId = rs.getInt("post_id");
-                int userId = rs.getInt("user_id");
+                int userId = rs.getInt("userid");
 
                 Comment u = new Comment(commentId, commentMessage, commentDate, postId, userId );
 
@@ -53,8 +53,9 @@ public class CommentDao {
                         new Comment(
                                 rs.getInt("comment_id"),
                                 rs.getString("comment_message"),
+                                rs.getDate("comment_date"),
                                 rs.getInt("post_Id"),
-                                rs.getInt("user_Id")
+                                rs.getInt("userid")
                         )
                 );
             }
@@ -66,7 +67,7 @@ public class CommentDao {
 
     public int createNewComment(Comment comment) throws SQLException, IOException {
         try (Connection connection = ConnectionFactory.createConnection()){
-            String sql = "INSERT INTO comments (comment_message, user_id, post_id) \n" +
+            String sql = "INSERT INTO comments (comment_message, userid, post_id) \n" +
                     "VALUES (?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
 
