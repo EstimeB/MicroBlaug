@@ -10,16 +10,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.io.IOException;
 import java.sql.SQLException;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class) // Provides Jupiter with additional functionalities coming with Mockito
-public class LoginLogoutSignUpTests {
+public class LoginPositiveNegativeTests {
 
     @Mock // Create a mock object
     UserDAO mockUd;
@@ -28,7 +25,7 @@ public class LoginLogoutSignUpTests {
     UserService us;
 
     @Test
-    public void loginPositiveTest() throws SQLException, IOException {
+    public void loginPositiveTest() throws SQLException{
         //arrange
         when(mockUd.findUserByUsernameAndPassword(eq("muser123"), eq("password"))).thenReturn(new User(1, "muser123", "muser@aol.com", "password"));
         //act
