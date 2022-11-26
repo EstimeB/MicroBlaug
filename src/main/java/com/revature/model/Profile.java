@@ -9,6 +9,7 @@ public class Profile {
     private String email;
     private String username;
 
+    private String avatar;
     private String newPassword;
     public Profile() {
 
@@ -38,7 +39,16 @@ public class Profile {
         this.email = email;
         this.username = username;
     }
-
+    public Profile(String interest, String firstname, String lastname, String password, String email, String username, String newPassword, String avatar) {
+        this.interest = interest;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.password = password;
+        this.email = email;
+        this.username = username;
+        this.newPassword = newPassword;
+        this.avatar = avatar;
+    }
     public String getInterest() {
         return interest;
     }
