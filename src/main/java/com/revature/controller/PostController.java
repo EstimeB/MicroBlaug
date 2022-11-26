@@ -58,7 +58,7 @@ public class PostController implements Controller {
                 ctx.status(400); // 400 BAD REQUEST
             } catch (PostNotFoundException e) {
                 ctx.result(e.getMessage());
-                ctx.status(404);
+                ctx.status(404); // Not Found
             }
 
         });

@@ -60,7 +60,7 @@ public class CommentController implements Controller {
                 try {
                     commentService.createNewComment(comment);
                     ctx.json(comment);
-                    ctx.result("comment successfully added!");
+                    ctx.json(new Message("Comment successfully created"));
                     ctx.status(201);
                 } catch (IllegalArgumentException | CommentUnsuccessfullyAddedException e) {
                     ctx.result(e.getMessage());
@@ -88,7 +88,7 @@ public class CommentController implements Controller {
                     int deletedComment = commentService.findAndDeleteCommentById(commentId);
 
                     ctx.json(deletedComment);
-                    ctx.result("comment was deleted!");
+                    ctx.json(new Message("Comment successfully deleted"));
                     ctx.status(204);
                 } catch (NumberFormatException e) {
                     ctx.result("The comment Id " + commentToDelete + " must be a valid integer!");
@@ -114,7 +114,7 @@ public class CommentController implements Controller {
                     commentService.findAndUpdateCommentId(commentToUpdate);
 
                     ctx.json(commentToUpdate);
-                    ctx.result("comment successfully updated!");
+                    ctx.json(new Message("Comment successfully updated"));
                     ctx.status(201);
                 } catch (IllegalArgumentException | CommentUnsuccessfullyUpdatedException e) {
                     ctx.result(e.getMessage());
