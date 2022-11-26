@@ -42,16 +42,13 @@ public class ProfileUnitTests {
        }
     }
 
-
     @Test
     public void profileUpdateTest() throws SQLException, IOException {
-
             Profile p = new Profile("marcus", "aurelius");
             lenient().when(mockProfDao.updatedInformation(p))
                     .thenReturn(1);
             System.out.println("one profile updated");
         }
-
 
     @Test
     public void profileDeleteTest() throws SQLException, IOException {
