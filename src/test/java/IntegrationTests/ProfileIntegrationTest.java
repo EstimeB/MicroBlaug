@@ -1,11 +1,9 @@
+package IntegrationTests;
+
 import com.revature.controller.ProfileController;
 import com.revature.controller.UserAuthenticationController;
-import com.revature.dao.UserDAO;
-import com.revature.model.User;
-import com.revature.util.ConnectionFactory;
 import io.javalin.Javalin;
 import io.javalin.testtools.JavalinTest;
-import okhttp3.Request;
 import okhttp3.Response;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,11 +14,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ProfileDemoTest extends UserAuthenticationController {
+public class ProfileIntegrationTest extends UserAuthenticationController {
 
     public Connection con;
 

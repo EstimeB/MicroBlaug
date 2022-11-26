@@ -21,7 +21,7 @@ public class CommentService {
         return commentDao.findCommentByPostId(postId);
     }
 
-    public void createNewComment(Comment comment) throws SQLException {
+    public void createNewComment(Comment comment) throws SQLException, IOException {
         if (comment.getCommentMessage().length() == 0) {
             throw new IllegalArgumentException("Comments must be filled in");
         } else {
