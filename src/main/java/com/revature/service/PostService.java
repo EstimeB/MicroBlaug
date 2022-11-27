@@ -1,7 +1,6 @@
 package com.revature.service;
 
 import com.revature.dao.PostDao;
-import com.revature.exception.PostUnsuccessfullyCreated;
 import com.revature.model.Post;
 import com.revature.exception.PostNotFoundException;
 
@@ -14,7 +13,7 @@ public class PostService {
 
     private PostDao postDao = new PostDao();
 
-    public void createPost(Post createdPost, int uid) throws SQLException {
+    public void createPost(Post createdPost, int uid) throws SQLException, IOException {
 
         if (createdPost.getPostTitle().length() == 0) {
             throw new IllegalArgumentException("You Must Have a Post Title!");
@@ -33,13 +32,13 @@ public class PostService {
             return post;
         }
     }
-    public List<Post> getAllPostsBelongingToUser(int userId) throws SQLException {
+    public List<Post> getAllPostsBelongingToUser(int userId) throws SQLException, IOException {
         return postDao.getAllPostsBelongingToUser(userId);
     }
     public List<Post> getAllPosts() throws SQLException, IOException {
         return postDao.getAllPosts();
     }
-    public HashMap getPostComments(int postId) throws SQLException {
+    public HashMap getPostComments(int postId) throws SQLException, IOException {
         return postDao.getPostComments(postId);
     }
     public Post updatePost(Post updatedPost) throws SQLException, IOException {
@@ -51,13 +50,11 @@ public class PostService {
         }
         return postDao.updatePost(updatedPost);
     }
-    public int deletePost(int id) throws SQLException {
+    public void deletePost(int id) throws SQLException, IOException {
         int deletePost = postDao.deletePost(id);
 
         if (deletePost == 0) {
             throw new PostNotFoundException("Post with id "+id+" was not found!");
-        } else {
-            return deletePost;
         }
     }
 

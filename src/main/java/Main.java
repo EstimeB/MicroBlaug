@@ -2,8 +2,6 @@ import com.revature.controller.*;
 import io.javalin.Javalin;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 public class
 Main {
