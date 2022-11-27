@@ -17,7 +17,7 @@
   text-decoration: none;
   line-height: 25px;
   border-radius: 7px;
-  margin-right: 150px;
+  margin-right: 50px;
   border: 0.5px dotted rgb(193, 193, 193);
   text-align: center;
 }
@@ -86,7 +86,7 @@
 
   .header a {
     float: left;
-    width: 22%;
+    width: 17%;
     margin: 10px;
   }
   .header-right {
@@ -100,7 +100,8 @@
 
   @media screen and (min-width: 1280px) and (max-width: 1799px){
     .header a{
-      margin-right: 120px;
+      margin-right: 50px;
+      float: right;
     }
     #menu-links-div{
         padding-top: 33px;;
