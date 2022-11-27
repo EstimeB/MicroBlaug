@@ -5,7 +5,6 @@ import com.revature.exception.LoginException;
 import com.revature.exception.SignupException;
 import com.revature.exception.UserUnsuccessfullyAddedException;
 import com.revature.model.User;
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class UserService {
@@ -21,7 +20,7 @@ public class UserService {
         return user;
     }
 
-    public void signup(User user) throws SQLException, IOException {
+    public void signup(User user) throws SQLException {
         user.setUsername(user.getUsername().strip());
         user.setEmail(user.getEmail().strip());
         user.setPassword(user.getPassword().strip());

@@ -33,7 +33,7 @@ public class UserDAO {
             throw new RuntimeException(e);
         }
     }
-    public int registerNewAccount(User userToAdd) throws SQLException, IOException {
+    public int registerNewAccount(User userToAdd) throws SQLException {
         try (Connection connection = ConnectionFactory.createConnection()) {
             String sql = "insert into users (username, email, password) values (?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -45,6 +45,8 @@ public class UserDAO {
 
             return numberOfRecordsUpdated;
 
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
