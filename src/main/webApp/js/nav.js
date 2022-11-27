@@ -19,43 +19,12 @@ const navLinksDiv = document.createElement('div');
 navLinksDiv.setAttribute('id', 'navbar-right');
 topLevelDiv.appendChild(navLinksDiv);
 
-
 // Nav Links
 const link1 = document.createElement('a');
 link1.classList.add('active');
 link1.setAttribute('href', '/MicroBlaug/src/main/webApp/html/home.html');
 navLinksDiv.appendChild(link1);
 link1.innerHTML = 'Home';
-
-const link2 = document.createElement('a');
-link2.setAttribute('href', '/MicroBlaug/src/main/webApp/html/post/dashboard.html');
-navLinksDiv.appendChild(link2);
-link2.innerHTML = 'Dashboard';
-
-const link3 = document.createElement('a');
-link3.setAttribute('href', '/MicroBlaug/src/main/webApp/html/profile.html');
-navLinksDiv.appendChild(link3);
-link3.innerHTML = 'Profile';
-
-const link4 = document.createElement('a');
-link4.setAttribute('href', '/MicroBlaug/src/main/webApp/html/login-signup.html');
-navLinksDiv.appendChild(link4);
-link4.innerHTML = 'Logout';
-link4.addEventListener("click", (event) => {
-  event.preventDefault();
-  fetch(`http://localhost:8080/logout`, {
-    method: "POST",
-    credentials: "include",
-  })
-    .then((res) => {
-      if (res.status === 200) {
-        window.location.href = '/MicroBlaug/src/main/webApp/html/login-signup.html';
-        alert("User is logged out")
-      }else{
-        alert('failed to logout');
-      }
-    })
-});
 
 const link5 = document.createElement('a');
 navLinksDiv.appendChild(link5);
