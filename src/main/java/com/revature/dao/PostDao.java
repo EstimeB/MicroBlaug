@@ -1,7 +1,6 @@
 package com.revature.dao;
 
 import com.revature.model.Post;
-import com.revature.model.User;
 import com.revature.util.ConnectionFactory;
 
 import java.io.IOException;
@@ -13,7 +12,7 @@ import java.util.List;
 public class PostDao {
 
     //post (C)
-    public int createPost(Post post, int uid) throws SQLException {
+    public void createPost(Post post, int uid) throws SQLException, IOException {
         try (Connection connection = ConnectionFactory.createConnection()) {
                 PreparedStatement pstmt = connection.prepareStatement
                         ("INSERT INTO posts (postTitle, postDescription, userId) VALUES (?, ?, ?)");
@@ -21,33 +20,31 @@ public class PostDao {
                 pstmt.setString(2, post.getPostDescription());
                 pstmt.setInt(3, uid);
 
-                return pstmt.executeUpdate();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            pstmt.executeUpdate();
         }
     }
 
     //get (R)
     public Post getPostsById(int id) throws SQLException, IOException {
         try (Connection connection = ConnectionFactory.createConnection()) {
-            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM posts WHERE id = ?");
+                PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM posts WHERE id = ?");
 
-            pstmt.setInt(1, id);
+                pstmt.setInt(1, id);
 
-            ResultSet rs = pstmt.executeQuery();
+                ResultSet rs = pstmt.executeQuery();
 
-            if (rs.next()) {
+                if (rs.next()) {
 
-                return new Post(rs.getInt("id"), rs.getString("postTitle"),
-                        rs.getString("postDescription"), rs.getInt("userId"), rs.getDate("postDateCreated").toLocalDate());
-            } else {
-                //if no record associated with the id is found
-                return null;
-            }
+                    return new Post(rs.getInt("id"), rs.getString("postTitle"),
+                            rs.getString("postDescription"), rs.getInt("userId"), rs.getDate("postDateCreated").toLocalDate(), rs.getString("postimage"));
+                } else {
+                    //if no record associated with the id is found
+                    return null;
+                }
         }
     }
 
-    public List<Post> getAllPostsBelongingToUser(int userId) throws SQLException {
+    public List<Post> getAllPostsBelongingToUser(int userId) throws SQLException, IOException {
         try (Connection connection = ConnectionFactory.createConnection()) {
             PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM posts WHERE userId = ?");
 
@@ -65,8 +62,6 @@ public class PostDao {
                 userPosts.add(post);
             }
             return userPosts;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -79,8 +74,7 @@ public class PostDao {
             List<Post> allPosts = new ArrayList<>();
 
             while (rs.next()) {
-                Post post = new Post(rs.getInt("id"), rs.getString("postTitle"),
-                        rs.getString("postDescription"), rs.getInt("userId"), rs.getDate("postDateCreated").toLocalDate());
+                Post post = new Post(rs.getInt("id"), rs.getString("postTitle"), rs.getString("postDescription"), rs.getInt("userId"), rs.getDate("postDateCreated").toLocalDate(), rs.getString("postimage"));
 
                 allPosts.add(post);
             }
@@ -90,7 +84,7 @@ public class PostDao {
 
     // getting related comments to specific Posts
 
-    public HashMap getPostComments(int postId) throws SQLException {
+    public HashMap getPostComments(int postId) throws SQLException, IOException {
         try (Connection connection = ConnectionFactory.createConnection()){
             PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM comments \n" +
                     "LEFT JOIN posts \n" +
@@ -124,8 +118,6 @@ public class PostDao {
                 postComments.put("commentDate", commentDate);
             }
             return postComments;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -146,7 +138,7 @@ public class PostDao {
     }
 
     //delete (D)
-    public int deletePost(int id) throws SQLException {
+    public int deletePost(int id) throws SQLException, IOException {
         try (Connection connection = ConnectionFactory.createConnection()) {
             PreparedStatement pstmt = connection.prepareStatement("DELETE FROM posts \n" +
                     "WHERE id = ?;\n");
@@ -154,8 +146,6 @@ public class PostDao {
             pstmt.setInt(1, id);
 
             return pstmt.executeUpdate();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }

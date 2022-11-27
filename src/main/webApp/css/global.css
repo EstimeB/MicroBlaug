@@ -4,6 +4,8 @@
 
 body{
     background-color: #DAE0E6;
+    padding: 0;
+    margin: 0;
 }
 
 h1, h2, h3, h4, h5, p, span, a, label, button, input, li {
@@ -27,5 +29,24 @@ h3 {
 }
 
 p, span, a, label, button, input, li {
-    font-size: 20px;
+    font-size: 18px;
+}
+
+/* Style the universal button */
+button {
+    cursor: pointer;
+    background-color: dodgerblue;
+    color: white;
+    border: 1px solid rgb(184, 182, 182);
+    border-radius: 10px;
+}
+
+button:hover {
+    background-color: rgb(75, 120, 255);
+    padding: 10px 20px;
+}
+
+.update-button {
+    background-color: rgb(22, 165, 36);
+    padding: 5px 10px;
 }

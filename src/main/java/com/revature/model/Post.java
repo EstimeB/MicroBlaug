@@ -1,6 +1,5 @@
 package com.revature.model;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -11,6 +10,7 @@ public class Post {
     private String postDescription;
     private int userId;
     private LocalDate postDateCreated;
+    private String postImage;
 
     public Post(){}
     public Post(String postTitle, String postDescription) {
@@ -34,6 +34,14 @@ public class Post {
         this.postDescription = postDescription;
         this.userId = userId;
         this.postDateCreated = postDateCreated;
+    }
+    public Post(int id, String postTitle, String postDescription, int userId, LocalDate postDateCreated, String postImage) {
+        this.id = id;
+        this.postTitle = postTitle;
+        this.postDescription = postDescription;
+        this.userId = userId;
+        this.postDateCreated = postDateCreated;
+        this.postImage = postImage;
     }
     public int getId() {
         return id;
@@ -75,17 +83,25 @@ public class Post {
         this.postDateCreated = postDateCreated;
     }
 
+    public String getPostImage() {
+        return postImage;
+    }
+
+    public void setPostImage(String postImage) {
+        this.postImage = postImage;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return id == post.id && userId == post.userId && postTitle.equals(post.postTitle) && postDescription.equals(post.postDescription) && Objects.equals(postDateCreated, post.postDateCreated);
+        return id == post.id && userId == post.userId && Objects.equals(postTitle, post.postTitle) && Objects.equals(postDescription, post.postDescription) && Objects.equals(postDateCreated, post.postDateCreated) && Objects.equals(postImage, post.postImage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, postTitle, postDescription, userId, postDateCreated);
+        return Objects.hash(id, postTitle, postDescription, userId, postDateCreated, postImage);
     }
 
     @Override
@@ -95,7 +111,8 @@ public class Post {
                 ", postTitle='" + postTitle + '\'' +
                 ", postDescription='" + postDescription + '\'' +
                 ", userId=" + userId +
-                ", postdateCreated=" + postDateCreated +
+                ", postDateCreated=" + postDateCreated +
+                ", postImage='" + postImage + '\'' +
                 '}';
     }
 }

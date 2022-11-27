@@ -1,7 +1,6 @@
 
 
 
-
 body{
     margin-bottom: 40%;
 }
@@ -21,6 +20,7 @@ body{
     padding-left: 2%;
     padding-right: 2%;
     font-weight: bolder;
+    color: black;
 }
 #cnBtn:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
@@ -53,6 +53,7 @@ form, .modalContent{
     margin: 10% 11% 0;
 }
 #conDel, #delCancel, #cancelUpdate, #conUpdate, #createPostBtn{
+    color: black;
     border: solid;
     border-radius: 3px;
     border-width: 1px;

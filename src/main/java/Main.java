@@ -2,8 +2,6 @@ import com.revature.controller.*;
 import io.javalin.Javalin;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 public class
 Main {
@@ -25,7 +23,7 @@ Main {
         });
 
 
-        Controller[] controllers = { new UserAuthenticationController(), new PostController(), new CommentController(), new ProfileController()};
+        Controller[] controllers = { new UserAuthenticationController(), new PostController(), new CommentController(), new ProfileController(), new UserCommentsController()};
 
 
         for (Controller c : controllers) {
