@@ -50,6 +50,7 @@ link4.addEventListener("click", (event) => {
     .then((res) => {
       if (res.status === 200) {
         window.location.href = '/MicroBlaug/src/main/webApp/html/login-signup.html';
+        alert("User is logged out")
       }else{
         alert('failed to logout');
       }

@@ -13,7 +13,7 @@ loginButton.addEventListener("click", (event) => {
   })
     .then((res) => {
       if (res.status === 200) {
-        window.location.href = 'post/dashboard.html';
+        window.location.href = 'home.html';
       }else{
         alert('Invalid Login Information');
       }
