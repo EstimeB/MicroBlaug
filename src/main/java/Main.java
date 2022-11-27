@@ -25,7 +25,7 @@ Main {
         });
 
 
-        Controller[] controllers = { new UserAuthenticationController(), new PostController(), new CommentController(), new ProfileController()};
+        Controller[] controllers = { new UserAuthenticationController(), new PostController(), new CommentController(), new ProfileController(), new UserCommentsController()};
 
 
         for (Controller c : controllers) {

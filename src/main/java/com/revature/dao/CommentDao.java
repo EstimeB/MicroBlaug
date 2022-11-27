@@ -6,6 +6,7 @@ import com.revature.util.ConnectionFactory;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CommentDao {

@@ -9,6 +9,7 @@ import com.revature.service.CommentService;
 import io.javalin.Javalin;
 import jakarta.servlet.http.HttpSession;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class CommentController implements Controller {

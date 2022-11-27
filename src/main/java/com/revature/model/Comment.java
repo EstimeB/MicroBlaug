@@ -23,8 +23,7 @@ public class Comment {
         this.userId = userId;
     }
 
-    public Comment(int comment_id, String comment_message, int post_id, int user_id) {
-    }
+
 
     public int getCommentId() {
         return commentId;
