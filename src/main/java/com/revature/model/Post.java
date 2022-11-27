@@ -1,6 +1,5 @@
 package com.revature.model;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -11,7 +10,6 @@ public class Post {
     private String postDescription;
     private int userId;
     private LocalDate postDateCreated;
-
     private String postImage;
 
     public Post(){}
@@ -29,6 +27,13 @@ public class Post {
         this.postTitle = postTitle;
         this.postDescription = postDescription;
         this.userId = userId;
+    }
+    public Post(int id, String postTitle, String postDescription, int userId, LocalDate postDateCreated) {
+        this.id = id;
+        this.postTitle = postTitle;
+        this.postDescription = postDescription;
+        this.userId = userId;
+        this.postDateCreated = postDateCreated;
     }
     public Post(int id, String postTitle, String postDescription, int userId, LocalDate postDateCreated, String postImage) {
         this.id = id;

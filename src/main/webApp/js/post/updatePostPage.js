@@ -14,14 +14,14 @@ const openUpdatePostModal = async (event) => {
             method: 'GET',
             credentials: 'include'
         })
-        const post = res.json();
+        const post = await res.json();
         const id2 = document.getElementById('pstid');
         const pt = document.getElementById('pstTitle');
         const pd = document.getElementById('pstDescription');
         const ui = document.getElementById('useridU');
         const conUpdateBtn = document.getElementById('conUpdate');
         const cancelUpdateBtn = document.getElementById('cancelUpdate');
-        const date = document.getElementById('date2');
+        const date = document.getElementById('date1');
 
         conUpdateBtn.setAttribute('data-id', `${post.id}`);
         conUpdateBtn.setAttribute('class', `${post.userId}`);

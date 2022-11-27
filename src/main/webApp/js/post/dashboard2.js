@@ -10,7 +10,8 @@ function showPostForm() {
 }
 
 //sending data collected from input el from the browser to the back end to create a new post
-const postFormHandler = async () => {
+const postFormHandler = async (event) => {
+    event.preventDefault();
     const res = await fetch(`${baseUrl}/dashboard/createPost`, {
         method: 'POST',
         body:  `{"postTitle":"${postTitleInputEl.value}","postDescription":"${postDescriptionEl.value}"}`,
@@ -20,6 +21,7 @@ const postFormHandler = async () => {
         alert('Your Post Has Successfully Been Created!');
         document.location.reload();
     } else {
+        alert('You Must Have a Post Title and a Post Description!');
         alert('Your Post Could not be Created!');
     }
 };
@@ -37,11 +39,11 @@ const openDelModal = async (event) => {
     }
     if (event.target.hasAttribute('data-id')) {
         const id = event.target.getAttribute('data-id');
-        const res = await fetch(`${baseUrl}/post/${id}`, {
+        const res = await fetch(`${baseUrl}/dashboard/post/${id}`, {
             method: 'GET',
             credentials: 'include'
         });
-        const post = res.json();
+        const post = await res.json();
 
         const id2 = document.getElementById('postid');
         const pt = document.getElementById('cpostTitle');
