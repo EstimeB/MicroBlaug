@@ -27,35 +27,6 @@ link1.setAttribute('href', '/MicroBlaug/src/main/webApp/html/home.html');
 navLinksDiv.appendChild(link1);
 link1.innerHTML = 'Home';
 
-const link2 = document.createElement('a');
-link2.setAttribute('href', '/MicroBlaug/src/main/webApp/html/post/dashboard.html');
-navLinksDiv.appendChild(link2);
-link2.innerHTML = 'Dashboard';
-
-const link3 = document.createElement('a');
-link3.setAttribute('href', '/MicroBlaug/src/main/webApp/html/profile.html');
-navLinksDiv.appendChild(link3);
-link3.innerHTML = 'Profile';
-
-const link4 = document.createElement('a');
-link4.setAttribute('href', '/MicroBlaug/src/main/webApp/html/login-signup.html');
-navLinksDiv.appendChild(link4);
-link4.innerHTML = 'Logout';
-link4.addEventListener("click", (event) => {
-  event.preventDefault();
-  fetch(`http://localhost:8080/logout`, {
-    method: "POST",
-    credentials: "include",
-  })
-    .then((res) => {
-      if (res.status === 200) {
-        window.location.href = '/MicroBlaug/src/main/webApp/html/login-signup.html';
-      }else{
-        alert('failed to logout');
-      }
-    })
-});
-
 const link5 = document.createElement('a');
 navLinksDiv.appendChild(link5);
 const avatarImg = document.createElement('img');
@@ -63,3 +34,43 @@ avatarImg.setAttribute('src', '/images/avatar-generic.jpg');
 link5.setAttribute('href', '/MicroBlaug/src/main/webApp/html/login-signup.html');
 link5.appendChild(avatarImg);
 link5.innerHTML = 'Login';
+
+//retrieve session item set when a user is logged in
+const sessonId = window.sessionStorage.getItem("user");
+
+// when a user is logged in a session item is set, that means a user is logged in
+// will hide/display links if item was truly set/is found
+if (sessonId === 'loggedIn') {
+    link5.style.display = 'none';
+    const link2 = document.createElement('a');
+    link2.setAttribute('href', '/MicroBlaug/src/main/webApp/html/post/dashboard.html');
+    navLinksDiv.appendChild(link2);
+    link2.innerHTML = 'Dashboard';
+
+    const link3 = document.createElement('a');
+    link3.setAttribute('href', '/MicroBlaug/src/main/webApp/html/profile.html');
+    navLinksDiv.appendChild(link3);
+    link3.innerHTML = 'Profile';
+
+    const link4 = document.createElement('a');
+    link4.setAttribute('href', '/MicroBlaug/src/main/webApp/html/login-signup.html');
+    navLinksDiv.appendChild(link4);
+    link4.innerHTML = 'Logout';
+    link4.addEventListener("click", (event) => {
+        event.preventDefault();
+        fetch(`http://localhost:8080/logout`, {
+            method: "POST",
+            credentials: "include",
+        })
+            .then((res) => {
+                if (res.status === 200) {
+                    //will clear the session storage
+                    sessionStorage.clear();
+                    window.location.href = '/MicroBlaug/src/main/webApp/html/login-signup.html';
+                }else{
+                    alert('failed to logout');
+                }
+            })
+    });
+
+}

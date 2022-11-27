@@ -13,7 +13,10 @@ loginButton.addEventListener("click", (event) => {
   })
     .then((res) => {
       if (res.status === 200) {
-        window.location.href = 'post/dashboard.html';
+          // setItem that mark a user is logged in, will be retrieved to hide/display nav links
+          window.sessionStorage.setItem("user", "loggedIn");
+
+          window.location.href = 'post/dashboard.html';
       }else{
         alert('Invalid Login Information');
       }
