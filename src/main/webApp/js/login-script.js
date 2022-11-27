@@ -51,7 +51,7 @@ signupButton.addEventListener("click", (event) => {
   fetch(`http://localhost:8080/signup`, {
     method: "POST",
     body: `{"username":"${signupUsername.value}", "email":"${signupEmail.value}", "password":"${SignupPassword.value}"}`,
-    credentials: "include",
+    credentials: "include"
   })
     .then((res) => {
       if (res.status === 201) {

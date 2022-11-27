@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 public class UserAuthenticationController implements Controller {
 
     private UserService userService = new UserService();
-    private static final String LOGOUT = "logout";
+
     public static String uName;
     public static String uPass;
     
@@ -48,10 +48,10 @@ public class UserAuthenticationController implements Controller {
             });
 
             app.post("/logout", (ctx) -> {
+                ctx.json(new Message("User is logged out"));
                 HttpSession httpSession = ctx.req().getSession();
                 httpSession.invalidate();
                 ctx.req().logout();
-                httpSession = ctx.req().getSession();
             });
 
             app.get("/current-user", (ctx) -> {
