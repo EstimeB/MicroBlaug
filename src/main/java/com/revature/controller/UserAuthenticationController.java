@@ -53,6 +53,7 @@ public class UserAuthenticationController implements Controller {
 //                httpSession.invalidate();
                 ctx.req().getSession().invalidate();
                 ctx.req().logout();
+                ctx.status(204);
                 ctx.json(new Message("User is logged out"));
             });
 
