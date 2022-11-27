@@ -5,7 +5,6 @@ import com.revature.exception.LoginException;
 import com.revature.exception.SignupException;
 import com.revature.exception.UserUnsuccessfullyAddedException;
 import com.revature.model.User;
-
 import java.io.IOException;
 import java.sql.SQLException;
 
