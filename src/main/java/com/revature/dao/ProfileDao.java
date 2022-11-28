@@ -35,7 +35,9 @@ public class ProfileDao {
             String firstname = rs1.getString("firstname");
             String lastname = rs1.getString("lastname");
             String interest = rs1.getString("interest");
-            Profile p1 = new Profile(interest, firstname, lastname, password, email, username);
+            String avatar = rs1.getString("avatar");
+            System.out.println(avatar);
+            Profile p1 = new Profile(interest, firstname, lastname, password, email, username, avatar);
             return p1;
         }
 
