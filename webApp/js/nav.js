@@ -62,9 +62,9 @@ if (sessonId === 'loggedIn') {
             credentials: "include",
         })
             .then((res) => {
-            console.log(res)
                 if (res.status === 200) {
                     //will clear the session storage
+                    alert("User is logged out");
                     sessionStorage.clear();
                     window.location.href = '/MicroBlaug/index.html';
                 }else{
