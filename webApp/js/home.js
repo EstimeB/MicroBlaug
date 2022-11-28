@@ -200,11 +200,12 @@ fetch(`${baseUrl}/posts`, {
                 pTag.innerHTML = `${firstName}`;
 
                 // comments
-                const comments = document.createElement('input');
+                const comments = document.createElement('textarea');
                 comments.classList.add('comments');
+                comments.setAttribute('rows', '1');
                 comments.setAttribute('id', `update-comment-${postId}`);
                 comments.setAttribute('disabled', 'true');
-                comments.setAttribute('placeholder', `${commentMessage}`);
+                comments.innerHTML = `${commentMessage}`;
 
 // UPDATE button (hidden initially) *****************************************************
                 const updateButton = document.createElement('a');
@@ -303,7 +304,7 @@ fetch(`${baseUrl}/posts`, {
                         if (res.status === 204) {
 
                             alert('Deleted successfully');
-                            //document.location.reload();
+                            document.location.reload();
 
 
                         } else {
