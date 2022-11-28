@@ -49,4 +49,30 @@ public class UserDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public User findUserById(int userId) throws SQLException {
+        try (Connection connection = ConnectionFactory.createConnection()) {
+            String sql = "select * from users where user_id = ?";
+
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, userId);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()){
+                User user = new User();
+                user.setUser_id(rs.getInt("user_id"));
+                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+
+                return user;
+
+            } else {
+                return null;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
