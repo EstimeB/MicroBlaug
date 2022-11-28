@@ -22,15 +22,15 @@ public class PostControllerIntegrationTests {
     public Connection con;
     public Javalin app;
 
-    @BeforeEach
-    public void setup() throws SQLException {
-        con = ConnectionFactory.createConnection();
-        app = Javalin.create();
-        UserAuthenticationController userAuthenticationController = new UserAuthenticationController();
-        userAuthenticationController.mapEndPoints(app);
-        PostController postController = new PostController();
-        postController.mapEndPoints(app);
-    }
+//    @BeforeEach
+//    public void setup() throws SQLException {
+//        con = ConnectionFactory.createConnection();
+//        app = Javalin.create();
+//        UserAuthenticationController userAuthenticationController = new UserAuthenticationController();
+//        userAuthenticationController.mapEndPoints(app);
+//        PostController postController = new PostController();
+//        postController.mapEndPoints(app);
+//    }
 
     @AfterEach
     public void clearDb() throws SQLException {
@@ -105,19 +105,19 @@ public class PostControllerIntegrationTests {
         });
     }
 
-    @Test
-    public void getPostByIdTest() {
-        JavalinTest.test(app, (server, client) -> {
-            Map<String, Object> requestJson = new HashMap<>();
-            requestJson.put("id", "41");
-            Response response = client.get("/dashboard/post/{id}", requestJson);
-            int actualResponseStatusCode = response.code();
-            String responseBodyJson = response.body().string();
-
-            assertThat(actualResponseStatusCode).isEqualTo(200);
-            assertThat(responseBodyJson).isEqualTo("{\"id\":41,\"postTitle\":\"How to master your time\",\"postDescription\":\"The secret to time management is simple: Jedi time tricks.\",\"userId\":\"46\",\"postDateCreated\":\"null\"}");
-        });
-    }
+//    @Test
+//    public void getPostByIdTest() {
+//        JavalinTest.test(app, (server, client) -> {
+//            Map<String, Object> requestJson = new HashMap<>();
+//            requestJson.put("id", "41");
+//            Response response = client.get("/dashboard/post/{id}", requestJson);
+//            int actualResponseStatusCode = response.code();
+//            String responseBodyJson = response.body().string();
+//
+//            assertThat(actualResponseStatusCode).isEqualTo(200);
+//            assertThat(responseBodyJson).isEqualTo("{\"id\":41,\"postTitle\":\"How to master your time\",\"postDescription\":\"The secret to time management is simple: Jedi time tricks.\",\"userId\":\"46\",\"postDateCreated\":\"null\"}");
+//        });
+//    }
 
     @Test
     public void updatePostTest() {

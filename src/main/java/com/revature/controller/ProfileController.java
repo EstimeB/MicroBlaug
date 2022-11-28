@@ -1,10 +1,12 @@
 package com.revature.controller;
 
 import com.revature.dao.ProfileDao;
+import com.revature.dao.UserDAO;
 import com.revature.dto.LoginCredentials;
 import com.revature.dto.Message;
 import com.revature.model.Profile;
 import com.revature.model.User;
+import com.revature.service.UserService;
 import com.revature.util.ConnectionFactory;
 import io.javalin.Javalin;
 import jakarta.servlet.http.HttpSession;
@@ -16,11 +18,17 @@ import java.sql.ResultSet;
 
 
 public class ProfileController extends UserAuthenticationController implements Controller{
+    UserService userService = new UserService();
+    User user = new User();
+    UserDAO ud = new UserDAO();
+    LoginCredentials credentials = new LoginCredentials();
 
     UserAuthenticationController loggedIn = new UserAuthenticationController();
     private ProfileDao profileDao = new ProfileDao();
     public void mapEndPoints( Javalin app){
         app.post("/profileview", (ctx) -> {
+            //session user information
+            //user text area instead of input element.
             Profile p1 = profileDao.viewInformation();
             if (p1 != null) {
                 ctx.json(p1);
@@ -29,23 +37,22 @@ public class ProfileController extends UserAuthenticationController implements C
                 ctx.result("User not found.");
                 ctx.status(400);
             }
-
         });
 
 
 
-    //UPDATE ENDPOINT.
+            //UPDATE ENDPOINT.
         app.post("/profileupdate", (ctx) -> {
-            Profile p = ctx.bodyAsClass(Profile.class);
-            if(profileDao.updatedInformation(p) < 1){
+            Profile profile = ctx.bodyAsClass(Profile.class);
+            if(profileDao.updatedInformation(profile) < 1){
                 System.out.println("O records updated");
-            ctx.status(400);
-            ctx.result("Invalid username");
+                ctx.status(400);
+                ctx.result("Invalid username");
             }else {
                 System.out.println("one record updated");
-            ctx.status(200);
-            ctx.result(profileDao.updatedInformation(p)+ " record(s) updated");
-                   }
+                ctx.status(200);
+                ctx.result(profileDao.updatedInformation(profile)+ " record(s) updated");
+                }
             });
 
 
