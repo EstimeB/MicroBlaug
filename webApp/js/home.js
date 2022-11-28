@@ -74,6 +74,7 @@ fetch(`${baseUrl}/posts`, {
 
         // Add response data to the webpage
         imagePost.setAttribute(`src`, `/MicroBlaug/webApp${postImage}`);
+
         titlePost.innerHTML = `${postTitle}`;
         descriptionPost.innerHTML = `${postDescription}`;
 
@@ -206,7 +207,6 @@ fetch(`${baseUrl}/posts`, {
                 comments.setAttribute('placeholder', `${commentMessage}`);
 
 // UPDATE button (hidden initially) *****************************************************
-
                 const updateButton = document.createElement('a');
                 updateButton.setAttribute('id', `update-icon-${postId}`) ;
                 const updateIcon = document.createElement('img');
