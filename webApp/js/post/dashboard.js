@@ -23,8 +23,8 @@ async function getUserPosts() {
             const h3 = document.createElement('h3');
             const iconsDiv = document.createElement('div');
 
-            upImg.setAttribute('src', '../../icons/icons8-update-30.png');
-            delImg.setAttribute('src', '../../icons/icons8-trash-26.png');
+            upImg.setAttribute('src', '/MicroBlaug/webApp/icons/icons8-update-30.png');
+            delImg.setAttribute('src', '/MicroBlaug/webApp/icons/icons8-trash-26.png');
             delImg.setAttribute('type', 'button');
             upImg.setAttribute('type', 'button');
             delImg.setAttribute('id', 'open-modal');
