@@ -6,7 +6,6 @@ fetch(`${baseUrl}/posts`, {
         'Content-Type': 'application/json'
       },
     }).then((res) => res.json()).then((res) => {
-    console.log(res);
 
     for (res of res){
 
@@ -85,8 +84,6 @@ fetch(`${baseUrl}/posts`, {
                     'Content-Type': 'application/json'
                   },
                 }).then((res2) => res2.json()).then((res2) => {
-                console.log(res2);
-
 
                 const writeAComment = document.createElement('div');
                 commentsContainer.appendChild(writeAComment);
@@ -117,29 +114,36 @@ fetch(`${baseUrl}/posts`, {
 
                 saveCommentButton.addEventListener('click', () => {
 
-                    fetch(`${baseUrl}/comment`, {
-                        method: 'POST',
-                        body: `{
-                            "commentMessage":"${commentInput.value}",
-                            "postId": "${postId}",
-                            "userId": "${userId}"
-                        }`,
+                    fetch(`${baseUrl}/getuser`, {
+                        method: 'GET',
                         credentials: 'include'
+                    }).then((r) => {
+                        return res = r.json();
                     }).then((res) => {
-                        if (res.status === 201) {
+                        var uId = res.user_id;
 
-                            alert('Saved successfully');
-                            document.location.reload();
-                            window.scrollTo(0,500);
+                        fetch(`${baseUrl}/comment`, {
+                            method: 'POST',
+                            body: `{
+                        "commentMessage":"${commentInput.value}",
+                        "postId": "${postId}",
+                        "userId": "${uId}"
+                    }`,
+                            credentials: 'include'
+                        }).then((res) => {
+                            if (res.status === 201) {
 
-                        } else {
-                            alert('You must sign up to create comments');
-                        }
+                                alert('Saved successfully');
+                                document.location.reload();
+                                window.scrollTo(0, 500);
+
+                            } else {
+                                alert('You must sign up to create comments');
+                            }
+                        });
+
                     });
-
-                });
-
-
+                })
                 for (responses of res2 ){
 
                 // create HTML for Comments Area
@@ -217,7 +221,6 @@ fetch(`${baseUrl}/posts`, {
                 updateButton.style.display = 'none';
 
                 updateButton.addEventListener('click', () => {
-                    //console.log(comments.value + postId + userId);
 
                     fetch(`${baseUrl}/comment`, {
                         method: 'PUT',
@@ -295,7 +298,6 @@ fetch(`${baseUrl}/posts`, {
 
 
                 deleteButton.addEventListener('click', () => {
-                    console.log(commentId)
                     fetch(`${baseUrl}/comment/${commentId}`, {
                         method: 'DELETE',
                         credentials: 'include'

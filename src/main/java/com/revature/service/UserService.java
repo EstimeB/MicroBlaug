@@ -44,4 +44,9 @@ public class UserService {
         }
     }
 
+    public User findUserById(int userId) throws SQLException {
+        User user = userDAO.findUserById(userId);
+        return user;
+    }
+
 }

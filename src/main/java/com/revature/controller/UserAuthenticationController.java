@@ -4,7 +4,9 @@ import com.revature.dto.LoginCredentials;
 import com.revature.dto.Message;
 import com.revature.dto.SignupCredentials;
 import com.revature.exception.LoginException;
+import com.revature.exception.PostNotFoundException;
 import com.revature.exception.UserUnsuccessfullyAddedException;
+import com.revature.model.Post;
 import com.revature.model.User;
 import com.revature.service.UserService;
 import io.javalin.Javalin;
@@ -94,5 +96,27 @@ public class UserAuthenticationController implements Controller {
                 }
             }
         }));
+
+        //get post by post id
+        app.get("/getuser", (ctx) -> {
+
+            HttpSession httpSession = ctx.req().getSession();
+            User user = (User) httpSession.getAttribute("user_info");
+
+            if (user == null) {
+                ctx.json(new Message("Not logged in!"));
+                ctx.status(401);
+            } else {
+                try {
+                    User u = userService.findUserById(user.getUser_id());
+                    ctx.json(u);
+                    ctx.status(200);
+                } catch (NumberFormatException e) {
+                    ctx.result("Id " + user.getUser_id() + " must be a valid integer!");
+                    ctx.status(400); // 400 BAD REQUEST
+                }
+            }
+
+        });
     }
 }
