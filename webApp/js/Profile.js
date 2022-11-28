@@ -91,7 +91,7 @@ fetch(`http://localhost:8080/profileupdate`,{
          }).then((res) => {
 
          alert("Deleted!");
-         window.location.href = 'login-signup.html';
+         window.location.href = 'index.html';
          }) 
          };
 
