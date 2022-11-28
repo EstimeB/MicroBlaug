@@ -54,6 +54,7 @@ public class ProfileIntegrationTest extends UserAuthenticationController {
             //Assert
             assertThat(actualResponseCode).isEqualTo(400);
         });
+
     }
 
     //Integration Test 2
