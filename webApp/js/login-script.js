@@ -58,7 +58,8 @@ signupButton.addEventListener("click", (event) => {
   })
     .then((res) => {
       if (res.status === 201) {
-        window.location.href = '/MicroBlaug/src/main/webApp/html/profile.html';
+        window.sessionStorage.setItem("user", "loggedIn");
+        window.location.href = '/MicroBlaug/profile.html';
       }else{
         alert('Invalid Signup Information');
       }
