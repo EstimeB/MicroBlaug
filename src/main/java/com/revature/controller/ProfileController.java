@@ -51,15 +51,15 @@ public class ProfileController extends UserAuthenticationController implements C
 
 
         //DELETE ENDPOINT
-        app.get("/profiledelete", (ctx) -> {
+        app.post("/profiledelete", (ctx) -> {
           Profile p = ctx.bodyAsClass(Profile.class);
              if(profileDao.deleteInformation(p)< 1){
                 System.out.println("0 records deleted");
                 ctx.status(400);
                 ctx.json("Invalid information");
-            }else   {
+            }else {
                 ctx.status(200);
-                ctx.result(profileDao.deleteInformation(p) + " record(s) updated");
+                ctx.result(profileDao.deleteInformation(p) + " record(s) deleted");
                     }
                 });
             }

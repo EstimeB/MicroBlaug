@@ -69,7 +69,9 @@ public class ProfileDao {
 
         String u = uName;
         String pw = uPass;
+
         PreparedStatement pstmt = connection.prepareStatement("DELETE from users where username = ? and password = ?");
+
         pstmt.setString(1, u);
         pstmt.setString(2, pw);
 

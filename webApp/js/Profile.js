@@ -99,10 +99,10 @@ fetch(`http://localhost:8080/profileupdate`,{
             console.log(pword);
    function deleteProf(){ 
          fetch(`http://localhost:8080/profiledelete`,{
-         method: 'GET',
+         method: 'POST',
          credentials: 'include',
+         body: `{"username": "${username}", "password":"${password}"}`
          }).then((res) => {
-
          alert("Deleted!");
          window.location.href = 'index.html';
          }) 
