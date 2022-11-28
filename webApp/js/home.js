@@ -34,7 +34,9 @@ fetch(`${baseUrl}/posts`, {
         const homeContainer = document.getElementById('container');
         homeContainer.appendChild(table);
         table.appendChild(tableBody);
-        tableBody.appendChild(imageContainer);
+         if (postImage != null) {
+            tableBody.appendChild(imageContainer);
+         }
         tableBody.appendChild(titleContainer);
         tableBody.appendChild(descriptionContainer);
         tableBody.appendChild(groupContainer);
@@ -71,7 +73,7 @@ fetch(`${baseUrl}/posts`, {
 
 
         // Add response data to the webpage
-        imagePost.setAttribute(`src`, `/MicroBlaug/src/main/webApp${postImage}`);
+        imagePost.setAttribute(`src`, `/MicroBlaug/webApp${postImage}`);
         titlePost.innerHTML = `${postTitle}`;
         descriptionPost.innerHTML = `${postDescription}`;
 
@@ -185,7 +187,7 @@ fetch(`${baseUrl}/posts`, {
 
                 // Avatar
                 const avatar = document.createElement('img');
-                avatar.setAttribute('src', `/MicroBlaug/src/main/webApp/${picture}`);
+                avatar.setAttribute('src', `/MicroBlaug/webApp/${picture}`);
                 avatar.setAttribute('alt', 'avatar placeholder img');
                 avatar.classList.add('avatar');
 
@@ -204,7 +206,7 @@ fetch(`${baseUrl}/posts`, {
 
                 const updateButton = document.createElement('a');
                 const updateIcon = document.createElement('img');
-                updateIcon.setAttribute('src', '/MicroBlaug/src/main/webApp/images/publish-icon.jpg');
+                updateIcon.setAttribute('src', '/MicroBlaug/webApp/images/publish-icon.jpg');
                 updateIcon.setAttribute('alt', 'publishing icon image');
                 updateIcon.classList.add('icon-comments');
                 updateButton.appendChild(updateIcon);
@@ -243,7 +245,7 @@ fetch(`${baseUrl}/posts`, {
                 const editImage = document.createElement('img');
                 const dateForComment = document.createElement('p');
                 dateForComment.innerHTML = `${convertedDate}`;
-                editImage.setAttribute('src', '/MicroBlaug/src/main/webApp/images/update.jpg');
+                editImage.setAttribute('src', '/MicroBlaug/webApp/images/update.jpg');
                 editImage.setAttribute('alt','icon of a publish symbol');
                 editImage.classList.add('icon-comments');
 
@@ -254,7 +256,7 @@ fetch(`${baseUrl}/posts`, {
 
                 const cancelButton = document.createElement('a');
                 const cancelIcon = document.createElement('img');
-                cancelIcon.setAttribute('src', '/MicroBlaug/src/main/webApp/images/cancel.jpg');
+                cancelIcon.setAttribute('src', '/MicroBlaug/webApp/images/cancel.jpg');
                 cancelIcon.setAttribute('alt', 'publishing icon image');
                 cancelIcon.classList.add('icon-comments');
                 cancelButton.appendChild(cancelIcon);
@@ -280,7 +282,7 @@ fetch(`${baseUrl}/posts`, {
 
                 const deleteButton = document.createElement('a');
                 const deleteImage = document.createElement('img');
-                deleteImage.setAttribute('src', '/MicroBlaug/src/main/webApp/images/delete-icon.jpg');
+                deleteImage.setAttribute('src', '/MicroBlaug/webApp/images/delete-icon.jpg');
                 deleteImage.setAttribute('alt', 'trash can icon image');
                 deleteImage.classList.add('icon-comments');
 
