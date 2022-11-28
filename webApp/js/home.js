@@ -138,7 +138,7 @@ fetch(`${baseUrl}/posts`, {
                                 window.scrollTo(0, 500);
 
                             } else {
-                                alert('You must sign up to create comments');
+                                alert('You must login or sign up to create comments');
                             }
                         });
 
@@ -238,7 +238,7 @@ fetch(`${baseUrl}/posts`, {
                         } else if (comments.value == "") {
                             alert('Message field can not be blank');
                         } else {
-                            alert('You must sign up to create comments');
+                            alert('You must login or sign up to create comments');
                         }
                     });
                 });
@@ -275,6 +275,7 @@ fetch(`${baseUrl}/posts`, {
                     comments.classList.remove('comments-update');
                     cancelButton.style.display = 'none';
                     updateButton.style.display = 'none';
+                    document.location.reload();
                 });
 
 
@@ -309,7 +310,7 @@ fetch(`${baseUrl}/posts`, {
 
 
                         } else {
-                            alert('You must sign up to create comments');
+                            alert('You must login or sign up to create comments');
                         }
                     });
                 });
