@@ -34,9 +34,9 @@ fetch(`${baseUrl}/posts`, {
         const homeContainer = document.getElementById('container');
         homeContainer.appendChild(table);
         table.appendChild(tableBody);
-         if (postImage != null) {
-            tableBody.appendChild(imageContainer);
-         }
+                 if (postImage != null) {
+                    tableBody.appendChild(imageContainer);
+                 }
         tableBody.appendChild(titleContainer);
         tableBody.appendChild(descriptionContainer);
         tableBody.appendChild(groupContainer);
@@ -126,8 +126,10 @@ fetch(`${baseUrl}/posts`, {
                         credentials: 'include'
                     }).then((res) => {
                         if (res.status === 201) {
-                            document.location.reload();
+
                             alert('Saved successfully');
+                            document.location.reload();
+                            window.scrollTo(0,500);
 
                         } else {
                             alert('You must sign up to create comments');
