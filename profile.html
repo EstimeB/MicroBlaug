@@ -20,8 +20,7 @@
     <div id = "userinfo" style ="text-align: center"> </div>
 
 
-    <div style ="text-align: center"> 
-    <h2> Please continue updating your info: </h2>
+    <div style ="text-align: center">
 
     <input type="button" name="edit" id = "edit" onclick="showDiv()" value ="Edit"/>
     <input type="button" name="delete" id = "delete" onclick="deleteProf()" value ="Delete Profile"/>
@@ -30,10 +29,10 @@
     <div id = "form" style="display:none;text-align:center" ;>
       <br>
       <label for="fname">First name:</label><br>
-      <input type="text" id="fname"><br>
+      <input type="text" id="fname" placeholder="First Name"><br>
 
       <label for="lname"> Last name:</label><br>
-      <input type="text" id="lname"><br>
+      <input type="text" id="lname" placeholder="Last Name"><br>
 
       <label for="uname"> Username:</label><br>
       <input type="text" id="uname"><br>
@@ -48,7 +47,7 @@
       <input type="text" id="email"><br>
 
       <label for="interest"> Interest:</label><br>
-      <input type="text" id="interest"><br>
+      <input type="text" id="interest" placeholder="Interest"><br>
       <br>
       <input type="button" name = "submit" id="submit" value ="Submit" onclick="updateProf()">
   </div>
