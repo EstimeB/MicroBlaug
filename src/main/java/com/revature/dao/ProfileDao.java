@@ -19,7 +19,7 @@ public class ProfileDao {
     public Profile viewInformation() throws SQLException, IOException {
         System.out.println("Query Endpoint Accessed");
         Connection connection = ConnectionFactory.createConnection();
-        PreparedStatement pstmt1 = connection.prepareStatement("SELECT * FROM users LEFT JOIN userprofiles on users.user_id = userprofiles.user_id WHERE username = ? and password = ?");
+        PreparedStatement pstmt1 = connection.prepareStatement("SELECT * FROM users WHERE username = ? and password = ?");
         String u = uName;
         String pw = uPass;
         System.out.println(u);
@@ -47,41 +47,18 @@ public class ProfileDao {
         System.out.println("Update Endpoint Accessed!");
         Connection connection = ConnectionFactory.createConnection();
 
-        PreparedStatement pstmt = connection.prepareStatement(
-                "UPDATE userprofiles\n" +
-                        "SET firstname =  ? FROM users WHERE users.user_id = userprofiles.user_id and username = ? and password = ? ;");
-        PreparedStatement pstmt1 = connection.prepareStatement(
-                "UPDATE userprofiles\n" +
-                        "SET lastname =  ? FROM users WHERE users.user_id = userprofiles.user_id and username = ? and password = ? ;");
-        PreparedStatement pstmt2 = connection.prepareStatement(
-                "UPDATE users\n" +
-                        "SET email =  ? FROM userprofiles WHERE users.user_id = userprofiles.user_id and username = ? and password = ? ;");
-
-        PreparedStatement pstmt3 = connection.prepareStatement(
-                "UPDATE userprofiles\n" +
-                        "SET interest =  ? FROM users WHERE users.user_id = userprofiles.user_id and username = ? and password = ? ;");
-
-        pstmt.setString(1, p.getFirstname());
-        pstmt.setString(2, p.getUsername());
-        pstmt.setString(3, p.getPassword());
-
-        pstmt1.setString(1, p.getLastname());
-        pstmt1.setString(2, p.getUsername());
-        pstmt1.setString(3, p.getPassword());
-
-        pstmt2.setString(1, p.getEmail());
-        pstmt2.setString(2, p.getUsername());
-        pstmt2.setString(3, p.getPassword());
-
-        pstmt3.setString(1, p.getInterest());
-        pstmt3.setString(2, p.getUsername());
-        pstmt3.setString(3, p.getPassword());
+        PreparedStatement pstmt = connection.prepareStatement("UPDATE users SET firstname =  ?, lastname = ?, interest = ? WHERE username = ? and password = ?");
+        System.out.println(uName);
+        System.out.println(uPass);
+        String u = uName;
+        String pw = uPass;
+        pstmt.setString(1,p.getFirstname());
+        pstmt.setString(2,p.getLastname());
+        pstmt.setString(3,p.getInterest());
+        pstmt.setString(4, u);
+        pstmt.setString(5, pw);
 
         int numberOfRecordsUpdated = pstmt.executeUpdate();
-        int numberOfRecordsUpdated1 = pstmt1.executeUpdate();
-        int numberOfRecordsUpdated2 = pstmt2.executeUpdate();
-        int numberOfRecordsUpdated3 = pstmt3.executeUpdate();
-
         return numberOfRecordsUpdated;
     }
 

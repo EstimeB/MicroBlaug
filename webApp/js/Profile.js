@@ -49,6 +49,11 @@ function myFunction(){
     userInfoDivElement.appendChild(p4);
     userInfoDivElement.appendChild(p5);
     userInfoDivElement.appendChild(p6);
+    document.getElementById("uname").placeholder = username;
+    document.getElementById("pword").placeholder = password;
+    document.getElementById("p2word").placeholder = password;
+    document.getElementById("email").placeholder = email;
+
       }
     )}
 
@@ -90,5 +95,6 @@ fetch(`http://localhost:8080/profileupdate`,{
          }) 
          };
 
-    
+
+
 

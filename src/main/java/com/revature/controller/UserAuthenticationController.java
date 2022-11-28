@@ -78,6 +78,8 @@ public class UserAuthenticationController implements Controller {
             } else {
 
                 try {
+                    uName = credentials.getUsername();
+                    uPass = credentials.getPassword();
                     userService.signup(userToAdd);
                     ctx.result("User successfully added");
                     ctx.status(201);
