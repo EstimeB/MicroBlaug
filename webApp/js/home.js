@@ -34,7 +34,9 @@ fetch(`${baseUrl}/posts`, {
         const homeContainer = document.getElementById('container');
         homeContainer.appendChild(table);
         table.appendChild(tableBody);
-        tableBody.appendChild(imageContainer);
+                 if (postImage != null) {
+                    tableBody.appendChild(imageContainer);
+                 }
         tableBody.appendChild(titleContainer);
         tableBody.appendChild(descriptionContainer);
         tableBody.appendChild(groupContainer);
@@ -71,7 +73,8 @@ fetch(`${baseUrl}/posts`, {
 
 
         // Add response data to the webpage
-        imagePost.setAttribute(`src`, `/MicroBlaug/webApp/images/${postImage}`);
+        imagePost.setAttribute(`src`, `/MicroBlaug/webApp${postImage}`);
+
         titlePost.innerHTML = `${postTitle}`;
         descriptionPost.innerHTML = `${postDescription}`;
 
@@ -124,8 +127,10 @@ fetch(`${baseUrl}/posts`, {
                         credentials: 'include'
                     }).then((res) => {
                         if (res.status === 201) {
-                            document.location.reload();
+
                             alert('Saved successfully');
+                            document.location.reload();
+                            window.scrollTo(0,500);
 
                         } else {
                             alert('You must sign up to create comments');
@@ -185,7 +190,7 @@ fetch(`${baseUrl}/posts`, {
 
                 // Avatar
                 const avatar = document.createElement('img');
-                avatar.setAttribute('src', `/MicroBlaug/webAp${picture}`);
+                avatar.setAttribute('src', `/MicroBlaug/webApp/${picture}`);
                 avatar.setAttribute('alt', 'avatar placeholder img');
                 avatar.classList.add('avatar');
 
