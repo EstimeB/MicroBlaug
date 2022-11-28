@@ -101,6 +101,7 @@ fetch(`${baseUrl}/posts`, {
 
                  // Comment Input
                 const commentInput =  document.createElement('input');
+                commentInput.setAttribute('id', `write-comment-${postId}`);
                 commentInput.setAttribute('type', 'text')
                 // commentInput.setAttribute('placeholder', 'Enter here...');
                 commentInput.setAttribute('name', 'comment');
@@ -108,7 +109,7 @@ fetch(`${baseUrl}/posts`, {
 
                 // Comment Button
                 const saveCommentButton =  document.createElement('button');
-                saveCommentButton.setAttribute('id', `saveCommentButton-${postId}`);
+                saveCommentButton.setAttribute('id', `save-comment-${postId}`);
                 saveCommentButton.setAttribute('type', 'submit');
                 saveCommentButton.innerHTML = 'Save';
                 writeAComment.appendChild(saveCommentButton);
@@ -199,14 +200,16 @@ fetch(`${baseUrl}/posts`, {
                 pTag.innerHTML = `${firstName}`;
 
                 // comments
-                const comments = document.createElement('input');
+                const comments = document.createElement('textarea');
                 comments.classList.add('comments');
-                comments.setAttribute('id', `comment-${commentId}`);
+                comments.setAttribute('rows', '1');
+                comments.setAttribute('id', `update-comment-${postId}`);
                 comments.setAttribute('disabled', 'true');
-                comments.setAttribute('placeholder', `${commentMessage}`);
+                comments.innerHTML = `${commentMessage}`;
 
 // UPDATE button (hidden initially) *****************************************************
                 const updateButton = document.createElement('a');
+                updateButton.setAttribute('id', `update-icon-${postId}`) ;
                 const updateIcon = document.createElement('img');
                 updateIcon.setAttribute('src', '/MicroBlaug/webApp/images/publish-icon.jpg');
                 updateIcon.setAttribute('alt', 'publishing icon image');
@@ -243,7 +246,7 @@ fetch(`${baseUrl}/posts`, {
 
                 const editCommentButton = document.createElement('a');
                 editCommentButton.classList.add('edit-button');
-                editCommentButton.setAttribute('id', `edit-${commentId}`);
+                editCommentButton.setAttribute('id', `edit-icon-${postId}`);
                 const editImage = document.createElement('img');
                 const dateForComment = document.createElement('p');
                 dateForComment.innerHTML = `${convertedDate}`;
@@ -257,6 +260,7 @@ fetch(`${baseUrl}/posts`, {
 
 
                 const cancelButton = document.createElement('a');
+                cancelButton.setAttribute('id', `cancel-icon-${postId}`);
                 const cancelIcon = document.createElement('img');
                 cancelIcon.setAttribute('src', '/MicroBlaug/webApp/images/cancel.jpg');
                 cancelIcon.setAttribute('alt', 'publishing icon image');
@@ -283,6 +287,7 @@ fetch(`${baseUrl}/posts`, {
   // DELETE button   *******************************************************************
 
                 const deleteButton = document.createElement('a');
+                deleteButton.setAttribute('id', `trash-icon-${postId}`)
                 const deleteImage = document.createElement('img');
                 deleteImage.setAttribute('src', '/MicroBlaug/webApp/images/delete-icon.jpg');
                 deleteImage.setAttribute('alt', 'trash can icon image');
@@ -299,7 +304,7 @@ fetch(`${baseUrl}/posts`, {
                         if (res.status === 204) {
 
                             alert('Deleted successfully');
-                            //document.location.reload();
+                            document.location.reload();
 
 
                         } else {
