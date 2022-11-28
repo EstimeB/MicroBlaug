@@ -67,7 +67,7 @@ public class PostDao {
 
     public List<Post> getAllPosts() throws SQLException, IOException {
         try (Connection connection = ConnectionFactory.createConnection()) {
-            PreparedStatement pstmt = connection.prepareStatement("select * from posts order by postdatecreated desc ");
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM posts ORDER BY id DESC");
 
             ResultSet rs = pstmt.executeQuery();
 
