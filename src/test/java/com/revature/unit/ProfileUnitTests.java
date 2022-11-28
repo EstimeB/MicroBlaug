@@ -4,13 +4,14 @@ import com.revature.dao.ProfileDao;
 import com.revature.model.Profile;
 import com.revature.model.User;
 import com.revature.service.UserService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.exceptions.misusing.UnnecessaryStubbingException;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.testng.Assert;
+//import org.testng.Assert;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -38,7 +39,7 @@ public class ProfileUnitTests {
           System.out.println("New profile object is created!");
        }
        catch(UnnecessaryStubbingException e){
-           Assert.assertEquals(1,1);
+           Assertions.assertEquals(1,1);
        }
     }
 

@@ -8,7 +8,7 @@ import okhttp3.Response;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.testng.annotations.Test;
+//import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.sql.Connection;
