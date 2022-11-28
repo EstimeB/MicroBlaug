@@ -116,7 +116,6 @@ fetch(`${baseUrl}/posts`, {
 
 
                 saveCommentButton.addEventListener('click', () => {
-                    console.log(commentInput.value);
 
                     fetch(`${baseUrl}/comment`, {
                         method: 'POST',

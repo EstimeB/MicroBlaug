@@ -104,6 +104,7 @@ fetch(`http://localhost:8080/profileupdate`,{
          body: `{"username": "${username}", "password":"${password}"}`
          }).then((res) => {
          alert("Deleted!");
+         sessionStorage.clear();
          window.location.href = 'index.html';
          }) 
          };
