@@ -51,7 +51,9 @@ const openDelModal = async (event) => {
         const conDelBtn = document.getElementById('conDel');
         const delCancelBtn = document.getElementById('delCancel');
         const uid = document.getElementById('useridD');
-        const date = document.getElementById('date2');
+        const pdate = document.getElementById('date2');
+        const date = new Date(post.postDateCreated);
+        const convertedDate = date.toLocaleDateString();
 
         conDelBtn.setAttribute('data-id', `${post.id}`);
 
@@ -59,7 +61,7 @@ const openDelModal = async (event) => {
         pt.innerHTML = post.postTitle;
         pd.innerHTML = post.postDescription;
         uid.innerHTML = `User Id: ${post.userId}`;
-        date.innerHTML = `Date Posted: ${post.postDateCreated}`;
+        pdate.innerHTML = `Date Posted: ${convertedDate}`;
 
         document.getElementById('modal1').style.display = 'block';
 

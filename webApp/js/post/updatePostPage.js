@@ -21,7 +21,9 @@ const openUpdatePostModal = async (event) => {
         const ui = document.getElementById('useridU');
         const conUpdateBtn = document.getElementById('conUpdate');
         const cancelUpdateBtn = document.getElementById('cancelUpdate');
-        const date = document.getElementById('date1');
+        const postdate = document.getElementById('date1');
+        const date = new Date(post.postDateCreated);
+        const convertedDate = date.toLocaleDateString();
 
         conUpdateBtn.setAttribute('data-id', `${post.id}`);
         conUpdateBtn.setAttribute('class', `${post.userId}`);
@@ -30,7 +32,7 @@ const openUpdatePostModal = async (event) => {
         pt.innerHTML = post.postTitle;
         pd.innerHTML = post.postDescription;
         ui.innerHTML = `User Id: ${post.userId}`;
-        date.innerHTML = `Date Posted: ${post.postDateCreated}`;
+        postdate.innerHTML = `Date Posted: ${convertedDate}`;
 
         document.getElementById('modal2').style.display = 'block';
 
