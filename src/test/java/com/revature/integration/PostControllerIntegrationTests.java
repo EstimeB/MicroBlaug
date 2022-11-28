@@ -10,6 +10,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -23,7 +24,7 @@ public class PostControllerIntegrationTests {
     public Javalin app;
 
     @BeforeEach
-    public void setup() throws SQLException {
+    public void setup() throws SQLException, IOException {
         con = ConnectionFactory.createConnection();
         app = Javalin.create();
         UserAuthenticationController userAuthenticationController = new UserAuthenticationController();
@@ -110,7 +111,7 @@ public class PostControllerIntegrationTests {
         JavalinTest.test(app, (server, client) -> {
             Map<String, Object> requestJson = new HashMap<>();
             requestJson.put("id", "41");
-            Response response = client.get("/dashboard/post/{id}", requestJson);
+            Response response = client.get("/dashboard/post/{id}");
             int actualResponseStatusCode = response.code();
             String responseBodyJson = response.body().string();
 
