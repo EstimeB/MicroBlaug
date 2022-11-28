@@ -23,6 +23,7 @@ public class ProfileController extends UserAuthenticationController implements C
         app.post("/profileview", (ctx) -> {
             Profile p1 = profileDao.viewInformation();
             if (p1 != null) {
+                System.out.println(p1.getAvatar());
                 ctx.json(p1);
                 ctx.status(200);
             } else {

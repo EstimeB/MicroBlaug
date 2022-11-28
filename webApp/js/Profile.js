@@ -30,6 +30,8 @@ function myFunction(){
     const password = responseBody.password;
     const email = responseBody.email;
     const username = responseBody.username;
+    const avatar = responseBody.avatar;
+
     const p1 = document.createElement('p');
     p1.innerHTML = ` Username : ${username}`;
     const p2 = document.createElement('p');
@@ -42,13 +44,24 @@ function myFunction(){
     p5.innerHTML = `Email : ${email}`;
     const p6 = document.createElement('p');
     p6.innerHTML = `Interest : ${interest}`;
+
+    //image
+    const p7 = document.createElement('img');
+    p7.setAttribute('src', `webApp${avatar}`);
+
+
     const userInfoDivElement = document.getElementById("userinfo");
+
+
+    userInfoDivElement.appendChild(p7);
     userInfoDivElement.appendChild(p1);
     userInfoDivElement.appendChild(p2);
     userInfoDivElement.appendChild(p3);
     userInfoDivElement.appendChild(p4);
     userInfoDivElement.appendChild(p5);
     userInfoDivElement.appendChild(p6);
+
+
     document.getElementById("uname").placeholder = username;
     document.getElementById("pword").placeholder = password;
     document.getElementById("p2word").placeholder = password;
