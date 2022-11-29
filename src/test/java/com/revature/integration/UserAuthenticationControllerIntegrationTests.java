@@ -56,7 +56,7 @@ public class UserAuthenticationControllerIntegrationTests extends UserAuthentica
             String responseBodyJson = response.body().string();
             //Assert
             assertThat(actualResponseStatusCode).isEqualTo(200);
-            assertThat(responseBodyJson).isEqualTo("{\"id\":68,\"username\":\"Mary\",\"password\":\"mary123\"}");
+            assertThat(responseBodyJson).isEqualTo("{\"user_id\":68,\"username\":\"Mary\",\"email\":\"mary@mary.com\",\"password\":\"mary123\"}");
         });
     }
 
@@ -95,7 +95,7 @@ public class UserAuthenticationControllerIntegrationTests extends UserAuthentica
             String responseBodyJson = response.body().string();
 
             assertThat(actualResponseStatusCode).isEqualTo(400);
-            assertThat(responseBodyJson).isEqualTo("{\"message\":\"username and/or password was not provided!\"}");
+            assertThat(responseBodyJson).isEqualTo("username and/or password was not provided");
         });
     }
 
@@ -114,7 +114,7 @@ public class UserAuthenticationControllerIntegrationTests extends UserAuthentica
             String responseBodyJson = response.body().string();
 
             assertThat(actualResponseStatusCode).isEqualTo(400);
-            assertThat(responseBodyJson).isEqualTo("{\"message\":\"username and/or password was not provided!\"}");
+            assertThat(responseBodyJson).isEqualTo("username and/or password was not provided");
         });
     }
 
@@ -132,7 +132,7 @@ public class UserAuthenticationControllerIntegrationTests extends UserAuthentica
             String responseBodyJson = response.body().string();
 
             assertThat(actualResponseStatusCode).isEqualTo(400);
-            assertThat(responseBodyJson).isEqualTo("{\"message\":\"username and/or password was not provided!\"}");
+            assertThat(responseBodyJson).isEqualTo("username and/or password was not provided");
         });
     }
 
@@ -144,14 +144,14 @@ public class UserAuthenticationControllerIntegrationTests extends UserAuthentica
 
         JavalinTest.test(app, (server, client) -> {
             Map<String, Object> requestJson = new HashMap<>();
-            requestJson.put("username", "john_doe");
-            requestJson.put("password", "p1");
+            requestJson.put("username", "Mary");
+            requestJson.put("password", "mary123");
 
             Response loginResponse = client.post("/login", requestJson);
             String cookie = loginResponse.header("Set-Cookie").split(":")[0];
             Response currentUserResponse = client.get("/current-user", (builder) -> {builder.addHeader("Cookie", cookie);});
 
-            assertThat(currentUserResponse.body().string()).isEqualTo("{\"id\":1,\"username\":\"john_doe\",\"password\":\"p1\"}");
+            assertThat(currentUserResponse.body().string()).isEqualTo("{\"user_id\":68,\"username\":\"Mary\",\"email\":\"mary@mary.com\",\"password\":\"mary123\"}");
         });
     }
 
@@ -165,7 +165,7 @@ public class UserAuthenticationControllerIntegrationTests extends UserAuthentica
             Response currentUserResponse = client.get("/current-user");
 
             assertThat(currentUserResponse.code()).isEqualTo(401);
-            assertThat(currentUserResponse.body().string()).isEqualTo("{\"message\":\"User is not logged in!\"}");
+            assertThat(currentUserResponse.body().string()).isEqualTo("{\"message\":\"User is not logged in.\"}");
         });
     }
 }
