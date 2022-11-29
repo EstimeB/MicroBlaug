@@ -22,28 +22,52 @@
 </ol>
 </details>
 
-## About The Project
+### About The Project
+The Project is designed to help solve the issue of cluttered blogging sites. After signing up, users can login, write posts, view/comment other user posts and see time stamps for activities. The front end is a single page application comprised of HTML, CSS and JavaScript. The backend consists of API endpoints that handle user requests using Java, Javalin and JDBC. The database uses Postgres as a vendor and is hosted on Google Cloud Platform. User First Name, Last Name, ID and Comments are stored on a persistent database. The database is constantly updated by user input. A feed displays on the webpage with data pulled from the database.
 
-## Testing
+To E2E test click [Here](https://github.com/EstimeB/MicroBlaugE2ETesting).
 
-## Built With
+#### Built With
+  * Java
+  * JavaScript
+  * HTML
+  * CSS
+  * Javalin
+  * JDBC
+  * PosgreSQL
+  * JUnit
 
+### Getting Started
 
-## Getting Started
+#### Prerequisites
+   * Install Java
+   * Install Java IDE
+   * Maven
 
-## Prerequisites
+#### Installation
+  * Clone the repo
+  * Open repo in an IDE
 
-## Installation
+### Usage
+A blogging sites.
 
-## Usage
+### Roadmap
+  Software Development Life Cycle (SDLC)
 
-## Roadmap
+### Contributing
+  If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply [open an issue](https://github.com/EstimeB/MicroBlaug/issues).
 
-## Contributing
+### License
+  Distributed under the MIT License.
 
-## License
-License---Distributed under MIT License.
+### Contact
+Brithnie Estime - [Github Profile](https://github.com/Estimeb)
+Anwar Darkazanli - [Github Profile](https://github.com/asdarkaz1)
+Dwyan Alford - [Github Profile](https://github.com/dwyanalford)
+Jonathan Whitmire - [Github Profile](https://github.com/jonathan-whitmire)
 
-## Contact
+Project Link: [Github Page](https://github.com/EstimeB/MicroBlaug)
 
-## Acknowledgements
+### Acknowledgements
+  * [MVN Repository](https://mvnrepository.com/)
+  * [GitHub](https://github.com/)
