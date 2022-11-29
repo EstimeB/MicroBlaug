@@ -62,9 +62,13 @@ A blogging sites.
 
 ### Contact
 Brithnie Estime - [Github Profile](https://github.com/Estimeb)
+
 Anwar Darkazanli - [Github Profile](https://github.com/asdarkaz1)
+
 Dwyan Alford - [Github Profile](https://github.com/dwyanalford)
+
 Jonathan Whitmire - [Github Profile](https://github.com/jonathan-whitmire)
+
 
 Project Link: [Github Page](https://github.com/EstimeB/MicroBlaug)
 
